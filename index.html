@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orbit Background Kit - Web Component Background Playground</title>
 <style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#0b0d12;color:#f4f0e8;line-height:1.5}a{color:inherit}.page{position:relative;z-index:1}.nav{position:sticky;top:0;z-index:20;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(11,13,18,.78);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(18px)}.brand{font-weight:800}.nav-menu{display:flex;align-items:center;gap:18px}.nav a{font-size:14px;color:#b9c0cc;text-decoration:none}.nav a:hover{color:#fff}.lang-toggle{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer;min-width:76px}.hero{min-height:calc(100vh - 58px);display:grid;align-items:center;padding:72px 24px 48px}.hero-inner{max-width:1120px;margin:0 auto;width:100%;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:44px;align-items:center}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#88d6c0;font-weight:800}.hero h1{font-size:clamp(42px,7vw,82px);line-height:.94;margin:14px 0 20px;letter-spacing:0}.hero p{max-width:680px;color:#c0c6d1;font-size:19px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.06);color:#fff;padding:11px 16px;font-weight:800;cursor:pointer;text-decoration:none}.btn.primary{background:#f4f0e8;color:#10131a;border-color:#f4f0e8}.snippet{background:rgba(7,9,14,.76);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:18px;overflow:auto}.snippet pre{margin:0;font:13px/1.65 "SF Mono",Consolas,monospace;color:#d7dde7}.hero-panel{position:relative;min-height:480px;border:1px solid rgba(255,255,255,.12);border-radius:8px;overflow:hidden;background:#111}.hero-panel-content{position:relative;z-index:1;padding:28px;display:flex;min-height:480px;flex-direction:column;justify-content:flex-end}.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.28);border-radius:8px;padding:16px}.metric strong{display:block;font-size:26px}.metric span{color:#b6becb;font-size:13px}.section{max-width:1120px;margin:0 auto;padding:78px 24px}.section h2{font-size:clamp(28px,4vw,44px);margin:8px 0 12px}.section>p{color:#b6becb;max-width:720px}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.link-card{border:1px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.04);padding:18px;text-decoration:none}.link-card b{display:block;margin-bottom:6px}.link-card span{color:#b6becb;font-size:14px}.playground{display:grid;grid-template-columns:330px minmax(0,1fr);border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;background:rgba(255,255,255,.03)}.controls{padding:18px;background:rgba(10,12,18,.88);border-right:1px solid rgba(255,255,255,.1);max-height:860px;overflow:auto}.control-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#88d6c0;font-weight:800;margin:18px 0 9px}.field{margin-bottom:12px}.field label{display:block;font-size:13px;color:#dfe5ef;margin-bottom:6px}.field input[type=text],.field input[type=number],.field select,.field textarea{width:100%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;border-radius:8px;padding:9px 10px;font:14px inherit}.field textarea{min-height:120px;font-family:"SF Mono",Consolas,monospace}.field input[type=range]{width:100%;accent-color:#88d6c0}.range-line{display:grid;grid-template-columns:1fr 46px;gap:8px;align-items:center}.toggles{display:grid;grid-template-columns:1fr 1fr;gap:8px}.toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#dfe5ef;font-size:13px}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#dfe5ef;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer}.chip.active{background:#f4f0e8;color:#10131a;border-color:#f4f0e8}.control-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.control-actions .btn{padding:9px 10px}.preview{min-height:620px;position:relative;overflow:hidden}.preview orbit-bg{z-index:0}.preview-content{position:relative;z-index:1;min-height:620px;display:grid;place-items:center;padding:26px}.mock{max-width:520px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.35);backdrop-filter:blur(14px);border-radius:8px;padding:30px}.mock h3{font-size:30px;margin:0 0 10px}.mock p{color:#c0c6d1;margin:0 0 18px}.mock-row{display:flex;gap:10px;flex-wrap:wrap}.pill{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 10px;color:#d7dde7;font-size:13px}.code-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 10px}.code-tab{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#dfe5ef;border-radius:8px;padding:8px 10px;cursor:pointer;font-weight:800}.code-tab.active{background:#88d6c0;color:#08100d}.code-box{border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;background:#07090e}.code-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.1);color:#b6becb;font-size:12px}.code-box pre{margin:0;padding:16px;overflow:auto;font:13px/1.65 "SF Mono",Consolas,monospace;color:#d7dde7}.preset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.preset-card{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);border-radius:8px;padding:15px;cursor:pointer}.preset-card:hover,.preset-card.active{border-color:#88d6c0;background:rgba(136,214,192,.08)}.preset-card b{display:block;margin-bottom:5px}.preset-card span{display:block;color:#b6becb;font-size:13px}.table-wrap{overflow:auto;border:1px solid rgba(255,255,255,.1);border-radius:8px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}th{color:#88d6c0;font-size:12px;text-transform:uppercase;letter-spacing:.08em}code{background:rgba(255,255,255,.08);border-radius:5px;padding:2px 5px}.footer{max-width:1120px;margin:0 auto;padding:40px 24px 70px;color:#99a2b0;border-top:1px solid rgba(255,255,255,.08)}.toast{position:fixed;left:50%;bottom:24px;z-index:40;transform:translate(-50%,80px);background:#10131a;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:11px 16px;transition:.25s}.toast.show{transform:translate(-50%,0)}@media(max-width:920px){.hero-inner,.playground{grid-template-columns:1fr}.controls{max-height:none;border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.links{grid-template-columns:1fr}.preset-grid{grid-template-columns:repeat(2,1fr)}.hero-panel{min-height:360px}.hero-panel-content{min-height:360px}}@media(max-width:560px){.nav{padding:0 14px}.nav-menu{gap:8px}.nav a{display:none}.section,.hero{padding-left:16px;padding-right:16px}.preset-grid{grid-template-columns:1fr}.toggles{grid-template-columns:1fr}.hero h1{font-size:42px}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#0b0d12;color:#f4f0e8;line-height:1.5}a{color:inherit}.page{position:relative;z-index:1}.nav{position:sticky;top:0;z-index:20;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(11,13,18,.78);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(18px)}.brand{font-weight:800}.nav-menu{display:flex;align-items:center;gap:18px}.nav a{font-size:14px;color:#b9c0cc;text-decoration:none}.nav a:hover{color:#fff}.lang-toggle{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer;min-width:76px}.hero{min-height:calc(100vh - 58px);display:grid;align-items:center;padding:72px 24px 48px}.hero-inner{max-width:1120px;margin:0 auto;width:100%;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:44px;align-items:center}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#88d6c0;font-weight:800}.hero h1{font-size:clamp(42px,7vw,82px);line-height:.94;margin:14px 0 20px;letter-spacing:0}.hero p{max-width:680px;color:#c0c6d1;font-size:19px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.06);color:#fff;padding:11px 16px;font-weight:800;cursor:pointer;text-decoration:none}.btn.primary{background:#f4f0e8;color:#10131a;border-color:#f4f0e8}.snippet{background:rgba(7,9,14,.76);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:18px;overflow:auto}.snippet pre{margin:0;font:13px/1.65 "SF Mono",Consolas,monospace;color:#d7dde7}.hero-panel{position:relative;min-height:480px;border:1px solid rgba(255,255,255,.12);border-radius:8px;overflow:hidden;background:#111}.hero-panel-content{position:relative;z-index:1;padding:28px;display:flex;min-height:480px;flex-direction:column;justify-content:flex-end}.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.28);border-radius:8px;padding:16px}.metric strong{display:block;font-size:26px}.metric span{color:#b6becb;font-size:13px}.section{max-width:1120px;margin:0 auto;padding:78px 24px}.section h2{font-size:clamp(28px,4vw,44px);margin:8px 0 12px}.section>p{color:#b6becb;max-width:720px}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.link-card{border:1px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.04);padding:18px;text-decoration:none}.link-card b{display:block;margin-bottom:6px}.link-card span{color:#b6becb;font-size:14px}.playground{display:grid;grid-template-columns:330px minmax(0,1fr);border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;background:rgba(255,255,255,.03)}.controls{padding:18px;background:rgba(10,12,18,.88);border-right:1px solid rgba(255,255,255,.1);max-height:860px;overflow:auto}.control-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#88d6c0;font-weight:800;margin:18px 0 9px}.field{margin-bottom:12px}.field label{display:block;font-size:13px;color:#dfe5ef;margin-bottom:6px}.field input[type=text],.field input[type=number],.field select,.field textarea{width:100%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;border-radius:8px;padding:9px 10px;font:14px inherit}.field textarea{min-height:120px;font-family:"SF Mono",Consolas,monospace}.field input[type=range]{width:100%;accent-color:#88d6c0}.range-line{display:grid;grid-template-columns:1fr 46px;gap:8px;align-items:center}.toggles{display:grid;grid-template-columns:1fr 1fr;gap:8px}.toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#dfe5ef;font-size:13px}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#dfe5ef;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer}.chip.active{background:#f4f0e8;color:#10131a;border-color:#f4f0e8}.control-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.control-actions .btn{padding:9px 10px}.preview{min-height:620px;position:relative;overflow:hidden;border:1px solid transparent;transition:border-color .18s ease,box-shadow .18s ease}.preview.refreshed{border-color:rgba(136,214,192,.55);box-shadow:inset 0 0 0 1px rgba(136,214,192,.25)}.preview orbit-bg{z-index:0}.preview-content{position:relative;z-index:1;min-height:620px;display:grid;place-items:center;padding:70px 26px 26px}.preview-meta{position:absolute;top:14px;left:14px;right:14px;z-index:2;display:flex;gap:8px;flex-wrap:wrap;align-items:center;pointer-events:none}.preview-tag,.preview-status{border:1px solid rgba(255,255,255,.14);background:rgba(7,9,14,.46);backdrop-filter:blur(14px);border-radius:999px;padding:6px 9px;color:#e9eef7;font-size:12px;font-weight:800}.preview-status{margin-left:auto;opacity:0;transition:opacity .18s ease}.preview.refreshed .preview-status{opacity:1}.mock{max-width:520px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.35);backdrop-filter:blur(14px);border-radius:8px;padding:30px}.mock h3{font-size:30px;margin:0 0 10px}.mock p{color:#c0c6d1;margin:0 0 18px}.mock-row{display:flex;gap:10px;flex-wrap:wrap}.pill{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 10px;color:#d7dde7;font-size:13px}.code-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 10px}.code-tab{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#dfe5ef;border-radius:8px;padding:8px 10px;cursor:pointer;font-weight:800}.code-tab.active{background:#88d6c0;color:#08100d}.code-box{border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;background:#07090e}.code-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.1);color:#b6becb;font-size:12px}.code-box pre{margin:0;padding:16px;overflow:auto;font:13px/1.65 "SF Mono",Consolas,monospace;color:#d7dde7}.preset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.preset-card{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);border-radius:8px;padding:15px;cursor:pointer}.preset-card:hover,.preset-card.active{border-color:#88d6c0;background:rgba(136,214,192,.08)}.preset-card b{display:block;margin-bottom:5px}.preset-card span{display:block;color:#b6becb;font-size:13px}.table-wrap{overflow:auto;border:1px solid rgba(255,255,255,.1);border-radius:8px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}th{color:#88d6c0;font-size:12px;text-transform:uppercase;letter-spacing:.08em}code{background:rgba(255,255,255,.08);border-radius:5px;padding:2px 5px}.footer{max-width:1120px;margin:0 auto;padding:40px 24px 70px;color:#99a2b0;border-top:1px solid rgba(255,255,255,.08)}.toast{position:fixed;left:50%;bottom:24px;z-index:40;transform:translate(-50%,80px);background:#10131a;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:11px 16px;transition:.25s}.toast.show{transform:translate(-50%,0)}@media(max-width:920px){.hero-inner,.playground{grid-template-columns:1fr}.controls{max-height:none;border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.links{grid-template-columns:1fr}.preset-grid{grid-template-columns:repeat(2,1fr)}.hero-panel{min-height:360px}.hero-panel-content{min-height:360px}}@media(max-width:560px){.nav{padding:0 14px}.nav-menu{gap:8px}.nav a{display:none}.section,.hero{padding-left:16px;padding-right:16px}.preset-grid{grid-template-columns:1fr}.toggles{grid-template-columns:1fr}.hero h1{font-size:42px}.preview-meta{left:10px;right:10px}.preview-content{padding-top:96px}}
 </style>
 </head>
 <body>
@@ -49,7 +49,7 @@
     <div class="links">
       <a class="link-card" href="demo.html"><b data-i18n="use.demoTitle">Minimal Demo</b><span data-i18n="use.demoDesc">The smallest local integration example.</span></a>
       <a class="link-card" href="examples/simple.html"><b data-i18n="use.examplesTitle">Examples</b><span data-i18n="use.examplesDesc">Simple, local card, multi-instance, tool landing pages.</span></a>
-      <a class="link-card" href="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"><b>jsDelivr CDN</b><span data-i18n="use.cdnDesc">Use @latest while testing or @v0.1.0 in production.</span></a>
+      <a class="link-card" href="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"><b>jsDelivr CDN</b><span data-i18n="use.cdnDesc">Use @latest while testing or @v0.1.1 in production.</span></a>
     </div>
   </section>
 
@@ -88,7 +88,14 @@
         <div class="field" style="margin-top:12px"><textarea id="jsonBox" spellcheck="false" placeholder='Paste JSON here, then click Import JSON' data-i18n-placeholder="controls.jsonPlaceholder"></textarea></div>
       </aside>
       <main class="preview" id="preview">
-        <orbit-bg id="liveBg" position="absolute" z-index="0"></orbit-bg>
+        <orbit-bg id="playground-bg" position="absolute" z-index="0"></orbit-bg>
+        <div class="preview-meta" aria-live="polite">
+          <span class="preview-tag" id="previewPreset">custom</span>
+          <span class="preview-tag" id="previewTheme">theme: glass</span>
+          <span class="preview-tag" id="previewSpeed">speed: normal</span>
+          <span class="preview-tag" id="previewOpacity">opacity: 0.060</span>
+          <span class="preview-status" id="previewStatus">Preview updated</span>
+        </div>
         <div class="preview-content">
           <div class="mock">
             <h3 data-i18n="preview.title">Launch Page Preview</h3>
@@ -127,7 +134,7 @@
 <script>
 (() => {
   const CDN = 'https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js';
-  const PINNED = 'https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js';
+  const PINNED = 'https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.1/dist/orbit-bg.iife.js';
   const themes = ['cream','dark','cyber','paper','terminal','glass','midnight','sunset','matrix','aurora'];
   const presets = {
     'ai-startup': { theme:'glass', words:'AI,INTELLIGENCE,LEARN,AUTOMATE', speed:'normal', opacity:'0.06', rows:'3', angle:'-8', density:'normal', font:'sans', intensity:'normal', grid:true, glow:true, noise:true, rings:false, beams:true, vignette:false, interactive:true, rounded:false, position:'fixed', zIndex:'0', seed:'' },
@@ -145,9 +152,18 @@
   };
   const bools = ['grid','glow','noise','rings','beams','vignette','interactive','rounded'];
   const ids = ['words','speed','opacity','rows','angle','density','font','intensity','position','zIndex','seed'];
+  const enumValues = {
+    speed: ['slow','normal','fast'],
+    density: ['low','normal','high'],
+    font: ['sans','mono','serif'],
+    intensity: ['soft','normal','strong'],
+    position: ['fixed','absolute']
+  };
   const $ = (id) => document.getElementById(id);
   let state = { ...presets['ai-startup'] };
   let activeCode = 'minimal';
+  let hashTimer = 0;
+  let previewTimer = 0;
   let lang = new URLSearchParams(location.search).get('lang') === 'zh' || localStorage.getItem('orbit-bg-lang') === 'zh' ? 'zh' : 'en';
   const i18n = {
     en: {
@@ -177,7 +193,7 @@
         demoDesc:'The smallest local integration example.',
         examplesTitle:'Examples',
         examplesDesc:'Simple, local card, multi-instance, tool landing pages.',
-        cdnDesc:'Use @latest while testing or @v0.1.0 in production.'
+        cdnDesc:'Use @latest while testing or @v0.1.1 in production.'
       },
       play: { eyebrow:'Playground', title:'Configure, preview, copy.', desc:'Every control maps to a supported component attribute. Shareable URL hashes restore the same configuration.' },
       controls: {
@@ -219,7 +235,7 @@
         demoDesc:'最简单的本地接入示例。',
         examplesTitle:'示例页面',
         examplesDesc:'包含简单示例、局部卡片、多实例和工具站落地页。',
-        cdnDesc:'测试时可用 @latest，生产环境建议固定 @v0.1.0。'
+        cdnDesc:'测试时可用 @latest，生产环境建议固定 @v0.1.1。'
       },
       play: { eyebrow:'配置器', title:'实时配置、预览、复制。', desc:'每个控件都对应组件支持的属性。可分享的 URL hash 能恢复同一套配置。' },
       controls: {
@@ -273,18 +289,21 @@
   renderCodeTabs();
   renderAttrRows();
 
-  function setForm(next) {
-    state = { ...state, ...next };
+  function applyConfig(next, options = {}) {
+    state = sanitize({ ...state, ...next });
     ids.forEach((id) => { $(id).value = state[id]; });
     bools.forEach((id) => { $(id).checked = !!state[id]; });
     [...document.querySelectorAll('.chip')].forEach((chip) => chip.classList.toggle('active', chip.dataset.theme === state.theme));
     $('opacityOut').textContent = Number(state.opacity).toFixed(3);
     $('rowsOut').textContent = state.rows;
     $('angleOut').textContent = state.angle;
-    const activePreset = Object.keys(presets).find((p) => JSON.stringify(presets[p]) === JSON.stringify(state));
+    const activePreset = findActivePreset(state);
     $('preset').value = activePreset || '';
     [...document.querySelectorAll('.preset-card')].forEach((card) => card.classList.toggle('active', card.dataset.preset === activePreset));
-    apply();
+    updatePreview(activePreset);
+    renderCode();
+    if (options.hash !== false) updateHash();
+    if (options.flash !== false) flashPreview();
   }
 
   function getText(path) {
@@ -322,15 +341,16 @@
     renderPresetCards();
     renderCodeTabs();
     renderAttrRows();
-    const activePreset = Object.keys(presets).find((p) => JSON.stringify(presets[p]) === JSON.stringify(state));
+    const activePreset = findActivePreset(state);
     [...document.querySelectorAll('.preset-card')].forEach((card) => card.classList.toggle('active', card.dataset.preset === activePreset));
     renderCode();
   }
 
   function readForm() {
-    ids.forEach((id) => { state[id] = $(id).value; });
-    bools.forEach((id) => { state[id] = $(id).checked; });
-    apply();
+    const next = {};
+    ids.forEach((id) => { next[id] = $(id).value; });
+    bools.forEach((id) => { next[id] = $(id).checked; });
+    applyConfig(next);
   }
 
   function attrs(full = false) {
@@ -340,28 +360,52 @@
     return pairs.filter(([k,v]) => full || !(['speed','opacity','rows','angle','density','font','intensity','position','z-index'].includes(k) && String(v) === String(presets['ai-startup'][k === 'z-index' ? 'zIndex' : k]))).map(([k,v]) => `${k}="${escapeHtml(String(v))}"`).join('\n  ');
   }
 
-  function apply() {
-    const bg = $('liveBg');
-    [...bg.attributes].forEach((a) => bg.removeAttribute(a.name));
-    Object.entries({ ...state, 'z-index': state.zIndex }).forEach(([k,v]) => {
-      if (k === 'zIndex') return;
-      if (v !== '' && v !== null && v !== undefined) bg.setAttribute(k, String(v));
+  function updatePreview(activePreset) {
+    let bg = $('playground-bg');
+    if (!bg) {
+      bg = document.createElement('orbit-bg');
+      bg.id = 'playground-bg';
+      $('preview').prepend(bg);
+    }
+    const attrsToApply = {
+      words: state.words,
+      theme: state.theme,
+      speed: state.speed,
+      opacity: safeNumber(state.opacity, 0, .35, .06).toFixed(3),
+      rows: String(Math.round(safeNumber(state.rows, 1, 8, 3))),
+      angle: String(safeNumber(state.angle, -45, 45, -8)),
+      density: state.density,
+      font: state.font,
+      intensity: state.intensity,
+      position: 'absolute',
+      'z-index': '0'
+    };
+    bools.forEach((name) => { attrsToApply[name] = String(!!state[name]); });
+    if (state.seed) attrsToApply.seed = state.seed;
+    [...bg.attributes].forEach((attr) => {
+      if (!['id'].includes(attr.name) && !Object.prototype.hasOwnProperty.call(attrsToApply, attr.name)) bg.removeAttribute(attr.name);
     });
-    bg.setAttribute('position','absolute');
-    bg.setAttribute('z-index','0');
-    updateHash();
-    renderCode();
+    Object.entries(attrsToApply).forEach(([name, value]) => {
+      if (value === '' || value === null || value === undefined) bg.removeAttribute(name);
+      else if (bg.getAttribute(name) !== String(value)) bg.setAttribute(name, String(value));
+    });
+    $('previewPreset').textContent = activePreset ? `preset: ${activePreset}` : 'preset: custom';
+    $('previewTheme').textContent = `theme: ${state.theme}`;
+    $('previewSpeed').textContent = `speed: ${state.speed}`;
+    $('previewOpacity').textContent = `opacity: ${Number(state.opacity).toFixed(3)}`;
   }
 
   function renderCode() {
     [...document.querySelectorAll('.code-tab')].forEach((tab) => tab.classList.toggle('active', tab.dataset.code === activeCode));
-    const selectedPreset = $('preset').value || 'ai-startup';
+    const selectedPreset = findActivePreset(state) || 'ai-startup';
+    const reactAttrs = attrs(true).split('\n  ').join('\n      ');
+    const vueAttrs = attrs(true).split('\n  ').join('\n    ');
     const map = {
       minimal: `<script src="${CDN}"><\\/script>\n<orbit-bg theme="${state.theme}"></orbit-bg>`,
       full: `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>Orbit Background</title>\n</head>\n<body>\n  <script src="${CDN}"><\\/script>\n  <orbit-bg\n  ${attrs(true)}\n  ></orbit-bg>\n  <main style="position:relative;z-index:1;">Your content</main>\n</body>\n</html>`,
       preset: `<script src="${PINNED}"><\\/script>\n<orbit-bg preset="${selectedPreset}"></orbit-bg>`,
-      react: `import { useEffect } from 'react';\n\nexport default function Page() {\n  useEffect(() => {\n    import('${CDN}');\n  }, []);\n\n  return <orbit-bg theme="${state.theme}" words="${escapeHtml(state.words)}" />;\n}`,
-      vue: `<script setup>\nimport '${CDN}';\n<\\/script>\n\n<template>\n  <orbit-bg theme="${state.theme}" words="${escapeHtml(state.words)}"></orbit-bg>\n</template>`
+      react: `import { useEffect } from 'react';\n\nexport default function Page() {\n  useEffect(() => {\n    import('${CDN}');\n  }, []);\n\n  return (\n    <orbit-bg\n      ${reactAttrs}\n    />\n  );\n}`,
+      vue: `<script setup>\nimport '${CDN}';\n<\\/script>\n\n<template>\n  <orbit-bg\n    ${vueAttrs}\n  ></orbit-bg>\n</template>`
     };
     const labels = { minimal:i18n[lang].code.minimal, full:i18n[lang].code.full, preset:i18n[lang].code.presetLabel, react:i18n[lang].code.reactLabel, vue:i18n[lang].code.vueLabel };
     $('codeLabel').textContent = labels[activeCode];
@@ -369,15 +413,18 @@
   }
 
   function updateHash() {
-    const data = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
-    history.replaceState(null, '', `#config=${data}`);
+    clearTimeout(hashTimer);
+    hashTimer = setTimeout(() => {
+      const data = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
+      history.replaceState(null, '', `#config=${data}`);
+    }, 120);
   }
 
   function loadHash() {
     if (!location.hash.startsWith('#config=')) return false;
     try {
       const data = JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(8)))));
-      setForm(sanitize(data));
+      applyConfig(sanitize(data), { hash: false, flash: false });
       return true;
     } catch {
       return false;
@@ -390,7 +437,46 @@
       if (Object.prototype.hasOwnProperty.call(data, key)) clean[key] = data[key];
     });
     if (!themes.includes(clean.theme)) clean.theme = 'dark';
+    Object.keys(enumValues).forEach((key) => {
+      if (!enumValues[key].includes(String(clean[key]))) clean[key] = presets['ai-startup'][key];
+    });
+    clean.words = String(clean.words || presets['ai-startup'].words).slice(0, 240);
+    clean.opacity = safeNumber(clean.opacity, 0, .35, presets['ai-startup'].opacity).toFixed(3);
+    clean.rows = String(Math.round(safeNumber(clean.rows, 1, 8, presets['ai-startup'].rows)));
+    clean.angle = String(safeNumber(clean.angle, -45, 45, presets['ai-startup'].angle));
+    clean.zIndex = String(Math.round(safeNumber(clean.zIndex, -10, 20, 0)));
+    clean.seed = String(clean.seed || '').slice(0, 80);
+    bools.forEach((key) => { clean[key] = parseBool(clean[key], presets['ai-startup'][key]); });
     return clean;
+  }
+
+  function safeNumber(value, min, max, fallback) {
+    const number = Number(value);
+    return Number.isFinite(number) ? Math.min(max, Math.max(min, number)) : Number(fallback);
+  }
+
+  function parseBool(value, fallback) {
+    if (typeof value === 'boolean') return value;
+    if (value === '') return true;
+    const normalized = String(value).trim().toLowerCase();
+    if (['true','1','yes','on'].includes(normalized)) return true;
+    if (['false','0','no','off'].includes(normalized)) return false;
+    return !!fallback;
+  }
+
+  function findActivePreset(config) {
+    return Object.keys(presets).find((name) => {
+      const preset = sanitize(presets[name]);
+      return Object.keys(preset).every((key) => String(preset[key]) === String(config[key]));
+    });
+  }
+
+  function flashPreview() {
+    const preview = $('preview');
+    clearTimeout(previewTimer);
+    preview.classList.remove('refreshed');
+    requestAnimationFrame(() => preview.classList.add('refreshed'));
+    previewTimer = setTimeout(() => preview.classList.remove('refreshed'), 620);
   }
 
   function toast(msg) {
@@ -405,7 +491,7 @@
 
   document.addEventListener('input', (e) => { if (e.target.closest('.controls')) readForm(); });
   document.addEventListener('change', (e) => {
-    if (e.target.id === 'preset' && e.target.value) setForm(presets[e.target.value]);
+    if (e.target.id === 'preset' && e.target.value) applyConfig(presets[e.target.value]);
     else if (e.target.closest('.controls')) readForm();
   });
   document.addEventListener('click', async (e) => {
@@ -417,26 +503,26 @@
     const preset = e.target.closest('[data-preset]');
     const code = e.target.closest('[data-code]');
     const copy = e.target.closest('[data-copy]');
-    if (theme) setForm({ theme: theme.dataset.theme });
-    if (preset) setForm(presets[preset.dataset.preset]);
+    if (theme) applyConfig({ theme: theme.dataset.theme });
+    if (preset) applyConfig(presets[preset.dataset.preset]);
     if (code) { activeCode = code.dataset.code; renderCode(); }
     if (copy) {
       const text = copy.dataset.copy === 'quick' ? `<script src="${CDN}"><\\/script>\n<orbit-bg preset="ai-startup"></orbit-bg>` : $('codeOut').textContent;
       try { await navigator.clipboard.writeText(text); toast(i18n[lang].copied); } catch { toast(i18n[lang].copyFailed); }
     }
   });
-  $('reset').addEventListener('click', () => setForm(presets['ai-startup']));
+  $('reset').addEventListener('click', () => applyConfig(presets['ai-startup']));
   $('randomize').addEventListener('click', () => {
     const keys = Object.keys(presets);
-    setForm({ ...presets[keys[Math.floor(Math.random() * keys.length)]], theme: themes[Math.floor(Math.random() * themes.length)], seed: String(Date.now()).slice(-6) });
+    applyConfig({ ...presets[keys[Math.floor(Math.random() * keys.length)]], theme: themes[Math.floor(Math.random() * themes.length)], seed: String(Date.now()).slice(-6) });
   });
   $('exportJson').addEventListener('click', () => { $('jsonBox').value = JSON.stringify(state, null, 2); toast(i18n[lang].jsonExported); });
   $('importJson').addEventListener('click', () => {
-    try { setForm(sanitize(JSON.parse($('jsonBox').value))); toast(i18n[lang].jsonImported); }
+    try { applyConfig(sanitize(JSON.parse($('jsonBox').value))); toast(i18n[lang].jsonImported); }
     catch { toast(i18n[lang].invalidJson); }
   });
 
-  if (!loadHash()) setForm(presets['ai-startup']);
+  if (!loadHash()) applyConfig(presets['ai-startup'], { flash: false });
   applyLanguage(lang);
 })();
 </script>

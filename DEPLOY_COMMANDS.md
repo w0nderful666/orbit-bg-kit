@@ -7,19 +7,19 @@ git status
 npm run build
 npm run check
 git add .
-git commit -m "Release v0.1.0"
+git commit -m "Fix playground live preview and prepare v0.1.1"
 git push
-git tag v0.1.0
-git push origin v0.1.0
+git tag v0.1.1
+git push origin v0.1.1
 ```
 
 After pushing:
 
 1. Open GitHub repository settings.
 2. Enable Pages from `main` and `/ (root)`.
-3. Create a GitHub Release for tag `v0.1.0`.
+3. Create a GitHub Release for tag `v0.1.1`.
 4. Use the fixed jsDelivr URL in production:
 
 ```text
-https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js
+https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.1/dist/orbit-bg.iife.js
 ```

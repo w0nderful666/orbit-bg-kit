@@ -34,7 +34,7 @@ Latest:
 Pinned version:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.1/dist/orbit-bg.iife.js"></script>
 ```
 
 ## Full Example
@@ -133,7 +133,7 @@ Enable Pages from `Settings -> Pages -> Deploy from a branch`, then select `main
 
 ## jsDelivr Cache Notes
 
-Use `@v0.1.0` for production. `@latest` is convenient for demos, but CDN and browser caches can take time to refresh. For testing, add a temporary query string such as `?v=20260501`.
+Use `@v0.1.1` for production. `@latest` is convenient for demos, but CDN and browser caches can take time to refresh. For testing, add a temporary query string such as `?v=20260501`.
 
 ## Privacy
 

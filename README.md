@@ -36,7 +36,7 @@
 固定版本，适合生产页面：
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.1/dist/orbit-bg.iife.js"></script>
 ```
 
 ## 完整配置示例
@@ -174,7 +174,7 @@ https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.
 建议生产页面使用固定版本：
 
 ```text
-https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js
+https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.1/dist/orbit-bg.iife.js
 ```
 
 如果 CDN 更新不生效，优先使用固定 tag。jsDelivr 对 GitHub 文件有缓存，发布新版本后可能需要等待缓存刷新；调试时可以临时在 URL 后加查询参数，例如 `?v=20260501`。
@@ -209,7 +209,7 @@ npm run examples
 
 ### CDN 更新不生效怎么办？
 
-生产环境使用 `@v0.1.0` 固定版本。测试时可以使用 `@latest` 或临时查询参数绕过浏览器缓存。
+生产环境使用 `@v0.1.1` 固定版本。测试时可以使用 `@latest` 或临时查询参数绕过浏览器缓存。
 
 ### 能不能商业使用？
 

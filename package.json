@@ -1,6 +1,6 @@
 {
   "name": "orbit-bg-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "One script tag plus one Web Component for premium animated backgrounds. Zero dependencies, pure frontend.",
   "type": "module",
   "main": "dist/orbit-bg.iife.js",

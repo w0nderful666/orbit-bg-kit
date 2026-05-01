@@ -1,5 +1,5 @@
 /**
- * Orbit Background Kit v0.1.0
+ * Orbit Background Kit v0.1.1
  * Native Web Component animated backgrounds.
  * @license MIT
  */
@@ -83,7 +83,8 @@
 
     disconnectedCallback() { this._destroy(); }
 
-    attributeChangedCallback() {
+    attributeChangedCallback(name, oldValue, newValue) {
+      if (oldValue === newValue) return;
       if (this._destroyed || !this.isConnected) return;
       this._build();
       this._syncMouse();

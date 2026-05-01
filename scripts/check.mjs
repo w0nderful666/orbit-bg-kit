@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const latestCdn = 'https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js';
-const versionCdn = 'https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js';
+const versionCdn = 'https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.1/dist/orbit-bg.iife.js';
 let errors = 0;
 let warnings = 0;
 
@@ -38,7 +38,7 @@ console.log('Checking Orbit Background Kit...');
 
 const pkg = JSON.parse(read('package.json'));
 if (pkg.name === 'orbit-bg-kit') pass('package name is orbit-bg-kit'); else fail('package name must be orbit-bg-kit');
-if (pkg.version === '0.1.0') pass('package version is 0.1.0'); else fail('package version must be 0.1.0');
+if (pkg.version === '0.1.1') pass('package version is 0.1.1'); else fail('package version must be 0.1.1');
 if (pkg.main === 'dist/orbit-bg.iife.js') pass('package main points to dist'); else fail('package main must point to dist/orbit-bg.iife.js');
 if (pkg.license === 'MIT') pass('license is MIT'); else fail('license must be MIT');
 ['dev', 'build', 'check', 'preview', 'examples'].forEach((script) => pkg.scripts?.[script] ? pass(`npm script ${script}`) : fail(`npm script ${script} missing`));
