@@ -27,7 +27,7 @@
 
 ### Usage
 ```html
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js"></script>
 <orbit-bg preset="ai-startup"></orbit-bg>
 ```
 

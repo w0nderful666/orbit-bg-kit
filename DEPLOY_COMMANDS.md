@@ -4,7 +4,7 @@
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_USERNAME/orbit-bg-kit.git
+git clone https://github.com/w0nderful666/orbit-bg-kit.git
 cd orbit-bg-kit
 
 # Install (optional, only for serve)
@@ -28,7 +28,7 @@ git init
 git add .
 git commit -m "feat: orbit-bg-kit v0.1.0"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/orbit-bg-kit.git
+git remote add origin https://github.com/w0nderful666/orbit-bg-kit.git
 git push -u origin main
 ```
 
@@ -38,16 +38,16 @@ Then in GitHub:
 3. Branch: **main** / **/(root)**
 4. Click **Save**
 
-Your site will be live at: `https://YOUR_USERNAME.github.io/orbit-bg-kit/`
+Your site will be live at: `https://w0nderful666.github.io/orbit-bg-kit/`
 
 ## jsDelivr
 
 Once the repo is public, jsDelivr automatically serves files:
 
 ```
-https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js
-https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js
-https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@main/dist/orbit-bg.iife.js
+https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js
+https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js
+https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@main/dist/orbit-bg.iife.js
 ```
 
 ## NPM Publish (optional)

@@ -10,7 +10,7 @@
 - [ ] Test on mobile viewport (Chrome DevTools)
 - [ ] Check `prefers-reduced-motion` (Chrome DevTools → Rendering)
 - [ ] Verify no console errors
-- [ ] CDN URL uses `YOUR_USERNAME` placeholder
+- [ ] CDN URL uses `w0nderful666` placeholder
 - [ ] README examples match actual behavior
 
 ## GitHub Setup
@@ -23,7 +23,7 @@
 
 ## After Publishing
 
-- [ ] GitHub Pages live at `https://YOUR_USERNAME.github.io/orbit-bg-kit/`
-- [ ] jsDelivr accessible: `https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js`
+- [ ] GitHub Pages live at `https://w0nderful666.github.io/orbit-bg-kit/`
+- [ ] jsDelivr accessible: `https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js`
 - [ ] Test CDN URL in a fresh HTML file
-- [ ] Update README with actual username (replace YOUR_USERNAME)
+- [ ] Update README with actual username (replace w0nderful666)

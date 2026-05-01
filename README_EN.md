@@ -4,7 +4,7 @@
 
 Zero dependencies. Pure frontend. No frameworks, no backend, no build step required. Copy two lines and go.
 
-**[Online Configurator](https://YOUR_USERNAME.github.io/orbit-bg-kit/)** · **[Live Demo](https://YOUR_USERNAME.github.io/orbit-bg-kit/demo.html)** · **[Examples](https://YOUR_USERNAME.github.io/orbit-bg-kit/examples/)**
+**[Online Configurator](https://w0nderful666.github.io/orbit-bg-kit/)** · **[Live Demo](https://w0nderful666.github.io/orbit-bg-kit/demo.html)** · **[Examples](https://w0nderful666.github.io/orbit-bg-kit/examples/)**
 
 ---
 
@@ -13,7 +13,7 @@ Zero dependencies. Pure frontend. No frameworks, no backend, no build step requi
 Add these two lines to your HTML:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
 <orbit-bg></orbit-bg>
 ```
 
@@ -33,7 +33,7 @@ That's it. You now have a full-screen animated background.
 <body>
 
   <!-- 1. Load the component -->
-  <script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
 
   <!-- 2. Add the background -->
   <orbit-bg
@@ -149,14 +149,14 @@ Use the `preset` attribute for one-click styles:
 ### CDN (recommended)
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
 <orbit-bg theme="dark"></orbit-bg>
 ```
 
 ### Pinned version
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js"></script>
 ```
 
 ### Local file
@@ -184,7 +184,7 @@ Use the `preset` attribute for one-click styles:
 1. Push this repo to GitHub
 2. Go to **Settings → Pages**
 3. Set source to **Deploy from a branch**, select `main` / `/(root)`
-4. Your site will be live at `https://YOUR_USERNAME.github.io/orbit-bg-kit/`
+4. Your site will be live at `https://w0nderful666.github.io/orbit-bg-kit/`
 
 ---
 
@@ -193,7 +193,7 @@ Use the `preset` attribute for one-click styles:
 Once your repo is public, jsDelivr serves it automatically:
 
 ```
-https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js
+https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js
 ```
 
 Tags:
@@ -206,7 +206,7 @@ Tags:
 ## Local Development
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/orbit-bg-kit.git
+git clone https://github.com/w0nderful666/orbit-bg-kit.git
 cd orbit-bg-kit
 
 # Any static server

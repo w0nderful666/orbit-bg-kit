@@ -4,7 +4,7 @@
 
 零依赖、纯前端 Web Component，无需框架、无需后端、无需构建。复制两行代码即可使用。
 
-**[在线配置器](https://YOUR_USERNAME.github.io/orbit-bg-kit/)** · **[Demo 演示](https://YOUR_USERNAME.github.io/orbit-bg-kit/demo.html)** · **[示例合集](https://YOUR_USERNAME.github.io/orbit-bg-kit/examples/)**
+**[在线配置器](https://w0nderful666.github.io/orbit-bg-kit/)** · **[Demo 演示](https://w0nderful666.github.io/orbit-bg-kit/demo.html)** · **[示例合集](https://w0nderful666.github.io/orbit-bg-kit/examples/)**
 
 ---
 
@@ -13,7 +13,7 @@
 ### 第 1 步：复制这两行代码
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
 <orbit-bg theme="dark"></orbit-bg>
 ```
 
@@ -46,7 +46,7 @@
 <body>
 
   <!-- 1. 加载组件 -->
-  <script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
 
   <!-- 2. 添加背景 -->
   <orbit-bg
@@ -162,14 +162,14 @@
 ### CDN 一行引入（推荐）
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
 <orbit-bg theme="dark"></orbit-bg>
 ```
 
 ### 固定版本
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js"></script>
 ```
 
 ### 本地文件
@@ -197,7 +197,7 @@
 1. 创建 GitHub 仓库，推送代码
 2. 进入 **Settings → Pages**
 3. Source 选择 **Deploy from a branch**，选 `main` / `/(root)`
-4. 等待几分钟，访问 `https://YOUR_USERNAME.github.io/orbit-bg-kit/`
+4. 等待几分钟，访问 `https://w0nderful666.github.io/orbit-bg-kit/`
 
 ---
 
@@ -206,7 +206,7 @@
 仓库公开后，jsDelivr 自动可用：
 
 ```
-https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js
+https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js
 ```
 
 可用标签：
@@ -220,7 +220,7 @@ https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife
 
 ```bash
 # 克隆
-git clone https://github.com/YOUR_USERNAME/orbit-bg-kit.git
+git clone https://github.com/w0nderful666/orbit-bg-kit.git
 cd orbit-bg-kit
 
 # 启动本地服务

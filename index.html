@@ -150,7 +150,7 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
     <a href="#playground" class="btn btn-primary">Try Playground</a>
     <button class="btn btn-ghost" id="hero-copy">Copy CDN Snippet</button>
   </div>
-  <div class="hero-code" id="hero-code">&lt;script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"&gt;&lt;/script&gt;
+  <div class="hero-code" id="hero-code">&lt;script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"&gt;&lt;/script&gt;
 &lt;orbit-bg theme="dark"&gt;&lt;/orbit-bg&gt;</div>
 </section>
 
@@ -291,8 +291,8 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
   <div class="faq-item"><div class="faq-q">Does it need a backend?</div><div class="faq-a">No. Orbit Background Kit is 100% frontend. There is no server, no API, no database. Just a script tag.</div></div>
   <div class="faq-item"><div class="faq-q">Does it upload any data?</div><div class="faq-a">No. Zero analytics, zero tracking, zero fingerprinting. Nothing leaves the browser.</div></div>
   <div class="faq-item"><div class="faq-q">Can I use it in commercial projects?</div><div class="faq-a">Yes. It's MIT licensed. Use it anywhere — personal, commercial, whatever. No attribution required.</div></div>
-  <div class="faq-item"><div class="faq-q">How do I deploy to GitHub Pages?</div><div class="faq-a">Push the repo to GitHub → Settings → Pages → Deploy from branch → main / root. Your site will be live at https://YOUR_USERNAME.github.io/orbit-bg-kit/</div></div>
-  <div class="faq-item"><div class="faq-q">How do I pin a specific version on jsDelivr?</div><div class="faq-a">Use @v0.1.0 instead of @latest: https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js</div></div>
+  <div class="faq-item"><div class="faq-q">How do I deploy to GitHub Pages?</div><div class="faq-a">Push the repo to GitHub → Settings → Pages → Deploy from branch → main / root. Your site will be live at https://w0nderful666.github.io/orbit-bg-kit/</div></div>
+  <div class="faq-item"><div class="faq-q">How do I pin a specific version on jsDelivr?</div><div class="faq-a">Use @v0.1.0 instead of @latest: https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js</div></div>
   <div class="faq-item"><div class="faq-q">Why is the background not showing?</div><div class="faq-a">Make sure the script loaded (check Network tab). Make sure the &lt;orbit-bg&gt; tag is in the body. If using position="absolute", the parent must have position: relative and a defined height.</div></div>
   <div class="faq-item"><div class="faq-q">How do I control z-index?</div><div class="faq-a">Use z-index="0" to put it above the page background but below content. Default is -1 (behind everything). Your content needs position: relative; z-index: 1 or higher to appear above it.</div></div>
   <div class="faq-item"><div class="faq-q">Does it affect page performance?</div><div class="faq-a">The component uses CSS transforms and opacity for animation (GPU-accelerated). It pauses when the tab is hidden. It respects prefers-reduced-motion. On most devices it's negligible.</div></div>
@@ -301,7 +301,7 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
 <!-- FOOTER -->
 <footer class="site-footer">
   <p>Orbit Background Kit · MIT License · <a href="https://github.com" target="_blank">GitHub</a> · <a href="demo.html" target="_blank">Demo</a> · <a href="examples/" target="_blank">Examples</a></p>
-  <p style="margin-top:8px">CDN: <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:11px">https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js</code></p>
+  <p style="margin-top:8px">CDN: <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:11px">https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js</code></p>
 </footer>
 
 <!-- TOAST -->
@@ -475,7 +475,7 @@ function generateCode(c){
   if(c.rounded)a.push('rounded="true"');
   if(c.seed)a.push('seed="'+esc(c.seed)+'"');
 
-  const code='<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"><\/script>\n<orbit-bg\n  '+a.join('\n  ')+'\n></orbit-bg>';
+  const code='<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"><\/script>\n<orbit-bg\n  '+a.join('\n  ')+'\n></orbit-bg>';
   el('code-output').textContent=code;
 }
 
@@ -499,7 +499,7 @@ el('copy-btn').addEventListener('click',()=>{
 });
 
 el('hero-copy').addEventListener('click',()=>{
-  const code='<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"><\/script>\n<orbit-bg theme="dark"></orbit-bg>';
+  const code='<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"><\/script>\n<orbit-bg theme="dark"></orbit-bg>';
   navigator.clipboard.writeText(code).then(()=>showToast('CDN snippet copied!'));
 });
 

@@ -5,7 +5,7 @@ Thanks for your interest! Here's how to contribute.
 ## Getting Started
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/orbit-bg-kit.git
+git clone https://github.com/w0nderful666/orbit-bg-kit.git
 cd orbit-bg-kit
 npx serve .
 ```

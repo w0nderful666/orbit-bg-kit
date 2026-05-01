@@ -44,5 +44,5 @@ One <script> + one <orbit-bg> tag = premium animated background for any webpage.
 ✅ 24KB total
 ✅ GitHub Pages friendly
 
-Try it: https://YOUR_USERNAME.github.io/orbit-bg-kit/
+Try it: https://w0nderful666.github.io/orbit-bg-kit/
 ```
