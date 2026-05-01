@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Theme — Orbit Background Kit</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #e8e6e3;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px;
+  }
+  h1 { font-size: 42px; font-weight: 800; margin-bottom: 16px; }
+  p { font-size: 18px; color: #888; max-width: 480px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- Dark theme with custom words -->
+<script src="../dist/orbit-bg.iife.js"></script>
+<orbit-bg
+  words="BUILD,DEPLOY,SCALE,SHIP"
+  theme="dark"
+  speed="slow"
+  opacity="0.05"
+  grid="true"
+  glow="true"
+  noise="true"
+></orbit-bg>
+
+<div class="content">
+  <h1>Dark Theme</h1>
+  <p>Deep dark background with subtle blue gradients and floating glow spots.</p>
+</div>
+
+</body>
+</html>

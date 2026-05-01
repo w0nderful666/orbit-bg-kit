@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Tool — Orbit Background Kit</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #c8d6e5; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px; }
+  .hero { position: relative; z-index: 1; text-align: center; max-width: 600px; }
+  h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+  .desc { font-size: 16px; color: rgba(200,214,229,0.6); line-height: 1.6; margin-bottom: 28px; }
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 400px; margin: 0 auto; }
+  .feat { padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; font-size: 14px; text-align: center; }
+</style>
+</head>
+<body>
+<!-- PDF tool: midnight theme, professional look -->
+<script src="../dist/orbit-bg.iife.js"></script>
+<orbit-bg preset="pdf-tool"></orbit-bg>
+<div class="hero">
+  <h1>PDF Toolkit</h1>
+  <p class="desc">Convert, merge, split, compress, and edit PDFs. Free, fast, private.</p>
+  <div class="features">
+    <div class="feat">📄 Convert</div>
+    <div class="feat">🔗 Merge</div>
+    <div class="feat">✂️ Split</div>
+    <div class="feat">📦 Compress</div>
+  </div>
+</div>
+</body>
+</html>

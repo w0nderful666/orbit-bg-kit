@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orbit Background Kit — Configurator & Playground</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;--panel:rgba(12,12,18,0.94);--border:rgba(255,255,255,0.06);
+  --text:#e8e6e3;--dim:#777;--accent:#6e8efb;--accent2:#a777e3;
+  --input-bg:rgba(255,255,255,0.05);--input-b:rgba(255,255,255,0.08);--r:8px;
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
+
+/* ---- NAV ---- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--panel);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-size:15px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:20px}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-github{color:var(--dim);font-size:20px;text-decoration:none}
+
+/* ---- SECTIONS ---- */
+section{padding:80px 24px;max-width:1100px;margin:0 auto}
+.section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:var(--accent);margin-bottom:8px}
+.section-title{font-size:clamp(24px,4vw,36px);font-weight:800;letter-spacing:-0.03em;margin-bottom:12px}
+.section-desc{font-size:15px;color:var(--dim);max-width:600px;line-height:1.7;margin-bottom:40px}
+
+/* ---- HERO ---- */
+.hero-section{padding-top:140px;padding-bottom:60px;text-align:center;position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hero-section h1{font-size:clamp(36px,6vw,64px);font-weight:800;letter-spacing:-0.04em;line-height:1.05;margin-bottom:16px}
+.hero-section h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section .desc{font-size:clamp(16px,2vw,20px);color:var(--dim);max-width:560px;line-height:1.6;margin-bottom:36px}
+.hero-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{padding:12px 28px;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:opacity .2s;border:none;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--input-b)}
+.btn:hover{opacity:.85}
+.hero-code{margin-top:40px;padding:16px 24px;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:var(--r);font-family:'SF Mono','Fira Code',Consolas,monospace;font-size:13px;color:#aaa;line-height:1.8;text-align:left;display:inline-block;max-width:100%;overflow-x:auto}
+
+/* ---- CONFIGURATOR ---- */
+.config-layout{display:flex;gap:0;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;overflow:hidden;min-height:600px}
+.config-panel{width:320px;min-width:280px;background:var(--panel);border-right:1px solid var(--border);padding:24px;overflow-y:auto;max-height:700px;display:flex;flex-direction:column;gap:20px}
+.config-preview{flex:1;position:relative;min-height:500px;overflow:hidden}
+.config-preview orbit-bg{border-radius:0}
+
+.preview-card{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;background:rgba(0,0,0,0.5);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:40px;text-align:center;max-width:400px;width:90%}
+.preview-card h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.preview-card p{font-size:14px;color:var(--dim);line-height:1.5}
+
+.f-group{}
+.f-group label{display:block;font-size:12px;font-weight:500;margin-bottom:4px;color:var(--text)}
+.f-group input[type=text],.f-group select{width:100%;padding:7px 10px;background:var(--input-bg);border:1px solid var(--input-b);border-radius:6px;color:var(--text);font-size:12px;font-family:inherit;outline:none;transition:border-color .2s}
+.f-group input:focus,.f-group select:focus{border-color:var(--accent)}
+.f-group input[type=range]{width:100%;accent-color:var(--accent)}
+.range-row{display:flex;align-items:center;gap:8px}
+.range-row input{flex:1}
+.range-val{font-size:11px;color:var(--dim);min-width:30px;text-align:right;font-variant-numeric:tabular-nums}
+.section-label-sm{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--dim);margin-bottom:8px;margin-top:4px}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0}
+.toggle-row span{font-size:12px}
+.toggle{position:relative;width:36px;height:20px;cursor:pointer}
+.toggle input{opacity:0;width:0;height:0}
+.toggle .sl{position:absolute;inset:0;background:rgba(255,255,255,0.08);border-radius:10px;transition:background .2s}
+.toggle .sl::before{content:'';position:absolute;width:14px;height:14px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .2s}
+.toggle input:checked+.sl{background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.toggle input:checked+.sl::before{transform:translateX(16px)}
+.chip-grid{display:flex;flex-wrap:wrap;gap:4px}
+.chip{padding:4px 10px;border-radius:14px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid var(--input-b);background:transparent;color:var(--text);transition:all .2s;text-transform:capitalize}
+.chip.active{border-color:var(--accent);background:rgba(110,142,251,0.12);color:#fff}
+.chip:hover{border-color:var(--accent)}
+
+/* ---- CODE OUTPUT ---- */
+.code-section{background:rgba(0,0,0,0.3);border-radius:var(--r);border:1px solid var(--border);overflow:hidden}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--border)}
+.code-header span{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--dim)}
+.copy-btn{padding:4px 12px;font-size:11px;font-weight:600;border:none;border-radius:4px;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;transition:all .2s}
+.copy-btn:hover{opacity:.85}
+.copy-btn.copied{background:#22c55e}
+.code-block{padding:12px;font-family:'SF Mono','Fira Code',Consolas,monospace;font-size:11px;line-height:1.6;color:#b0aca5;white-space:pre-wrap;word-break:break-all;max-height:220px;overflow-y:auto}
+
+/* ---- PRESETS ---- */
+.presets-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.preset-card{padding:16px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all .2s}
+.preset-card:hover{border-color:var(--accent);background:rgba(110,142,251,0.05)}
+.preset-card.active{border-color:var(--accent);background:rgba(110,142,251,0.08)}
+.preset-card h4{font-size:13px;font-weight:600;margin-bottom:4px}
+.preset-card p{font-size:11px;color:var(--dim);line-height:1.4}
+
+/* ---- TABLE ---- */
+.attr-table{width:100%;border-collapse:collapse;font-size:13px}
+.attr-table th{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;font-weight:600}
+.attr-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.03);vertical-align:top}
+.attr-table code{background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:12px;font-family:'SF Mono','Fira Code',monospace}
+.attr-table-wrap{overflow-x:auto}
+
+/* ---- FAQ ---- */
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.faq-q{font-size:14px;font-weight:600;margin-bottom:6px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'+';font-size:18px;color:var(--dim);transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{font-size:13px;color:var(--dim);line-height:1.7;display:none}
+.faq-item.open .faq-a{display:block}
+
+/* ---- FOOTER ---- */
+.site-footer{border-top:1px solid var(--border);padding:40px 24px;text-align:center;font-size:12px;color:var(--dim);max-width:1100px;margin:0 auto}
+.site-footer a{color:var(--accent);text-decoration:none}
+.site-footer a:hover{text-decoration:underline}
+
+/* ---- TOAST ---- */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#22c55e;color:#fff;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;z-index:999;transition:transform .3s ease;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:860px){
+  .config-layout{flex-direction:column}
+  .config-panel{width:100%;min-width:unset;max-height:none;border-right:none;border-bottom:1px solid var(--border)}
+  .config-preview{min-height:400px}
+  .nav-links{gap:12px}
+  .nav-links a{font-size:12px}
+}
+@media(max-width:600px){
+  section{padding:60px 16px}
+  .hero-section{padding-top:100px}
+  .presets-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <span class="nav-brand">Orbit BG</span>
+  <div class="nav-links">
+    <a href="#playground">Playground</a>
+    <a href="#presets">Presets</a>
+    <a href="#docs">Docs</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a class="nav-github" href="https://github.com" target="_blank" title="GitHub">⬡</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section" id="hero">
+  <h1><span>Orbit</span> Background Kit</h1>
+  <p class="desc">One script tag. One custom element. Premium animated backgrounds for any webpage — zero dependencies, zero backend.</p>
+  <div class="hero-buttons">
+    <a href="#playground" class="btn btn-primary">Try Playground</a>
+    <button class="btn btn-ghost" id="hero-copy">Copy CDN Snippet</button>
+  </div>
+  <div class="hero-code" id="hero-code">&lt;script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"&gt;&lt;/script&gt;
+&lt;orbit-bg theme="dark"&gt;&lt;/orbit-bg&gt;</div>
+</section>
+
+<!-- PLAYGROUND -->
+<section id="playground">
+  <div class="section-label">Playground</div>
+  <div class="section-title">Configure & Preview</div>
+  <div class="section-desc">Tweak every parameter in real time. Copy the code when you're happy.</div>
+
+  <div class="config-layout">
+    <!-- Config Panel -->
+    <div class="config-panel" id="config-panel">
+
+      <div class="section-label-sm">Content</div>
+      <div class="f-group">
+        <label>Words</label>
+        <input type="text" id="c-words" value="AI, AGENT, ORBIT, CODEX, OPEN SOURCE">
+      </div>
+
+      <div class="section-label-sm">Theme</div>
+      <div class="chip-grid" id="c-theme"></div>
+
+      <div class="section-label-sm">Layout</div>
+      <div class="f-group">
+        <label>Position</label>
+        <select id="c-position"><option value="fixed" selected>Fixed (fullscreen)</option><option value="absolute">Absolute (container)</option></select>
+      </div>
+      <div class="f-group">
+        <label>Speed</label>
+        <select id="c-speed"><option value="slow">Slow</option><option value="normal" selected>Normal</option><option value="fast">Fast</option></select>
+      </div>
+      <div class="f-group">
+        <label>Opacity</label>
+        <div class="range-row"><input type="range" id="c-opacity" min="0.01" max="0.20" step="0.005" value="0.06"><span class="range-val" id="v-opacity">0.060</span></div>
+      </div>
+      <div class="f-group">
+        <label>Rows</label>
+        <div class="range-row"><input type="range" id="c-rows" min="1" max="6" step="1" value="3"><span class="range-val" id="v-rows">3</span></div>
+      </div>
+      <div class="f-group">
+        <label>Angle</label>
+        <div class="range-row"><input type="range" id="c-angle" min="-30" max="30" step="1" value="-8"><span class="range-val" id="v-angle">-8</span></div>
+      </div>
+      <div class="f-group">
+        <label>Density</label>
+        <select id="c-density"><option value="low">Low</option><option value="normal" selected>Normal</option><option value="high">High</option></select>
+      </div>
+      <div class="f-group">
+        <label>Font</label>
+        <select id="c-font"><option value="sans" selected>Sans</option><option value="mono">Mono</option><option value="serif">Serif</option></select>
+      </div>
+      <div class="f-group">
+        <label>Intensity</label>
+        <select id="c-intensity"><option value="soft">Soft</option><option value="normal" selected>Normal</option><option value="strong">Strong</option></select>
+      </div>
+
+      <div class="section-label-sm">Effects</div>
+      <div class="toggle-row"><span>Grid</span><label class="toggle"><input type="checkbox" id="c-grid" checked><span class="sl"></span></label></div>
+      <div class="toggle-row"><span>Glow</span><label class="toggle"><input type="checkbox" id="c-glow" checked><span class="sl"></span></label></div>
+      <div class="toggle-row"><span>Noise</span><label class="toggle"><input type="checkbox" id="c-noise" checked><span class="sl"></span></label></div>
+      <div class="toggle-row"><span>Rings</span><label class="toggle"><input type="checkbox" id="c-rings"><span class="sl"></span></label></div>
+      <div class="toggle-row"><span>Beams</span><label class="toggle"><input type="checkbox" id="c-beams"><span class="sl"></span></label></div>
+      <div class="toggle-row"><span>Vignette</span><label class="toggle"><input type="checkbox" id="c-vignette"><span class="sl"></span></label></div>
+      <div class="toggle-row"><span>Interactive</span><label class="toggle"><input type="checkbox" id="c-interactive"><span class="sl"></span></label></div>
+      <div class="toggle-row"><span>Rounded</span><label class="toggle"><input type="checkbox" id="c-rounded"><span class="sl"></span></label></div>
+
+      <div class="section-label-sm">Advanced</div>
+      <div class="f-group">
+        <label>Seed (optional)</label>
+        <input type="text" id="c-seed" placeholder="e.g. my-project-123" value="">
+      </div>
+
+      <div class="section-label-sm">Generated Code</div>
+      <div class="code-section">
+        <div class="code-header"><span>HTML</span><button class="copy-btn" id="copy-btn">Copy</button></div>
+        <div class="code-block" id="code-output"></div>
+      </div>
+    </div>
+
+    <!-- Preview -->
+    <div class="config-preview" id="config-preview">
+      <div class="preview-card">
+        <h3>Your Landing Page</h3>
+        <p>This is a preview card. The background behind this card is the live &lt;orbit-bg&gt; component. Try changing the settings!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESETS -->
+<section id="presets">
+  <div class="section-label">Presets</div>
+  <div class="section-title">One-click starting points</div>
+  <div class="section-desc">Pick a vibe, customize from there.</div>
+  <div class="presets-grid" id="presets-grid"></div>
+</section>
+
+<!-- DOCS -->
+<section id="docs">
+  <div class="section-label">Documentation</div>
+  <div class="section-title">Attributes Reference</div>
+  <div class="section-desc">Every configurable attribute, with type and default value.</div>
+  <div class="attr-table-wrap">
+    <table class="attr-table">
+      <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>words</code></td><td>string</td><td>AI,AGENT,ORBIT,CODEX,OPEN SOURCE</td><td>Comma-separated keywords for scrolling text</td></tr>
+        <tr><td><code>theme</code></td><td>string</td><td>dark</td><td>Color theme: cream, dark, cyber, paper, terminal, glass, midnight, sunset, matrix, aurora</td></tr>
+        <tr><td><code>speed</code></td><td>string</td><td>normal</td><td>Animation speed: slow, normal, fast</td></tr>
+        <tr><td><code>opacity</code></td><td>number</td><td>0.06</td><td>Overall opacity (0.01–0.20 recommended)</td></tr>
+        <tr><td><code>position</code></td><td>string</td><td>fixed</td><td>CSS position: fixed (fullscreen) or absolute (container)</td></tr>
+        <tr><td><code>z-index</code></td><td>number</td><td>-1</td><td>CSS z-index</td></tr>
+        <tr><td><code>rows</code></td><td>number</td><td>3</td><td>Number of text rows (1–6)</td></tr>
+        <tr><td><code>angle</code></td><td>number</td><td>-8</td><td>Text rotation angle (-30 to 30)</td></tr>
+        <tr><td><code>density</code></td><td>string</td><td>normal</td><td>Text density: low, normal, high</td></tr>
+        <tr><td><code>font</code></td><td>string</td><td>sans</td><td>Font style: mono, sans, serif</td></tr>
+        <tr><td><code>intensity</code></td><td>string</td><td>normal</td><td>Overall effect strength: soft, normal, strong</td></tr>
+        <tr><td><code>interactive</code></td><td>boolean</td><td>false</td><td>Mouse-following glow effect</td></tr>
+        <tr><td><code>rounded</code></td><td>boolean</td><td>false</td><td>Rounded corners (for non-fullscreen use)</td></tr>
+        <tr><td><code>seed</code></td><td>string</td><td>—</td><td>Stable random seed for consistent layout</td></tr>
+        <tr><td><code>grid</code></td><td>boolean</td><td>true</td><td>Show grid overlay</td></tr>
+        <tr><td><code>glow</code></td><td>boolean</td><td>true</td><td>Show glow spots</td></tr>
+        <tr><td><code>noise</code></td><td>boolean</td><td>true</td><td>Show noise texture</td></tr>
+        <tr><td><code>rings</code></td><td>boolean</td><td>false</td><td>Show orbital ring lines</td></tr>
+        <tr><td><code>beams</code></td><td>boolean</td><td>false</td><td>Show soft light beams</td></tr>
+        <tr><td><code>vignette</code></td><td>boolean</td><td>false</td><td>Show edge vignette / focus effect</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-label">FAQ</div>
+  <div class="section-title">Common Questions</div>
+  <div class="section-desc"></div>
+
+  <div class="faq-item"><div class="faq-q">Does it need a backend?</div><div class="faq-a">No. Orbit Background Kit is 100% frontend. There is no server, no API, no database. Just a script tag.</div></div>
+  <div class="faq-item"><div class="faq-q">Does it upload any data?</div><div class="faq-a">No. Zero analytics, zero tracking, zero fingerprinting. Nothing leaves the browser.</div></div>
+  <div class="faq-item"><div class="faq-q">Can I use it in commercial projects?</div><div class="faq-a">Yes. It's MIT licensed. Use it anywhere — personal, commercial, whatever. No attribution required.</div></div>
+  <div class="faq-item"><div class="faq-q">How do I deploy to GitHub Pages?</div><div class="faq-a">Push the repo to GitHub → Settings → Pages → Deploy from branch → main / root. Your site will be live at https://YOUR_USERNAME.github.io/orbit-bg-kit/</div></div>
+  <div class="faq-item"><div class="faq-q">How do I pin a specific version on jsDelivr?</div><div class="faq-a">Use @v0.1.0 instead of @latest: https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js</div></div>
+  <div class="faq-item"><div class="faq-q">Why is the background not showing?</div><div class="faq-a">Make sure the script loaded (check Network tab). Make sure the &lt;orbit-bg&gt; tag is in the body. If using position="absolute", the parent must have position: relative and a defined height.</div></div>
+  <div class="faq-item"><div class="faq-q">How do I control z-index?</div><div class="faq-a">Use z-index="0" to put it above the page background but below content. Default is -1 (behind everything). Your content needs position: relative; z-index: 1 or higher to appear above it.</div></div>
+  <div class="faq-item"><div class="faq-q">Does it affect page performance?</div><div class="faq-a">The component uses CSS transforms and opacity for animation (GPU-accelerated). It pauses when the tab is hidden. It respects prefers-reduced-motion. On most devices it's negligible.</div></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>Orbit Background Kit · MIT License · <a href="https://github.com" target="_blank">GitHub</a> · <a href="demo.html" target="_blank">Demo</a> · <a href="examples/" target="_blank">Examples</a></p>
+  <p style="margin-top:8px">CDN: <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:11px">https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js</code></p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Copied!</div>
+
+<!-- COMPONENT -->
+<script src="dist/orbit-bg.iife.js"></script>
+<script>
+(function(){
+'use strict';
+
+/* ---- refs ---- */
+const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
+const el=id=>document.getElementById(id);
+
+/* ---- theme chips ---- */
+const themes=['cream','dark','cyber','paper','terminal','glass','midnight','sunset','matrix','aurora'];
+const themeGrid=el('c-theme');
+themes.forEach(t=>{
+  const b=document.createElement('button');
+  b.className='chip'+(t==='dark'?' active':'');
+  b.dataset.theme=t;
+  b.textContent=t;
+  themeGrid.appendChild(b);
+});
+
+/* ---- preview bg ---- */
+const preview=el('config-preview');
+const bg=document.createElement('orbit-bg');
+preview.insertBefore(bg,preview.firstChild);
+
+/* ---- presets ---- */
+const PRESETS=[
+  {name:'AI Startup',desc:'Clean glass with interactive glow',words:'AI,INTELLIGENCE,LEARN,AUTOMATE',theme:'glass',speed:'normal',opacity:'0.06',rows:3,angle:-8,density:'normal',font:'sans',intensity:'normal',grid:true,glow:true,noise:true,rings:false,beams:true,vignette:false,interactive:true,position:'fixed',rounded:false,seed:''},
+  {name:'Developer Portfolio',desc:'Subtle paper with serif type',words:'CODE,DESIGN,SHIP,ITERATE',theme:'paper',speed:'slow',opacity:'0.04',rows:2,angle:-5,density:'low',font:'serif',intensity:'soft',grid:false,glow:true,noise:true,rings:false,beams:false,vignette:true,interactive:false,position:'fixed',rounded:false,seed:''},
+  {name:'Open Source Project',desc:'Dark with grids and glow',words:'OPEN,SOURCE,BUILD,SHARE,FORK',theme:'dark',speed:'normal',opacity:'0.06',rows:3,angle:-8,density:'normal',font:'mono',intensity:'normal',grid:true,glow:true,noise:true,rings:false,beams:false,vignette:false,interactive:false,position:'fixed',rounded:false,seed:''},
+  {name:'Prompt Market',desc:'Aurora vibes with rings',words:'PROMPT,CREATE,IMAGINE,GENERATE',theme:'aurora',speed:'normal',opacity:'0.07',rows:4,angle:-10,density:'normal',font:'sans',intensity:'normal',grid:true,glow:true,noise:true,rings:true,beams:false,vignette:false,interactive:false,position:'fixed',rounded:false,seed:''},
+  {name:'PDF Tool',desc:'Midnight blue, professional',words:'PDF,CONVERT,MERGE,EDIT,EXTRACT',theme:'midnight',speed:'slow',opacity:'0.05',rows:3,angle:-6,density:'normal',font:'sans',intensity:'soft',grid:true,glow:true,noise:true,rings:false,beams:true,vignette:true,interactive:false,position:'fixed',rounded:false,seed:''},
+  {name:'Cyber Landing',desc:'Neon on dark, high energy',words:'HACK,BUILD,DEPLOY,SCALE',theme:'cyber',speed:'fast',opacity:'0.08',rows:4,angle:-12,density:'high',font:'mono',intensity:'strong',grid:true,glow:true,noise:true,rings:true,beams:false,vignette:false,interactive:false,position:'fixed',rounded:false,seed:''},
+  {name:'Minimal Blog',desc:'Cream and quiet, serif font',words:'THINK,WRITE,PUBLISH',theme:'cream',speed:'slow',opacity:'0.03',rows:2,angle:-4,density:'low',font:'serif',intensity:'soft',grid:false,glow:false,noise:true,rings:false,beams:false,vignette:true,interactive:false,position:'fixed',rounded:false,seed:''},
+  {name:'Terminal Hacker',desc:'Matrix green, monospace only',words:'ROOT,SUDO,BASH,EXECUTE,COMPILE',theme:'terminal',speed:'normal',opacity:'0.07',rows:3,angle:-8,density:'high',font:'mono',intensity:'strong',grid:true,glow:true,noise:true,rings:false,beams:false,vignette:false,interactive:false,position:'fixed',rounded:false,seed:''},
+];
+
+const presetsGrid=el('presets-grid');
+let activePreset=-1;
+PRESETS.forEach((p,i)=>{
+  const card=document.createElement('div');
+  card.className='preset-card';
+  card.innerHTML=`<h4>${p.name}</h4><p>${p.desc}</p>`;
+  card.addEventListener('click',()=>applyPreset(i));
+  presetsGrid.appendChild(card);
+});
+
+function applyPreset(i){
+  const p=PRESETS[i];
+  activePreset=i;
+  $$('.preset-card').forEach((c,j)=>c.classList.toggle('active',j===i));
+  el('c-words').value=p.words;
+  el('c-speed').value=p.speed;
+  el('c-opacity').value=p.opacity;
+  el('c-rows').value=p.rows;
+  el('c-angle').value=p.angle;
+  el('c-density').value=p.density;
+  el('c-font').value=p.font;
+  el('c-intensity').value=p.intensity;
+  el('c-grid').checked=p.grid;
+  el('c-glow').checked=p.glow;
+  el('c-noise').checked=p.noise;
+  el('c-rings').checked=p.rings;
+  el('c-beams').checked=p.beams;
+  el('c-vignette').checked=p.vignette;
+  el('c-interactive').checked=p.interactive;
+  el('c-position').value=p.position||'fixed';
+  el('c-rounded').checked=p.rounded||false;
+  el('c-seed').value=p.seed||'';
+  $$('.chip').forEach(c=>c.classList.toggle('active',c.dataset.theme===p.theme));
+  currentTheme=p.theme;
+  applyConfig();
+}
+
+/* ---- theme chip click ---- */
+let currentTheme='dark';
+themeGrid.addEventListener('click',e=>{
+  const chip=e.target.closest('.chip');
+  if(!chip)return;
+  $$('.chip').forEach(c=>c.classList.remove('active'));
+  chip.classList.add('active');
+  currentTheme=chip.dataset.theme;
+  activePreset=-1;
+  $$('.preset-card').forEach(c=>c.classList.remove('active'));
+  applyConfig();
+});
+
+/* ---- inputs ---- */
+const inputs=['c-words','c-speed','c-opacity','c-rows','c-angle','c-density','c-font','c-intensity','c-grid','c-glow','c-noise','c-rings','c-beams','c-vignette','c-interactive','c-position','c-rounded','c-seed'];
+inputs.forEach(id=>{
+  const e=el(id);
+  e.addEventListener('input',()=>{activePreset=-1;$$('.preset-card').forEach(c=>c.classList.remove('active'));applyConfig()});
+  e.addEventListener('change',()=>{activePreset=-1;$$('.preset-card').forEach(c=>c.classList.remove('active'));applyConfig()});
+});
+
+function applyConfig(){
+  const words=el('c-words').value.trim()||'AI,AGENT,ORBIT';
+  const speed=el('c-speed').value;
+  const opacity=el('c-opacity').value;
+  const rows=el('c-rows').value;
+  const angle=el('c-angle').value;
+  const density=el('c-density').value;
+  const font=el('c-font').value;
+  const intensity=el('c-intensity').value;
+  const grid=el('c-grid').checked;
+  const glow=el('c-glow').checked;
+  const noise=el('c-noise').checked;
+  const rings=el('c-rings').checked;
+  const beams=el('c-beams').checked;
+  const vignette=el('c-vignette').checked;
+  const interactive=el('c-interactive').checked;
+  const position=el('c-position').value;
+  const rounded=el('c-rounded').checked;
+  const seed=el('c-seed').value.trim();
+
+  // update range labels
+  el('v-opacity').textContent=parseFloat(opacity).toFixed(3);
+  el('v-rows').textContent=rows;
+  el('v-angle').textContent=angle;
+
+  // apply to component
+  bg.setAttribute('words',words);
+  bg.setAttribute('theme',currentTheme);
+  bg.setAttribute('speed',speed);
+  bg.setAttribute('opacity',opacity);
+  bg.setAttribute('rows',rows);
+  bg.setAttribute('angle',angle);
+  bg.setAttribute('density',density);
+  bg.setAttribute('font',font);
+  bg.setAttribute('intensity',intensity);
+  bg.setAttribute('grid',grid);
+  bg.setAttribute('glow',glow);
+  bg.setAttribute('noise',noise);
+  bg.setAttribute('rings',rings);
+  bg.setAttribute('beams',beams);
+  bg.setAttribute('vignette',vignette);
+  bg.setAttribute('interactive',interactive);
+  bg.setAttribute('position',position);
+  bg.setAttribute('rounded',rounded);
+  if(seed)bg.setAttribute('seed',seed);else bg.removeAttribute('seed');
+
+  generateCode({words,speed,opacity,rows,angle,density,font,intensity,grid,glow,noise,rings,beams,vignette,interactive,position,rounded,seed});
+}
+
+function generateCode(c){
+  const a=[];
+  a.push('words="'+esc(c.words)+'"');
+  a.push('theme="'+currentTheme+'"');
+  if(c.speed!=='normal')a.push('speed="'+c.speed+'"');
+  if(c.opacity!=='0.06')a.push('opacity="'+c.opacity+'"');
+  if(c.position!=='fixed')a.push('position="'+c.position+'"');
+  if(c.rows!=='3')a.push('rows="'+c.rows+'"');
+  if(c.angle!=='-8')a.push('angle="'+c.angle+'"');
+  if(c.density!=='normal')a.push('density="'+c.density+'"');
+  if(c.font!=='sans')a.push('font="'+c.font+'"');
+  if(c.intensity!=='normal')a.push('intensity="'+c.intensity+'"');
+  if(!c.grid)a.push('grid="false"');
+  if(!c.glow)a.push('glow="false"');
+  if(!c.noise)a.push('noise="false"');
+  if(c.rings)a.push('rings="true"');
+  if(c.beams)a.push('beams="true"');
+  if(c.vignette)a.push('vignette="true"');
+  if(c.interactive)a.push('interactive="true"');
+  if(c.rounded)a.push('rounded="true"');
+  if(c.seed)a.push('seed="'+esc(c.seed)+'"');
+
+  const code='<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"><\/script>\n<orbit-bg\n  '+a.join('\n  ')+'\n></orbit-bg>';
+  el('code-output').textContent=code;
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+/* ---- copy ---- */
+function showToast(msg){
+  const t=el('toast');
+  t.textContent=msg||'Copied!';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+el('copy-btn').addEventListener('click',()=>{
+  navigator.clipboard.writeText(el('code-output').textContent).then(()=>{
+    el('copy-btn').textContent='Copied!';
+    el('copy-btn').classList.add('copied');
+    showToast();
+    setTimeout(()=>{el('copy-btn').textContent='Copy';el('copy-btn').classList.remove('copied')},2000);
+  });
+});
+
+el('hero-copy').addEventListener('click',()=>{
+  const code='<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit@latest/dist/orbit-bg.iife.js"><\/script>\n<orbit-bg theme="dark"></orbit-bg>';
+  navigator.clipboard.writeText(code).then(()=>showToast('CDN snippet copied!'));
+});
+
+/* ---- FAQ toggle ---- */
+$$('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>q.parentElement.classList.toggle('open'));
+});
+
+/* ---- init ---- */
+applyConfig();
+
+})();
+</script>
+</body>
+</html>
