@@ -1,48 +1,15 @@
-# GitHub Profile
+# GitHub Profile Snippet
 
-## Repository Description
+Orbit Background Kit is a pure frontend Web Component background library.
 
-```
-🌌 One script tag. One custom element. Premium animated backgrounds for any webpage. Zero dependencies.
-```
-
-## Topics
-
-```
-web-component
-background
-animation
-css
-landing-page
-jsdelivr
-github-pages
-frontend
-custom-element
-shadow-dom
-no-dependencies
-pure-css
+```html
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
+<orbit-bg preset="ai-startup"></orbit-bg>
 ```
 
-## Short Description (for social / README badge)
+- No framework
+- No backend
+- No tracking
+- MIT License
 
-```
-Orbit Background Kit — 一行代码，高级动态背景
-```
-
-## Promo Copy
-
-```
-🚀 Orbit Background Kit is now live!
-
-One <script> + one <orbit-bg> tag = premium animated background for any webpage.
-
-✅ 10 themes
-✅ 12 presets
-✅ 20 configurable attributes
-✅ Zero dependencies
-✅ Pure frontend, no backend
-✅ 24KB total
-✅ GitHub Pages friendly
-
-Try it: https://w0nderful666.github.io/orbit-bg-kit/
-```
+Demo: https://w0nderful666.github.io/orbit-bg-kit/

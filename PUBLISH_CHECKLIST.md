@@ -1,29 +1,17 @@
-# PUBLISH_CHECKLIST.md
+# Publish Checklist for v0.1.0
 
-## Before Publishing
-
-- [ ] Run `npm run build` — generates dist files
-- [ ] Run `npm run check` — all checks pass
-- [ ] Open `index.html` in browser — configurator works
-- [ ] Open `demo.html` in browser — demo works
-- [ ] Open each `examples/*.html` — all render correctly
-- [ ] Test on mobile viewport (Chrome DevTools)
-- [ ] Check `prefers-reduced-motion` (Chrome DevTools → Rendering)
-- [ ] Verify no console errors
-- [ ] CDN URL uses `w0nderful666` placeholder
-- [ ] README examples match actual behavior
-
-## GitHub Setup
-
-1. Create public repo `orbit-bg-kit`
-2. Push code: `git init && git add . && git commit -m "v0.1.0" && git remote add origin ... && git push`
-3. Settings → Pages → Deploy from branch → `main` / `/(root)`
-4. Settings → About → Add description + topics
-5. Create Release v0.1.0 with release notes
-
-## After Publishing
-
-- [ ] GitHub Pages live at `https://w0nderful666.github.io/orbit-bg-kit/`
-- [ ] jsDelivr accessible: `https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js`
-- [ ] Test CDN URL in a fresh HTML file
-- [ ] Update README with actual username (replace w0nderful666)
+- [ ] `package.json` version is `0.1.0`.
+- [ ] License is MIT.
+- [ ] `README.md` and `README_EN.md` use the correct GitHub Pages URL.
+- [ ] CDN examples use `w0nderful666/orbit-bg-kit`.
+- [ ] Fixed CDN examples use `@v0.1.0`.
+- [ ] `npm run build` completes successfully.
+- [ ] `npm run check` completes successfully.
+- [ ] `index.html` opens locally and the Playground works.
+- [ ] `demo.html` opens locally.
+- [ ] `examples/simple.html` opens locally.
+- [ ] `examples/local-card.html` demonstrates `position="absolute"`.
+- [ ] `examples/multi-instance.html` shows multiple instances.
+- [ ] GitHub Pages is enabled from `main` / root.
+- [ ] Create and push tag `v0.1.0`.
+- [ ] Create GitHub Release using `RELEASE_NOTES.md`.

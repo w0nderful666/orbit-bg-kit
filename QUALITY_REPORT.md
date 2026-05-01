@@ -1,76 +1,29 @@
-# Quality Report
+# Quality Report for v0.1.0
 
-Generated: 2026-05-01
+## Current Status
 
-## Summary
+The project is ready for a small public `v0.1.0` release after running the build and check commands.
 
-| Category | Status |
-|----------|--------|
-| Component | ✅ Pass |
-| Documentation | ✅ Pass |
-| Examples | ✅ Pass |
-| Performance | ✅ Pass |
-| Accessibility | ✅ Pass |
-| Privacy | ✅ Pass |
+## What Was Checked
 
-## Component Quality
+- Native Web Component registration is guarded.
+- Shadow DOM is used.
+- Multiple instances are supported.
+- `disconnectedCallback` cleans animation and event listeners.
+- Attribute values are validated and clamped.
+- `prefers-reduced-motion` is respected.
+- Examples use local `../dist/orbit-bg.iife.js` paths.
+- README CDN URLs use the published repository path.
 
-| Check | Result |
-|-------|--------|
-| Web Component spec compliance | ✅ |
-| Shadow DOM isolation | ✅ |
-| Custom elements guard (no double-register) | ✅ |
-| observedAttributes (21 attributes) | ✅ |
-| disconnectedCallback cleanup | ✅ |
-| prefers-reduced-motion | ✅ |
-| Visibility API auto-pause | ✅ |
-| Multi-instance support | ✅ |
-| Attribute live updates | ✅ |
-| Preset system (12 presets) | ✅ |
+## Known Issues
 
-## Performance
+- The minifier is intentionally simple and not a full JavaScript optimizer.
+- Visual regression tests are not included yet.
+- There is no automated browser test suite yet.
+- CDN cache refresh depends on jsDelivr behavior after tags are pushed.
 
-| Metric | Value |
-|--------|-------|
-| dist/orbit-bg.iife.js | 27.5KB |
-| dist/orbit-bg.min.js | 20.5KB |
-| Total project | ~180KB |
-| DOM nodes per instance | ~15-25 |
-| Animation method | CSS transform + opacity (GPU) |
-| External dependencies | 0 |
+## Suggested Follow-up
 
-## Documentation
-
-| File | Status |
-|------|--------|
-| README.md (Chinese) | ✅ Complete |
-| README_EN.md (English) | ✅ Complete |
-| CHANGELOG.md | ✅ |
-| CONTRIBUTING.md | ✅ |
-| SECURITY.md | ✅ |
-| PROJECT_BRIEF.md | ✅ |
-| RELEASE_NOTES.md | ✅ |
-
-## Examples
-
-| Example | Theme | Features |
-|---------|-------|----------|
-| simple.html | dark (default) | Minimal usage |
-| dark.html | dark | Custom words |
-| cyber.html | cyber | Rings effect |
-| glass.html | glass | SaaS landing |
-| aurora.html | aurora | Beams effect |
-| portfolio.html | paper | Serif font, vignette |
-| ai-startup.html | glass | Interactive, preset |
-| prompt-market.html | aurora | Rings, preset |
-| pdf-tool.html | midnight | Beams, vignette |
-| blog.html | cream | Minimal, soft |
-| local-card.html | various | position="absolute" |
-| multi-instance.html | various | Multiple instances |
-
-## Known Limitations
-
-1. No Canvas fallback for very high DOM count scenarios
-2. Simple minification (not terser-level)
-3. No TypeScript type declarations (.d.ts)
-4. No automated browser testing (manual only)
+- Add Playwright smoke tests for the homepage and examples.
+- Add screenshot comparisons for major themes.
+- Consider publishing to npm after the GitHub release is stable.

@@ -1,629 +1,344 @@
 /**
  * Orbit Background Kit v0.1.0
- * 高级动态背景 Web Component
- *
- * Usage:
- *   <script src="…/orbit-bg.iife.js"></script>
- *   <orbit-bg words="AI,AGENT,ORBIT" theme="dark"></orbit-bg>
- *
+ * Native Web Component animated backgrounds.
  * @license MIT
  */
-
 (function () {
   'use strict';
 
-  /* ============================================================
-   * Seeded PRNG (mulberry32)
-   * ============================================================ */
-  function mulberry32(seed) {
-    let s = seed | 0;
-    return function () {
-      s = (s + 0x6d2b79f5) | 0;
-      let t = Math.imul(s ^ (s >>> 15), 1 | s);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-  }
-
-  function hashString(str) {
-    let h = 0;
-    for (let i = 0; i < str.length; i++) {
-      h = ((h << 5) - h + str.charCodeAt(i)) | 0;
-    }
-    return Math.abs(h);
-  }
-
-  /* ============================================================
-   * Theme definitions (10 themes)
-   * ============================================================ */
   const THEMES = {
-    cream: {
-      bg: '#f5f0e8', text: '#2a2520',
-      gradient1: 'rgba(210,190,160,0.35)', gradient2: 'rgba(180,160,130,0.25)', gradient3: 'rgba(230,215,190,0.30)',
-      gridColor: 'rgba(60,50,40,0.06)', glowColor: 'rgba(200,180,140,0.12)', noiseOpacity: 0.025,
-      ringColor: 'rgba(60,50,40,0.04)', beamColor: 'rgba(200,180,140,0.06)', vignetteColor: 'rgba(40,35,25,0.3)',
-    },
-    dark: {
-      bg: '#0a0a0f', text: '#ffffff',
-      gradient1: 'rgba(60,80,200,0.12)', gradient2: 'rgba(100,40,180,0.10)', gradient3: 'rgba(30,60,150,0.08)',
-      gridColor: 'rgba(255,255,255,0.04)', glowColor: 'rgba(80,120,255,0.06)', noiseOpacity: 0.03,
-      ringColor: 'rgba(255,255,255,0.03)', beamColor: 'rgba(80,120,255,0.05)', vignetteColor: 'rgba(0,0,0,0.5)',
-    },
-    cyber: {
-      bg: '#050510', text: '#00ffcc',
-      gradient1: 'rgba(0,255,200,0.08)', gradient2: 'rgba(255,0,120,0.06)', gradient3: 'rgba(0,180,255,0.07)',
-      gridColor: 'rgba(0,255,200,0.05)', glowColor: 'rgba(0,255,200,0.06)', noiseOpacity: 0.035,
-      ringColor: 'rgba(0,255,200,0.04)', beamColor: 'rgba(0,255,200,0.04)', vignetteColor: 'rgba(0,0,10,0.5)',
-    },
-    paper: {
-      bg: '#eae6df', text: '#3a3632',
-      gradient1: 'rgba(160,150,135,0.20)', gradient2: 'rgba(140,130,115,0.15)', gradient3: 'rgba(180,170,155,0.18)',
-      gridColor: 'rgba(80,70,60,0.05)', glowColor: 'rgba(160,150,130,0.08)', noiseOpacity: 0.04,
-      ringColor: 'rgba(80,70,60,0.04)', beamColor: 'rgba(160,150,130,0.05)', vignetteColor: 'rgba(40,35,25,0.25)',
-    },
-    terminal: {
-      bg: '#0c0c0c', text: '#00ff41',
-      gradient1: 'rgba(0,255,65,0.06)', gradient2: 'rgba(0,180,40,0.04)', gradient3: 'rgba(0,255,65,0.05)',
-      gridColor: 'rgba(0,255,65,0.04)', glowColor: 'rgba(0,255,65,0.05)', noiseOpacity: 0.03,
-      ringColor: 'rgba(0,255,65,0.03)', beamColor: 'rgba(0,255,65,0.04)', vignetteColor: 'rgba(0,0,0,0.5)',
-    },
-    glass: {
-      bg: '#f0f2f5', text: '#1a1a2e',
-      gradient1: 'rgba(100,140,255,0.10)', gradient2: 'rgba(160,100,255,0.08)', gradient3: 'rgba(80,180,255,0.09)',
-      gridColor: 'rgba(30,40,80,0.04)', glowColor: 'rgba(100,140,255,0.08)', noiseOpacity: 0.015,
-      ringColor: 'rgba(30,40,80,0.03)', beamColor: 'rgba(100,140,255,0.06)', vignetteColor: 'rgba(0,0,20,0.15)',
-    },
-    midnight: {
-      bg: '#06091a', text: '#c8d6e5',
-      gradient1: 'rgba(40,60,160,0.14)', gradient2: 'rgba(20,40,120,0.10)', gradient3: 'rgba(60,40,140,0.08)',
-      gridColor: 'rgba(100,130,200,0.04)', glowColor: 'rgba(60,90,200,0.06)', noiseOpacity: 0.025,
-      ringColor: 'rgba(100,130,200,0.03)', beamColor: 'rgba(60,90,200,0.04)', vignetteColor: 'rgba(0,0,10,0.55)',
-    },
-    sunset: {
-      bg: '#1a0a10', text: '#ffecd2',
-      gradient1: 'rgba(255,120,60,0.10)', gradient2: 'rgba(200,60,100,0.08)', gradient3: 'rgba(255,180,80,0.07)',
-      gridColor: 'rgba(255,200,160,0.03)', glowColor: 'rgba(255,140,80,0.06)', noiseOpacity: 0.025,
-      ringColor: 'rgba(255,200,160,0.03)', beamColor: 'rgba(255,140,80,0.04)', vignetteColor: 'rgba(10,0,5,0.5)',
-    },
-    matrix: {
-      bg: '#020a02', text: '#00cc44',
-      gradient1: 'rgba(0,200,60,0.06)', gradient2: 'rgba(0,160,40,0.04)', gradient3: 'rgba(0,220,70,0.05)',
-      gridColor: 'rgba(0,200,60,0.03)', glowColor: 'rgba(0,200,60,0.04)', noiseOpacity: 0.03,
-      ringColor: 'rgba(0,200,60,0.03)', beamColor: 'rgba(0,200,60,0.03)', vignetteColor: 'rgba(0,0,0,0.55)',
-    },
-    aurora: {
-      bg: '#080818', text: '#d4e0ff',
-      gradient1: 'rgba(80,200,160,0.08)', gradient2: 'rgba(120,100,220,0.07)', gradient3: 'rgba(60,180,220,0.06)',
-      gridColor: 'rgba(120,160,220,0.03)', glowColor: 'rgba(100,200,180,0.05)', noiseOpacity: 0.02,
-      ringColor: 'rgba(120,160,220,0.03)', beamColor: 'rgba(100,200,180,0.04)', vignetteColor: 'rgba(0,0,10,0.45)',
-    },
+    cream: { bg: '#f6f1e8', text: '#2c2722', g1: 'rgba(190,166,121,.28)', g2: 'rgba(97,123,111,.18)', g3: 'rgba(214,193,159,.26)', grid: 'rgba(44,39,34,.07)', glow: 'rgba(190,166,121,.16)', ring: 'rgba(44,39,34,.08)', beam: 'rgba(190,166,121,.10)', vignette: 'rgba(44,39,34,.28)', noise: .025 },
+    dark: { bg: '#090a12', text: '#f4f7fb', g1: 'rgba(82,113,255,.16)', g2: 'rgba(150,83,236,.12)', g3: 'rgba(45,201,167,.09)', grid: 'rgba(255,255,255,.055)', glow: 'rgba(96,132,255,.11)', ring: 'rgba(255,255,255,.06)', beam: 'rgba(96,132,255,.10)', vignette: 'rgba(0,0,0,.55)', noise: .03 },
+    cyber: { bg: '#050611', text: '#20ffd0', g1: 'rgba(32,255,208,.12)', g2: 'rgba(255,45,140,.10)', g3: 'rgba(46,168,255,.10)', grid: 'rgba(32,255,208,.08)', glow: 'rgba(32,255,208,.12)', ring: 'rgba(32,255,208,.09)', beam: 'rgba(255,45,140,.10)', vignette: 'rgba(0,0,0,.56)', noise: .035 },
+    paper: { bg: '#ebe7de', text: '#34302b', g1: 'rgba(119,142,121,.18)', g2: 'rgba(184,126,90,.13)', g3: 'rgba(118,105,86,.12)', grid: 'rgba(52,48,43,.06)', glow: 'rgba(119,142,121,.12)', ring: 'rgba(52,48,43,.07)', beam: 'rgba(184,126,90,.08)', vignette: 'rgba(52,48,43,.24)', noise: .04 },
+    terminal: { bg: '#071007', text: '#36ff73', g1: 'rgba(54,255,115,.09)', g2: 'rgba(24,160,69,.07)', g3: 'rgba(180,255,196,.05)', grid: 'rgba(54,255,115,.07)', glow: 'rgba(54,255,115,.10)', ring: 'rgba(54,255,115,.08)', beam: 'rgba(54,255,115,.08)', vignette: 'rgba(0,0,0,.55)', noise: .032 },
+    glass: { bg: '#eef3f8', text: '#172034', g1: 'rgba(79,123,255,.13)', g2: 'rgba(72,190,168,.11)', g3: 'rgba(255,141,102,.09)', grid: 'rgba(23,32,52,.045)', glow: 'rgba(79,123,255,.13)', ring: 'rgba(23,32,52,.06)', beam: 'rgba(72,190,168,.10)', vignette: 'rgba(23,32,52,.18)', noise: .015 },
+    midnight: { bg: '#050918', text: '#cdd9ef', g1: 'rgba(42,76,190,.17)', g2: 'rgba(38,178,198,.10)', g3: 'rgba(120,76,190,.10)', grid: 'rgba(160,184,255,.055)', glow: 'rgba(79,113,223,.11)', ring: 'rgba(160,184,255,.06)', beam: 'rgba(79,113,223,.10)', vignette: 'rgba(0,0,0,.58)', noise: .026 },
+    sunset: { bg: '#190b14', text: '#ffe8d1', g1: 'rgba(255,122,76,.14)', g2: 'rgba(220,70,120,.12)', g3: 'rgba(255,193,112,.09)', grid: 'rgba(255,232,209,.045)', glow: 'rgba(255,122,76,.12)', ring: 'rgba(255,232,209,.06)', beam: 'rgba(255,193,112,.10)', vignette: 'rgba(0,0,0,.54)', noise: .026 },
+    matrix: { bg: '#020b05', text: '#20e060', g1: 'rgba(32,224,96,.10)', g2: 'rgba(15,130,60,.08)', g3: 'rgba(120,255,155,.05)', grid: 'rgba(32,224,96,.055)', glow: 'rgba(32,224,96,.09)', ring: 'rgba(32,224,96,.07)', beam: 'rgba(32,224,96,.07)', vignette: 'rgba(0,0,0,.58)', noise: .032 },
+    aurora: { bg: '#070817', text: '#dce7ff', g1: 'rgba(78,215,170,.13)', g2: 'rgba(134,103,236,.12)', g3: 'rgba(62,169,228,.10)', grid: 'rgba(190,210,255,.045)', glow: 'rgba(78,215,170,.11)', ring: 'rgba(190,210,255,.06)', beam: 'rgba(134,103,236,.10)', vignette: 'rgba(0,0,0,.48)', noise: .022 }
   };
 
-  /* ============================================================
-   * Preset definitions
-   * ============================================================ */
   const PRESETS = {
-    'ai-startup':       { theme:'glass',    words:'AI,INTELLIGENCE,LEARN,AUTOMATE', speed:'normal', opacity:'0.06', rows:3, angle:-8,  density:'normal', font:'sans',  intensity:'normal', grid:true,  glow:true,  noise:true,  rings:false, beams:true,  vignette:false, interactive:true  },
-    'developer-portfolio':{ theme:'paper',   words:'CODE,DESIGN,SHIP,ITERATE',       speed:'slow',   opacity:'0.04', rows:2, angle:-5,  density:'low',    font:'serif', intensity:'soft',   grid:false, glow:true,  noise:true,  rings:false, beams:false, vignette:true,  interactive:false },
-    'open-source':      { theme:'dark',     words:'OPEN,SOURCE,BUILD,SHARE,FORK',    speed:'normal', opacity:'0.06', rows:3, angle:-8,  density:'normal', font:'mono',  intensity:'normal', grid:true,  glow:true,  noise:true,  rings:false, beams:false, vignette:false, interactive:false },
-    'prompt-market':    { theme:'aurora',   words:'PROMPT,CREATE,IMAGINE,GENERATE',  speed:'normal', opacity:'0.07', rows:4, angle:-10, density:'normal', font:'sans',  intensity:'normal', grid:true,  glow:true,  noise:true,  rings:true,  beams:false, vignette:false, interactive:false },
-    'pdf-tool':         { theme:'midnight', words:'PDF,CONVERT,MERGE,EDIT,EXTRACT',  speed:'slow',   opacity:'0.05', rows:3, angle:-6,  density:'normal', font:'sans',  intensity:'soft',   grid:true,  glow:true,  noise:true,  rings:false, beams:true,  vignette:true,  interactive:false },
-    'cyber-landing':    { theme:'cyber',    words:'HACK,BUILD,DEPLOY,SCALE',         speed:'fast',   opacity:'0.08', rows:4, angle:-12, density:'high',   font:'mono',  intensity:'strong', grid:true,  glow:true,  noise:true,  rings:true,  beams:false, vignette:false, interactive:false },
-    'minimal-blog':     { theme:'cream',    words:'THINK,WRITE,PUBLISH',             speed:'slow',   opacity:'0.03', rows:2, angle:-4,  density:'low',    font:'serif', intensity:'soft',   grid:false, glow:false, noise:true,  rings:false, beams:false, vignette:true,  interactive:false },
-    'terminal-hacker':  { theme:'terminal', words:'ROOT,SUDO,BASH,EXECUTE,COMPILE',  speed:'normal', opacity:'0.07', rows:3, angle:-8,  density:'high',   font:'mono',  intensity:'strong', grid:true,  glow:true,  noise:true,  rings:false, beams:false, vignette:false, interactive:false },
-    'glass-saas':       { theme:'glass',    words:'SAAS,PLATFORM,SCALE,GROW',        speed:'normal', opacity:'0.05', rows:3, angle:-6,  density:'normal', font:'sans',  intensity:'normal', grid:true,  glow:true,  noise:true,  rings:false, beams:true,  vignette:false, interactive:true  },
-    'midnight-docs':    { theme:'midnight', words:'DOCS,GUIDE,REFERENCE,API',        speed:'slow',   opacity:'0.05', rows:2, angle:-5,  density:'normal', font:'mono',  intensity:'soft',   grid:true,  glow:true,  noise:true,  rings:false, beams:false, vignette:true,  interactive:false },
-    'aurora-showcase':  { theme:'aurora',   words:'SHOW,CREATE,INSPIRE,DESIGN',      speed:'normal', opacity:'0.07', rows:3, angle:-8,  density:'normal', font:'sans',  intensity:'normal', grid:false, glow:true,  noise:true,  rings:true,  beams:true,  vignette:false, interactive:false },
-    'paper-notes':      { theme:'paper',    words:'NOTE,THINK,WRITE,SKETCH',         speed:'slow',   opacity:'0.04', rows:2, angle:-4,  density:'low',    font:'serif', intensity:'soft',   grid:false, glow:false, noise:true,  rings:false, beams:false, vignette:true,  interactive:false },
+    'ai-startup': { theme: 'glass', words: 'AI,INTELLIGENCE,LEARN,AUTOMATE', speed: 'normal', opacity: .06, rows: 3, angle: -8, density: 'normal', font: 'sans', intensity: 'normal', grid: true, glow: true, noise: true, rings: false, beams: true, vignette: false, interactive: true },
+    'developer-portfolio': { theme: 'paper', words: 'CODE,DESIGN,SHIP,ITERATE', speed: 'slow', opacity: .045, rows: 2, angle: -5, density: 'low', font: 'serif', intensity: 'soft', grid: false, glow: true, noise: true, rings: false, beams: false, vignette: true, interactive: false },
+    'open-source': { theme: 'dark', words: 'OPEN,SOURCE,BUILD,SHARE,FORK', speed: 'normal', opacity: .06, rows: 3, angle: -8, density: 'normal', font: 'mono', intensity: 'normal', grid: true, glow: true, noise: true, rings: false, beams: false, vignette: false, interactive: false },
+    'prompt-market': { theme: 'aurora', words: 'PROMPT,CREATE,IMAGINE,GENERATE', speed: 'normal', opacity: .07, rows: 4, angle: -10, density: 'normal', font: 'sans', intensity: 'normal', grid: true, glow: true, noise: true, rings: true, beams: false, vignette: false, interactive: false },
+    'pdf-tool': { theme: 'midnight', words: 'PDF,CONVERT,MERGE,EDIT,EXTRACT', speed: 'slow', opacity: .055, rows: 3, angle: -6, density: 'normal', font: 'sans', intensity: 'soft', grid: true, glow: true, noise: true, rings: false, beams: true, vignette: true, interactive: false },
+    'cyber-landing': { theme: 'cyber', words: 'HACK,BUILD,DEPLOY,SCALE', speed: 'fast', opacity: .08, rows: 4, angle: -12, density: 'high', font: 'mono', intensity: 'strong', grid: true, glow: true, noise: true, rings: true, beams: false, vignette: false, interactive: false },
+    'minimal-blog': { theme: 'cream', words: 'THINK,WRITE,PUBLISH', speed: 'slow', opacity: .035, rows: 2, angle: -4, density: 'low', font: 'serif', intensity: 'soft', grid: false, glow: false, noise: true, rings: false, beams: false, vignette: true, interactive: false },
+    'terminal-hacker': { theme: 'terminal', words: 'ROOT,SUDO,BASH,EXECUTE,COMPILE', speed: 'normal', opacity: .07, rows: 3, angle: -8, density: 'high', font: 'mono', intensity: 'strong', grid: true, glow: true, noise: true, rings: false, beams: false, vignette: false, interactive: false },
+    'glass-saas': { theme: 'glass', words: 'SAAS,PLATFORM,SCALE,GROW', speed: 'normal', opacity: .055, rows: 3, angle: -6, density: 'normal', font: 'sans', intensity: 'normal', grid: true, glow: true, noise: true, rings: false, beams: true, vignette: false, interactive: true },
+    'midnight-docs': { theme: 'midnight', words: 'DOCS,GUIDE,REFERENCE,API', speed: 'slow', opacity: .05, rows: 2, angle: -5, density: 'normal', font: 'mono', intensity: 'soft', grid: true, glow: true, noise: true, rings: false, beams: false, vignette: true, interactive: false },
+    'aurora-showcase': { theme: 'aurora', words: 'SHOW,CREATE,INSPIRE,DESIGN', speed: 'normal', opacity: .07, rows: 3, angle: -8, density: 'normal', font: 'sans', intensity: 'normal', grid: false, glow: true, noise: true, rings: true, beams: true, vignette: false, interactive: false },
+    'paper-notes': { theme: 'paper', words: 'NOTE,THINK,WRITE,SKETCH', speed: 'slow', opacity: .045, rows: 2, angle: -4, density: 'low', font: 'serif', intensity: 'soft', grid: false, glow: false, noise: true, rings: false, beams: false, vignette: true, interactive: false }
   };
 
-  const VALID_PRESETS = Object.keys(PRESETS);
-
-  /* ============================================================
-   * Maps & constants
-   * ============================================================ */
-  const SPEED_MAP = { slow: 0.3, normal: 1, fast: 2.5 };
-  const DENSITY_MAP = { low: 0.5, normal: 1, high: 2 };
-  const INTENSITY_MAP = { soft: 0.6, normal: 1, strong: 1.6 };
-  const FONT_MAP = {
-    mono: "'SF Mono','Fira Code','Consolas','Courier New',monospace",
-    sans: "-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,sans-serif",
-    serif: "Georgia,'Times New Roman',serif",
+  const SPEEDS = { slow: .35, normal: 1, fast: 2.2 };
+  const DENSITIES = { low: .55, normal: 1, high: 1.7 };
+  const INTENSITIES = { soft: .65, normal: 1, strong: 1.45 };
+  const FONTS = {
+    mono: "'SF Mono','Fira Code',Consolas,'Courier New',monospace",
+    sans: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif",
+    serif: "Georgia,'Times New Roman',serif"
   };
-  const VALID_THEMES = Object.keys(THEMES);
-  const VALID_SPEEDS = Object.keys(SPEED_MAP);
-  const VALID_DENSITIES = Object.keys(DENSITY_MAP);
-  const VALID_INTENSITIES = Object.keys(INTENSITY_MAP);
-  const VALID_FONTS = Object.keys(FONT_MAP);
+  const ATTRS = ['words', 'theme', 'speed', 'opacity', 'grid', 'glow', 'noise', 'rings', 'beams', 'vignette', 'interactive', 'position', 'z-index', 'rows', 'angle', 'density', 'font', 'intensity', 'rounded', 'preset', 'seed'];
 
-  /* ============================================================
-   * CSS noise generator (SVG data-uri)
-   * ============================================================ */
-  function makeNoiseURL(opacity) {
-    const o = Math.max(0, Math.min(1, opacity));
-    return `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='${o}'/%3E%3C/svg%3E")`;
+  function clamp(n, min, max) { return Math.min(max, Math.max(min, n)); }
+  function hash(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function prng(seed) { let s = seed >>> 0; return function () { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function cssNoise(opacity) {
+    const o = clamp(opacity, 0, 1);
+    return `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='${o}'/%3E%3C/svg%3E")`;
   }
 
-  /* ============================================================
-   * <orbit-bg> Custom Element
-   * ============================================================ */
   class OrbitBg extends HTMLElement {
-    static get observedAttributes() {
-      return [
-        'words', 'theme', 'speed', 'opacity', 'grid', 'glow', 'noise',
-        'z-index', 'position', 'rows', 'angle', 'density', 'font',
-        'interactive', 'rounded', 'intensity', 'seed',
-        'rings', 'beams', 'vignette', 'preset',
-      ];
-    }
+    static get observedAttributes() { return ATTRS; }
 
     constructor() {
       super();
       this.attachShadow({ mode: 'open' });
-      this._raf = null;
-      this._lines = [];
-      this._gradients = [];
-      this._time = 0;
+      this._raf = 0;
+      this._mouseRaf = 0;
       this._destroyed = false;
       this._paused = false;
-      this._mouseX = 0.5;
-      this._mouseY = 0.5;
-      this._targetMouseX = 0.5;
-      this._targetMouseY = 0.5;
-      this._mouseHandler = null;
-      this._visibilityHandler = null;
-      this._mqHandler = null;
-      this._ringEls = [];
-      this._beamEls = [];
-      this._glowEls = [];
+      this._reduced = false;
+      this._time = 0;
+      this._mouse = { x: .5, y: .5, tx: .5, ty: .5 };
+      this._items = { lines: [], blobs: [], glows: [], rings: [], beams: [] };
+      this._onMouseMove = this._onMouseMove.bind(this);
+      this._onVisibility = this._onVisibility.bind(this);
+      this._onReducedMotion = this._onReducedMotion.bind(this);
+      this._mq = null;
       this._conf = {};
     }
 
-    /* ---- helpers ---- */
-    _attr(name, fallback) {
-      const v = this.getAttribute(name);
-      return v !== null && v !== '' ? v : fallback;
-    }
-
-    _boolAttr(name, fallback) {
-      const v = this.getAttribute(name);
-      if (v === null || v === '') return fallback;
-      return v !== 'false' && v !== '0';
-    }
-
-    _enumAttr(name, validList, fallback) {
-      const v = (this.getAttribute(name) || '').toLowerCase();
-      return validList.includes(v) ? v : fallback;
-    }
-
-    _numAttr(name, fallback, min, max) {
-      const raw = this.getAttribute(name);
-      if (raw === null || raw === '') return fallback;
-      const n = parseFloat(raw);
-      if (isNaN(n)) return fallback;
-      if (min !== undefined && n < min) return min;
-      if (max !== undefined && n > max) return max;
-      return n;
-    }
-
-    _getConf() {
-      // Start with preset defaults if a valid preset is specified
-      const presetName = this._enumAttr('preset', VALID_PRESETS, null);
-      const preset = presetName ? PRESETS[presetName] : {};
-
-      const defaultWords = preset.words || 'AI,AGENT,ORBIT,CODEX,OPEN SOURCE';
-      const wordsRaw = this._attr('words', defaultWords);
-      const words = wordsRaw.split(/[,，]/).map(s => s.trim()).filter(Boolean);
-      const theme = this._enumAttr('theme', VALID_THEMES, preset.theme || 'dark');
-      const speed = SPEED_MAP[this._enumAttr('speed', VALID_SPEEDS, preset.speed || 'normal')];
-      const opacity = this._numAttr('opacity', preset.opacity || 0.06, 0, 1);
-      const grid = this._boolAttr('grid', preset.grid !== undefined ? preset.grid : true);
-      const glow = this._boolAttr('glow', preset.glow !== undefined ? preset.glow : true);
-      const noise = this._boolAttr('noise', preset.noise !== undefined ? preset.noise : true);
-      const zIndex = this._numAttr('z-index', -1);
-      const position = this._enumAttr('position', ['fixed', 'absolute'], 'fixed');
-      const rows = this._numAttr('rows', preset.rows || 3, 1, 6);
-      const angle = this._numAttr('angle', preset.angle || -8, -45, 45);
-      const density = DENSITY_MAP[this._enumAttr('density', VALID_DENSITIES, preset.density || 'normal')];
-      const font = this._enumAttr('font', VALID_FONTS, preset.font || 'sans');
-      const interactive = this._boolAttr('interactive', preset.interactive || false);
-      const rounded = this._boolAttr('rounded', false);
-      const intensity = INTENSITY_MAP[this._enumAttr('intensity', VALID_INTENSITIES, preset.intensity || 'normal')];
-      const seedRaw = this.getAttribute('seed');
-      const seed = seedRaw !== null && seedRaw !== '' ? hashString(seedRaw) : null;
-      const rings = this._boolAttr('rings', preset.rings || false);
-      const beams = this._boolAttr('beams', preset.beams || false);
-      const vignette = this._boolAttr('vignette', preset.vignette || false);
-
-      return {
-        words, theme, speed, opacity, grid, glow, noise, zIndex,
-        position, rows, angle, density, font, interactive, rounded,
-        intensity, seed, rings, beams, vignette,
-      };
-    }
-
-    _getTheme(name) { return THEMES[name] || THEMES.dark; }
-
-    /* ---- lifecycle ---- */
     connectedCallback() {
+      this._destroyed = false;
+      this._installMediaListeners();
       this._build();
-      this._startAnimation();
-      this._observeReducedMotion();
-      this._observeVisibility();
-      const conf = this._getConf();
-      if (conf.interactive) this._bindMouse();
+      this._syncMouse();
+      this._start();
     }
 
     disconnectedCallback() { this._destroy(); }
 
-    attributeChangedCallback(name, oldVal, newVal) {
-      if (this._destroyed) return;
-      // Re-bind mouse if interactive changed
-      if (name === 'interactive') {
-        this._unbindMouse();
-        if (this._boolAttr('interactive', false)) this._bindMouse();
-      }
+    attributeChangedCallback() {
+      if (this._destroyed || !this.isConnected) return;
       this._build();
+      this._syncMouse();
     }
 
-    /* ---- build DOM & styles ---- */
-    _build() {
-      const conf = this._getConf();
-      this._conf = conf; // cache for animation tick
-      const t = this._getTheme(conf.theme);
-      this.shadowRoot.innerHTML = '';
+    _attr(name, fallback) {
+      const v = this.getAttribute(name);
+      return v === null || v === '' ? fallback : v;
+    }
 
-      const effMult = conf.intensity;
-      const fontFamily = FONT_MAP[conf.font] || FONT_MAP.sans;
+    _bool(name, fallback) {
+      const v = this.getAttribute(name);
+      if (v === null) return fallback;
+      if (v === '') return true;
+      const normalized = String(v).trim().toLowerCase();
+      if (['false', '0', 'no', 'off'].includes(normalized)) return false;
+      if (['true', '1', 'yes', 'on'].includes(normalized)) return true;
+      return fallback;
+    }
+
+    _num(name, fallback, min, max) {
+      const n = Number(this.getAttribute(name));
+      return Number.isFinite(n) ? clamp(n, min, max) : fallback;
+    }
+
+    _enum(name, values, fallback) {
+      const v = String(this.getAttribute(name) || '').trim().toLowerCase();
+      return values.includes(v) ? v : fallback;
+    }
+
+    _config() {
+      const presetName = this._enum('preset', Object.keys(PRESETS), '');
+      const preset = presetName ? PRESETS[presetName] : {};
+      const words = this._attr('words', preset.words || 'AI,AGENT,ORBIT,CODEX,OPEN SOURCE')
+        .split(/[,\n|/]+/)
+        .map((word) => word.trim())
+        .filter(Boolean)
+        .slice(0, 24);
+
+      return {
+        preset: presetName,
+        words: words.length ? words : ['AI', 'AGENT', 'ORBIT'],
+        theme: this._enum('theme', Object.keys(THEMES), preset.theme || 'dark'),
+        speedKey: this._enum('speed', Object.keys(SPEEDS), preset.speed || 'normal'),
+        speed: SPEEDS[this._enum('speed', Object.keys(SPEEDS), preset.speed || 'normal')],
+        opacity: this._num('opacity', Number(preset.opacity ?? .06), 0, .35),
+        grid: this._bool('grid', preset.grid ?? true),
+        glow: this._bool('glow', preset.glow ?? true),
+        noise: this._bool('noise', preset.noise ?? true),
+        rings: this._bool('rings', preset.rings ?? false),
+        beams: this._bool('beams', preset.beams ?? false),
+        vignette: this._bool('vignette', preset.vignette ?? false),
+        interactive: this._bool('interactive', preset.interactive ?? false),
+        position: this._enum('position', ['fixed', 'absolute'], 'fixed'),
+        zIndex: this._num('z-index', 0, -2147483648, 2147483647),
+        rows: Math.round(this._num('rows', Number(preset.rows ?? 3), 1, 8)),
+        angle: this._num('angle', Number(preset.angle ?? -8), -45, 45),
+        densityKey: this._enum('density', Object.keys(DENSITIES), preset.density || 'normal'),
+        density: DENSITIES[this._enum('density', Object.keys(DENSITIES), preset.density || 'normal')],
+        font: this._enum('font', Object.keys(FONTS), preset.font || 'sans'),
+        intensityKey: this._enum('intensity', Object.keys(INTENSITIES), preset.intensity || 'normal'),
+        intensity: INTENSITIES[this._enum('intensity', Object.keys(INTENSITIES), preset.intensity || 'normal')],
+        rounded: this._bool('rounded', false),
+        seed: this._attr('seed', `${presetName || 'orbit'}-${this._attr('words', preset.words || '')}`)
+      };
+    }
+
+    _build() {
+      const c = this._config();
+      const theme = THEMES[c.theme] || THEMES.dark;
+      const rng = prng(hash(c.seed));
+      const font = FONTS[c.font] || FONTS.sans;
+      this._conf = c;
+      this._items = { lines: [], blobs: [], glows: [], rings: [], beams: [] };
+      this.shadowRoot.textContent = '';
 
       const style = document.createElement('style');
       style.textContent = `
-        :host {
-          display: block;
-          position: ${conf.position};
-          inset: 0;
-          z-index: ${conf.zIndex};
-          pointer-events: none;
-          overflow: hidden;
-          background: ${t.bg};
-          -webkit-user-select: none;
-          user-select: none;
-          ${conf.rounded ? 'border-radius: 16px;' : ''}
-        }
-        .layer{position:absolute;inset:0;overflow:hidden}
-        .text-line{
-          position:absolute;white-space:nowrap;
-          font-family:${fontFamily};
-          font-weight:800;letter-spacing:0.25em;
-          text-transform:uppercase;will-change:transform;
-          transform-origin:center center;
-        }
-        .gradient-layer .blob{position:absolute;border-radius:50%;filter:blur(100px);will-change:transform}
-        .grid-layer{
-          background-image:
-            linear-gradient(${t.gridColor} 1px,transparent 1px),
-            linear-gradient(90deg,${t.gridColor} 1px,transparent 1px);
-          background-size:60px 60px;
-        }
-        .noise-layer{background-image:${makeNoiseURL(t.noiseOpacity * effMult)};background-repeat:repeat;background-size:200px 200px}
-        .glow-layer .glow{position:absolute;border-radius:50%;filter:blur(120px);will-change:transform}
-        .ring{position:absolute;border-radius:50%;border:1px solid ${t.ringColor};will-change:transform}
-        .beam{position:absolute;will-change:transform;filter:blur(60px)}
-        .vignette-layer{
-          position:absolute;inset:0;
-          background:radial-gradient(ellipse at center,transparent 40%,${t.vignetteColor} 100%);
-        }
-        @media(prefers-reduced-motion:reduce){.text-line,.blob,.glow,.ring,.beam{animation:none!important}}
-        @media(max-width:768px){.text-line{font-size:12vw!important}}
+        :host{position:${c.position};display:block;inset:0;z-index:${c.zIndex};pointer-events:none;overflow:hidden;contain:layout paint style;background:${theme.bg};${c.rounded ? 'border-radius:inherit;' : ''}}
+        .stage,.layer{position:absolute;inset:0;overflow:hidden}
+        .line{position:absolute;left:-35vw;white-space:nowrap;text-transform:uppercase;font-family:${font};font-weight:800;letter-spacing:.22em;color:${theme.text};will-change:transform;transform-origin:center}
+        .blob,.glow,.ring,.beam{position:absolute;will-change:transform}
+        .blob,.glow{border-radius:999px;filter:blur(90px)}
+        .ring{border:1px solid ${theme.ring};border-radius:999px}
+        .beam{border-radius:999px;filter:blur(46px);background:${theme.beam}}
+        .grid{background-image:linear-gradient(${theme.grid} 1px,transparent 1px),linear-gradient(90deg,${theme.grid} 1px,transparent 1px);background-size:58px 58px}
+        .noise{background-image:${cssNoise(theme.noise * c.intensity)};background-repeat:repeat;background-size:180px 180px}
+        .vignette{background:radial-gradient(ellipse at center,transparent 36%,${theme.vignette} 100%)}
+        @media (prefers-reduced-motion: reduce){.line,.blob,.glow,.ring,.beam{will-change:auto}}
+        @media (max-width:720px){.line{font-size:15vw!important;letter-spacing:.16em}}
       `;
-      this.shadowRoot.appendChild(style);
+      const stage = document.createElement('div');
+      stage.className = 'stage';
 
-      const container = document.createElement('div');
-      container.style.cssText = 'position:absolute;inset:0;overflow:hidden;';
-
-      // Text layer
-      const textLayer = document.createElement('div');
-      textLayer.className = 'layer text-layer';
-      this._lines = this._createTextLines(conf, t, fontFamily, effMult);
-      this._lines.forEach(l => textLayer.appendChild(l.el));
-      container.appendChild(textLayer);
-
-      // Gradient layer
-      const gradLayer = document.createElement('div');
-      gradLayer.className = 'layer gradient-layer';
-      this._gradients = this._createGradientBlobs(conf, t, effMult);
-      this._gradients.forEach(b => gradLayer.appendChild(b.el));
-      container.appendChild(gradLayer);
-
-      // Glow layer
-      if (conf.glow) {
-        const glowLayer = document.createElement('div');
-        glowLayer.className = 'layer glow-layer';
-        this._glowEls = this._createGlows(t, effMult);
-        this._glowEls.forEach(g => glowLayer.appendChild(g.el));
-        container.appendChild(glowLayer);
-      } else {
-        this._glowEls = [];
-      }
-
-      // Rings
-      if (conf.rings) {
-        const ringLayer = document.createElement('div');
-        ringLayer.className = 'layer ring-layer';
-        this._ringEls = this._createRings(conf, t, effMult);
-        this._ringEls.forEach(r => ringLayer.appendChild(r.el));
-        container.appendChild(ringLayer);
-      } else {
-        this._ringEls = [];
-      }
-
-      // Beams
-      if (conf.beams) {
-        const beamLayer = document.createElement('div');
-        beamLayer.className = 'layer beam-layer';
-        this._beamEls = this._createBeams(conf, t, effMult);
-        this._beamEls.forEach(b => beamLayer.appendChild(b.el));
-        container.appendChild(beamLayer);
-      } else {
-        this._beamEls = [];
-      }
-
-      // Grid
-      if (conf.grid) {
-        const gridLayer = document.createElement('div');
-        gridLayer.className = 'layer grid-layer';
-        container.appendChild(gridLayer);
-      }
-
-      // Noise
-      if (conf.noise) {
-        const noiseLayer = document.createElement('div');
-        noiseLayer.className = 'layer noise-layer';
-        container.appendChild(noiseLayer);
-      }
-
-      // Vignette
-      if (conf.vignette) {
-        const vigLayer = document.createElement('div');
-        vigLayer.className = 'vignette-layer';
-        container.appendChild(vigLayer);
-      }
-
-      this.shadowRoot.appendChild(container);
-    }
-
-    /* ---- text lines ---- */
-    _createTextLines(conf, t, fontFamily, effMult) {
-      const lines = [];
-      const rowCount = conf.rows;
-      const rng = conf.seed !== null ? mulberry32(conf.seed) : Math.random;
-
-      for (let i = 0; i < rowCount; i++) {
-        const frac = rowCount === 1 ? 0.4 : i / (rowCount - 1);
-        const y = 5 + frac * 80;
-        const fontSizeBase = 12 + (rng() * 8);
-        const fontSize = fontSizeBase + 'vw';
-        const speedMul = 0.3 + rng() * 0.8;
-        const opacityMul = 0.4 + rng() * 0.6;
-        const direction = i % 2 === 0 ? 1 : -1;
-
+      const textLayer = this._layer('text');
+      for (let i = 0; i < c.rows; i++) {
         const el = document.createElement('div');
-        el.className = 'text-line';
-        el.style.cssText = `top:${y}%;left:0;font-size:${fontSize};color:${t.text};opacity:${conf.opacity * opacityMul * effMult};transform:rotate(${conf.angle}deg)`;
-        el.textContent = this._buildScrollText(conf.words, conf.density);
-        lines.push({
-          el, speed: conf.speed * speedMul * 40 * direction,
-          offset: rng() * 2000, angle: conf.angle,
-        });
+        el.className = 'line';
+        const y = c.rows === 1 ? 42 : 8 + (i / (c.rows - 1)) * 78;
+        const size = 11 + rng() * 7;
+        const opacity = c.opacity * (.45 + rng() * .7) * c.intensity;
+        el.style.cssText = `top:${y}%;font-size:${size}vw;opacity:${clamp(opacity, 0, .55)};`;
+        el.textContent = this._wordLine(c.words, c.density);
+        const item = { el, angle: c.angle, offset: rng() * 1600, speed: (24 + rng() * 32) * c.speed * (i % 2 ? -1 : 1) };
+        this._items.lines.push(item);
+        textLayer.appendChild(el);
       }
-      return lines;
-    }
+      stage.appendChild(textLayer);
 
-    _buildScrollText(words, density) {
-      const count = Math.round(6 * density);
-      const r = [];
-      for (let i = 0; i < count; i++) r.push(words[i % words.length]);
-      return r.join('   ·   ');
-    }
-
-    /* ---- gradient blobs ---- */
-    _createGradientBlobs(conf, t, effMult) {
-      const blobs = [];
-      const rng = conf.seed !== null ? mulberry32(conf.seed + 100) : Math.random;
-      const defs = [
-        { size: '45vw', x: '10%', y: '15%', color: t.gradient1, dx: 60, dy: 40, dur: 20 },
-        { size: '35vw', x: '60%', y: '55%', color: t.gradient2, dx: -50, dy: 55, dur: 25 },
-        { size: '50vw', x: '35%', y: '80%', color: t.gradient3, dx: 45, dy: -35, dur: 22 },
-      ];
-      defs.forEach(d => {
+      const blobLayer = this._layer('blobs');
+      [
+        ['45vw', '6%', '10%', theme.g1, 60, 42, 18],
+        ['38vw', '58%', '42%', theme.g2, -52, 60, 24],
+        ['52vw', '28%', '68%', theme.g3, 46, -36, 21]
+      ].forEach((d) => {
         const el = document.createElement('div');
         el.className = 'blob';
-        el.style.cssText = `width:${d.size};height:${d.size};left:${d.x};top:${d.y};background:${d.color};opacity:${conf.opacity * 3 * effMult}`;
-        blobs.push({ el, dx: d.dx, dy: d.dy, dur: d.dur, phase: rng() * Math.PI * 2 });
+        el.style.cssText = `width:${d[0]};height:${d[0]};left:${d[1]};top:${d[2]};background:${d[3]};opacity:${clamp(c.opacity * 3.4 * c.intensity, 0, .75)};`;
+        this._items.blobs.push({ el, dx: d[4], dy: d[5], dur: d[6], phase: rng() * Math.PI * 2 });
+        blobLayer.appendChild(el);
       });
-      return blobs;
+      stage.appendChild(blobLayer);
+
+      if (c.glow) stage.appendChild(this._makeFloatLayer('glows', 2, 'glow', theme.glow, c, rng));
+      if (c.rings) stage.appendChild(this._makeFloatLayer('rings', 3, 'ring', '', c, rng));
+      if (c.beams) stage.appendChild(this._makeFloatLayer('beams', 2, 'beam', theme.beam, c, rng));
+      if (c.grid) stage.appendChild(this._layer('grid'));
+      if (c.noise) stage.appendChild(this._layer('noise'));
+      if (c.vignette) stage.appendChild(this._layer('vignette'));
+
+      this.shadowRoot.append(style, stage);
+      this._render(0);
     }
 
-    /* ---- glow dots ---- */
-    _createGlows(t, effMult) {
-      const glows = [];
-      const defs = [
-        { size: '30vw', x: '20%', y: '30%', color: t.glowColor, dx: 80, dy: 60, dur: 18 },
-        { size: '25vw', x: '70%', y: '60%', color: t.glowColor, dx: -70, dy: 50, dur: 22 },
-      ];
-      defs.forEach(d => {
-        const el = document.createElement('div');
-        el.className = 'glow';
-        el.style.cssText = `width:${d.size};height:${d.size};left:${d.x};top:${d.y};background:${d.color};opacity:${effMult}`;
-        glows.push({ el, dx: d.dx, dy: d.dy, dur: d.dur });
-      });
-      return glows;
+    _layer(name) {
+      const el = document.createElement('div');
+      el.className = `layer ${name}`;
+      return el;
     }
 
-    /* ---- rings ---- */
-    _createRings(conf, t, effMult) {
-      const rings = [];
-      const rng = conf.seed !== null ? mulberry32(conf.seed + 200) : Math.random;
-      const count = 3;
+    _wordLine(words, density) {
+      const count = Math.max(4, Math.round(7 * density));
+      const out = [];
+      for (let i = 0; i < count; i++) out.push(words[i % words.length]);
+      return out.join('   /   ');
+    }
+
+    _makeFloatLayer(key, count, className, color, c, rng) {
+      const layer = this._layer(key);
       for (let i = 0; i < count; i++) {
-        const size = 20 + rng() * 30;
         const el = document.createElement('div');
-        el.className = 'ring';
-        el.style.cssText = `width:${size}vw;height:${size}vw;left:${15 + rng() * 60}%;top:${15 + rng() * 60}%;opacity:${0.3 * effMult}`;
-        rings.push({ el, dx: 20 + rng() * 30, dy: 20 + rng() * 30, dur: 15 + rng() * 15 });
+        el.className = className;
+        const size = className === 'beam' ? 3 + rng() * 3 : 20 + rng() * 28;
+        const height = className === 'beam' ? 32 + rng() * 28 : size;
+        const opacity = className === 'ring' ? .28 * c.intensity : c.opacity * 2.2 * c.intensity;
+        el.style.cssText = `width:${size}vw;height:${height}${className === 'beam' ? 'vh' : 'vw'};left:${10 + rng() * 72}%;top:${8 + rng() * 72}%;${color ? `background:${color};` : ''}opacity:${clamp(opacity, 0, .7)};`;
+        this._items[key].push({ el, dx: 24 + rng() * 52, dy: 20 + rng() * 45, dur: 14 + rng() * 16, phase: rng() * Math.PI * 2 });
+        layer.appendChild(el);
       }
-      return rings;
+      return layer;
     }
 
-    /* ---- beams ---- */
-    _createBeams(conf, t, effMult) {
-      const beams = [];
-      const rng = conf.seed !== null ? mulberry32(conf.seed + 300) : Math.random;
-      const count = 2;
-      for (let i = 0; i < count; i++) {
-        const w = 2 + rng() * 3;
-        const h = 30 + rng() * 30;
-        const el = document.createElement('div');
-        el.className = 'beam';
-        el.style.cssText = `width:${w}vw;height:${h}vh;left:${20 + rng() * 60}%;top:${rng() * 40}%;background:${t.beamColor};opacity:${0.5 * effMult};border-radius:${w}vw`;
-        beams.push({ el, dx: 30 + rng() * 40, dy: 20 + rng() * 30, dur: 12 + rng() * 10 });
-      }
-      return beams;
-    }
-
-    /* ---- animation ---- */
-    _startAnimation() {
-      this._destroyed = false;
-      this._paused = false;
-      this._time = 0;
+    _start() {
+      if (this._raf || this._reduced) return;
       let last = performance.now();
-
       const tick = (now) => {
-        if (this._destroyed) return;
-        if (this._paused) { this._raf = requestAnimationFrame(tick); return; }
-
-        const dt = Math.min((now - last) / 1000, 0.1);
+        if (this._destroyed || this._reduced) { this._raf = 0; return; }
+        const dt = this._paused ? 0 : Math.min((now - last) / 1000, .08);
         last = now;
         this._time += dt;
-
-        // Smooth mouse interpolation
-        const isInteractive = this._conf.interactive;
-        if (isInteractive) {
-          this._mouseX += (this._targetMouseX - this._mouseX) * 0.03;
-          this._mouseY += (this._targetMouseY - this._mouseY) * 0.03;
-        }
-        const mx = this._mouseX - 0.5;
-        const my = this._mouseY - 0.5;
-
-        // Text scroll
-        this._lines.forEach(l => {
-          const x = ((this._time * l.speed + l.offset) % 3000) - 1000;
-          l.el.style.transform = `rotate(${l.angle}deg) translateX(${x}px)`;
-        });
-
-        // Gradient blobs
-        this._gradients.forEach(b => {
-          const angle = this._time / b.dur * Math.PI * 2 + b.phase;
-          const ix = isInteractive ? mx * 15 : 0;
-          const iy = isInteractive ? my * 10 : 0;
-          b.el.style.transform = `translate(${Math.sin(angle) * b.dx + ix}px,${Math.cos(angle * 0.7) * b.dy + iy}px)`;
-        });
-
-        // Glow
-        this._glowEls.forEach((g, i) => {
-          const angle = this._time / (16 + i * 4) * Math.PI * 2;
-          const ix = isInteractive ? mx * 20 : 0;
-          const iy = isInteractive ? my * 15 : 0;
-          g.el.style.transform = `translate(${Math.sin(angle) * 60 + ix}px,${Math.cos(angle * 0.8) * 50 + iy}px)`;
-        });
-
-        // Rings
-        this._ringEls.forEach(r => {
-          const angle = this._time / r.dur * Math.PI * 2;
-          r.el.style.transform = `translate(${Math.sin(angle) * r.dx}px,${Math.cos(angle * 0.6) * r.dy}px)`;
-        });
-
-        // Beams
-        this._beamEls.forEach(b => {
-          const angle = this._time / b.dur * Math.PI * 2;
-          b.el.style.transform = `translate(${Math.sin(angle) * b.dx}px,${Math.cos(angle * 0.5) * b.dy}px)`;
-        });
-
+        this._render(this._time);
         this._raf = requestAnimationFrame(tick);
       };
-
       this._raf = requestAnimationFrame(tick);
     }
 
-    _observeReducedMotion() {
-      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-      this._mqHandler = (e) => {
-        if (e.matches) this._stopAnimation();
-        else if (!this._destroyed) this._startAnimation();
-      };
-      mq.addEventListener('change', this._mqHandler);
-      if (mq.matches) this._stopAnimation();
-    }
-
-    _observeVisibility() {
-      this._visibilityHandler = () => {
-        if (document.hidden) { this._paused = true; }
-        else { this._paused = false; }
-      };
-      document.addEventListener('visibilitychange', this._visibilityHandler);
-    }
-
-    _bindMouse() {
-      this._mouseHandler = (e) => {
-        this._targetMouseX = e.clientX / window.innerWidth;
-        this._targetMouseY = e.clientY / window.innerHeight;
-      };
-      window.addEventListener('mousemove', this._mouseHandler, { passive: true });
-    }
-
-    _unbindMouse() {
-      if (this._mouseHandler) {
-        window.removeEventListener('mousemove', this._mouseHandler);
-        this._mouseHandler = null;
+    _render(time) {
+      const c = this._conf;
+      const interactive = c.interactive && !this._reduced;
+      if (interactive) {
+        this._mouse.x += (this._mouse.tx - this._mouse.x) * .06;
+        this._mouse.y += (this._mouse.ty - this._mouse.y) * .06;
       }
-      this._targetMouseX = 0.5;
-      this._targetMouseY = 0.5;
+      const mx = interactive ? this._mouse.x - .5 : 0;
+      const my = interactive ? this._mouse.y - .5 : 0;
+
+      this._items.lines.forEach((item) => {
+        const x = ((time * item.speed + item.offset) % 2200) - 900;
+        item.el.style.transform = `rotate(${item.angle}deg) translate3d(${x}px,0,0)`;
+      });
+      this._items.blobs.forEach((item) => {
+        const a = time / item.dur * Math.PI * 2 + item.phase;
+        item.el.style.transform = `translate3d(${Math.sin(a) * item.dx + mx * 28}px,${Math.cos(a * .75) * item.dy + my * 22}px,0)`;
+      });
+      ['glows', 'rings', 'beams'].forEach((key) => {
+        this._items[key].forEach((item) => {
+          const a = time / item.dur * Math.PI * 2 + item.phase;
+          item.el.style.transform = `translate3d(${Math.sin(a) * item.dx + mx * 24}px,${Math.cos(a * .7) * item.dy + my * 18}px,0)`;
+        });
+      });
     }
 
-    _stopAnimation() {
-      if (this._raf) { cancelAnimationFrame(this._raf); this._raf = null; }
+    _installMediaListeners() {
+      if (!this._mq && window.matchMedia) {
+        this._mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+        this._reduced = this._mq.matches;
+        this._mq.addEventListener('change', this._onReducedMotion);
+      }
+      document.addEventListener('visibilitychange', this._onVisibility);
     }
 
-    /* ---- public API ---- */
-    destroy() { this._destroy(); this.remove(); }
+    _onReducedMotion(event) {
+      this._reduced = event.matches;
+      if (this._reduced) this._stop();
+      else this._start();
+    }
+
+    _onVisibility() { this._paused = document.hidden; }
+
+    _syncMouse() {
+      window.removeEventListener('mousemove', this._onMouseMove);
+      if (this._conf.interactive && !this._reduced) window.addEventListener('mousemove', this._onMouseMove, { passive: true });
+    }
+
+    _onMouseMove(event) {
+      if (this._mouseRaf) return;
+      const x = event.clientX;
+      const y = event.clientY;
+      this._mouseRaf = requestAnimationFrame(() => {
+        this._mouse.tx = clamp(x / Math.max(1, window.innerWidth), 0, 1);
+        this._mouse.ty = clamp(y / Math.max(1, window.innerHeight), 0, 1);
+        this._mouseRaf = 0;
+      });
+    }
+
+    _stop() {
+      if (this._raf) cancelAnimationFrame(this._raf);
+      this._raf = 0;
+    }
 
     _destroy() {
       this._destroyed = true;
-      this._stopAnimation();
-      this._unbindMouse();
-      if (this._mqHandler) {
-        window.matchMedia('(prefers-reduced-motion: reduce)').removeEventListener('change', this._mqHandler);
-        this._mqHandler = null;
-      }
-      if (this._visibilityHandler) {
-        document.removeEventListener('visibilitychange', this._visibilityHandler);
-        this._visibilityHandler = null;
-      }
-      this.shadowRoot.innerHTML = '';
-      this._lines = [];
-      this._gradients = [];
-      this._ringEls = [];
-      this._beamEls = [];
-      this._glowEls = [];
-      this._conf = {};
+      this._stop();
+      if (this._mouseRaf) cancelAnimationFrame(this._mouseRaf);
+      this._mouseRaf = 0;
+      window.removeEventListener('mousemove', this._onMouseMove);
+      document.removeEventListener('visibilitychange', this._onVisibility);
+      if (this._mq) this._mq.removeEventListener('change', this._onReducedMotion);
+      this._mq = null;
+      this.shadowRoot.textContent = '';
     }
   }
 
-  /* ============================================================
-   * Register
-   * ============================================================ */
   if (!customElements.get('orbit-bg')) customElements.define('orbit-bg', OrbitBg);
   window.OrbitBg = OrbitBg;
+  window.OrbitBgThemes = THEMES;
   window.OrbitBgPresets = PRESETS;
-
 })();

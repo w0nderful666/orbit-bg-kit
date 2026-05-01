@@ -3,42 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Multi Instance — Orbit Background Kit</title>
+<title>Multi Instance - Orbit Background Kit</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #111; color: #e8e6e3; padding: 40px 20px; }
-  h1 { text-align: center; font-size: 28px; margin-bottom: 40px; position: relative; z-index: 1; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto; }
-  .card { position: relative; border-radius: 16px; overflow: hidden; min-height: 240px; padding: 28px; display: flex; flex-direction: column; justify-content: flex-end; }
-  .card h3 { position: relative; z-index: 1; font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-  .card p { position: relative; z-index: 1; font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
-  .note { text-align: center; margin-top: 40px; font-size: 13px; color: #555; position: relative; z-index: 1; }
+body{margin:0;min-height:100vh;padding:42px 22px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#0f1218;color:#fff}h1{text-align:center;margin:0 0 30px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;max-width:980px;margin:0 auto}.card{position:relative;overflow:hidden;border-radius:16px;min-height:260px;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid rgba(255,255,255,.12)}.card orbit-bg{border-radius:inherit}.card h2,.card p{position:relative;z-index:1}.card h2{margin:0 0 8px}.card p{margin:0;color:#c1c9d8}.note{text-align:center;color:#8c96a8;margin-top:26px}
 </style>
 </head>
 <body>
-<!-- Multiple <orbit-bg> instances on one page — each independent -->
 <script src="../dist/orbit-bg.iife.js"></script>
-
-<h1>Multiple Instances</h1>
-
+<h1>Multiple orbit-bg Instances</h1>
 <div class="grid">
-  <div class="card">
-    <orbit-bg position="absolute" preset="ai-startup" rounded="true"></orbit-bg>
-    <h3>AI Startup</h3>
-    <p>Glass theme with interactive glow. Each card has its own independent background.</p>
-  </div>
-  <div class="card">
-    <orbit-bg position="absolute" preset="cyber-landing" rounded="true"></orbit-bg>
-    <h3>Cyber Landing</h3>
-    <p>Neon green on dark. Each instance manages its own animation loop.</p>
-  </div>
-  <div class="card">
-    <orbit-bg position="absolute" preset="aurora-showcase" rounded="true"></orbit-bg>
-    <h3>Aurora Showcase</h3>
-    <p>Ethereal gradients with rings. Destroy one card — others keep running.</p>
-  </div>
+  <section class="card"><orbit-bg position="absolute" z-index="0" preset="ai-startup" rounded></orbit-bg><h2>AI Startup</h2><p>Interactive glass style.</p></section>
+  <section class="card"><orbit-bg position="absolute" z-index="0" preset="cyber-landing" rounded></orbit-bg><h2>Cyber Landing</h2><p>Fast neon motion.</p></section>
+  <section class="card"><orbit-bg position="absolute" z-index="0" preset="paper-notes" rounded></orbit-bg><h2>Paper Notes</h2><p>Soft editorial texture.</p></section>
 </div>
-
-<p class="note">Each card is an independent &lt;orbit-bg&gt; instance with its own Shadow DOM and animation.</p>
+<p class="note">Each card owns an independent Shadow DOM and animation loop.</p>
 </body>
 </html>

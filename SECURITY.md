@@ -1,41 +1,30 @@
 # Security Policy
 
-## Nature of the Project
+Orbit Background Kit is a static frontend library. It has no backend, no database, no analytics, no tracking script, no upload feature, and no intentional network requests.
 
-Orbit Background Kit is a **pure frontend** component. It:
+## Supported Version
 
-- Runs entirely in the browser
-- Makes **zero** network requests
-- Collects **zero** data
-- Uses **no** external resources (no fonts, images, CDNs)
-- Sets **no** cookies
-- Has **no** backend server
-
-The entire component is a single JavaScript file (`dist/orbit-bg.iife.js`) that registers a Web Component using the browser's native Custom Elements API.
-
-## Scope
-
-Because this project is purely static frontend code with no server, API, or data handling, traditional server-side vulnerabilities (SQL injection, XSS via server, SSRF, etc.) do not apply.
-
-### What could go wrong
-
-- **Supply chain**: If someone compromises the GitHub repo or jsDelivr cache, they could inject malicious code. Mitigation: pin versions with `@v0.1.0` instead of `@latest`.
-- **DOM injection**: The component uses Shadow DOM for style isolation. It does not use `innerHTML` with user-provided content (attribute values are set via `setAttribute`, not injected as HTML).
+| Version | Supported |
+| --- | --- |
+| `0.1.0` | Yes |
 
 ## Reporting a Vulnerability
 
-If you find a security issue:
+Please report security issues through GitHub Issues:
 
-1. **Do NOT open a public issue**
-2. Email: [your-email@example.com] (replace with your contact)
-3. Or DM via GitHub
+https://github.com/w0nderful666/orbit-bg-kit/issues
 
-We'll respond within 72 hours.
+Include:
 
-## Supported Versions
+- A clear description of the issue.
+- A minimal HTML reproduction if possible.
+- Browser and operating system information.
 
-| Version | Supported |
-|---------|-----------|
-| 0.2.x   | ✅ |
-| 0.1.x   | ✅ |
-| < 0.1   | ❌ |
+## Expected Security Surface
+
+- The component renders inside Shadow DOM.
+- User-provided attributes are treated as plain text or validated values.
+- No HTML from attributes is injected into the page.
+- No data is sent to any server by the component.
+
+If you self-host the script, your own hosting and CDN configuration remain your responsibility.

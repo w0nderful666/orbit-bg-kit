@@ -1,95 +1,90 @@
 #!/usr/bin/env node
 
-/**
- * build.mjs — Copy src to dist, generate minified version
- * Usage: node scripts/build.mjs
- */
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const srcFile = join(root, 'src', 'orbit-bg.js');
+const distDir = join(root, 'dist');
+const iifeFile = join(distDir, 'orbit-bg.iife.js');
+const minFile = join(distDir, 'orbit-bg.min.js');
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const root = join(__dirname, '..');
-const src = join(root, 'src', 'orbit-bg.js');
-const dist = join(root, 'dist', 'orbit-bg.iife.js');
-const distMin = join(root, 'dist', 'orbit-bg.min.js');
+if (!existsSync(distDir)) mkdirSync(distDir, { recursive: true });
 
-// Ensure dist directory
-if (!existsSync(join(root, 'dist'))) {
-  mkdirSync(join(root, 'dist'), { recursive: true });
-}
+const source = readFileSync(srcFile, 'utf8');
+writeFileSync(iifeFile, source);
 
-// Read source
-const code = readFileSync(src, 'utf8');
-console.log(`📦 Source: ${src} (${(code.length / 1024).toFixed(1)}KB)`);
-
-// Write dist (full)
-writeFileSync(dist, code);
-console.log(`✅ Written: ${dist}`);
-
-// Simple minification: remove comments, collapse whitespace, keep strings
-function simpleMinify(src) {
+function minify(code) {
   let out = '';
   let i = 0;
-  let inStr = false;
-  let strChar = '';
-  let inLineComment = false;
-  let inBlockComment = false;
+  let quote = '';
+  let lineComment = false;
+  let blockComment = false;
 
-  while (i < src.length) {
-    const ch = src[i];
-    const next = src[i + 1];
+  while (i < code.length) {
+    const ch = code[i];
+    const next = code[i + 1];
 
-    if (inLineComment) {
-      if (ch === '\n') { inLineComment = false; out += '\n'; }
-      i++; continue;
-    }
-    if (inBlockComment) {
-      if (ch === '*' && next === '/') { inBlockComment = false; i += 2; }
-      else i++;
+    if (lineComment) {
+      if (ch === '\n') lineComment = false;
+      i += 1;
       continue;
     }
-    if (inStr) {
+    if (blockComment) {
+      if (ch === '*' && next === '/') {
+        blockComment = false;
+        i += 2;
+      } else {
+        i += 1;
+      }
+      continue;
+    }
+    if (quote) {
       out += ch;
-      if (ch === '\\') { out += src[i + 1] || ''; i += 2; continue; }
-      if (ch === strChar) inStr = false;
-      i++; continue;
+      if (ch === '\\') {
+        out += next || '';
+        i += 2;
+        continue;
+      }
+      if (ch === quote) quote = '';
+      i += 1;
+      continue;
     }
-
-    // Start of string
     if (ch === '"' || ch === "'" || ch === '`') {
-      inStr = true; strChar = ch; out += ch; i++; continue;
+      quote = ch;
+      out += ch;
+      i += 1;
+      continue;
     }
-    // Line comment
-    if (ch === '/' && next === '/') { inLineComment = true; i += 2; continue; }
-    // Block comment
-    if (ch === '/' && next === '*') { inBlockComment = true; i += 2; continue; }
-    // Collapse whitespace
-    if (ch === ' ' || ch === '\t' || ch === '\r') {
-      // Keep single space if next char is not a delimiter
-      if (out.length && !/[{}\[\]();:,=+\-*/<>!&|?~^%]/.test(out[out.length - 1]) &&
-          i + 1 < src.length && !/[{}\[\]();:,=+\-*/<>!&|?~^% \t\r\n]/.test(src[i + 1])) {
-        out += ' ';
-      }
-      i++; continue;
+    if (ch === '/' && next === '/') {
+      lineComment = true;
+      i += 2;
+      continue;
     }
-    if (ch === '\n') {
-      // Keep newline only if it helps ASI
-      if (out.length && /[})\]]/.test(out[out.length - 1])) {
-        // ok
-      }
-      i++; continue;
+    if (ch === '/' && next === '*') {
+      blockComment = true;
+      i += 2;
+      continue;
     }
-
+    if (/\s/.test(ch)) {
+      const prev = out[out.length - 1] || '';
+      const following = next || '';
+      if (/[A-Za-z0-9_$]/.test(prev) && /[A-Za-z0-9_$]/.test(following)) out += ' ';
+      i += 1;
+      continue;
+    }
     out += ch;
-    i++;
+    i += 1;
   }
-  return out;
+  return out.trim() + '\n';
 }
 
-const minified = simpleMinify(code);
-writeFileSync(distMin, minified);
-console.log(`✅ Written: ${distMin} (${(minified.length / 1024).toFixed(1)}KB)`);
-console.log(`📊 Compression: ${((1 - minified.length / code.length) * 100).toFixed(1)}% smaller`);
-console.log('🎉 Build complete!');
+const minified = minify(source);
+writeFileSync(minFile, minified);
+
+const size = (file) => `${(statSync(file).size / 1024).toFixed(1)} KB`;
+console.log('Orbit Background Kit build complete');
+console.log(`- ${srcFile}`);
+console.log(`- ${iifeFile} (${size(iifeFile)})`);
+console.log(`- ${minFile} (${size(minFile)})`);

@@ -3,136 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orbit Background Kit — Demo</title>
+<title>Orbit Background Kit - Minimal Demo</title>
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-    color: #e8e6e3;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    position: relative;
-  }
-
-  /* Content sits above the background */
-  .content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 40px 24px;
-    max-width: 600px;
-  }
-  h1 {
-    font-size: clamp(28px, 5vw, 48px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, #6e8efb, #a777e3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  p { font-size: clamp(14px, 2vw, 18px); color: #888; line-height: 1.6; margin-bottom: 24px; }
-
-  .examples {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px;
-  }
-  .examples a {
-    padding: 8px 16px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
-    color: #aaa;
-    text-decoration: none;
-    font-size: 13px;
-    transition: all 0.2s;
-  }
-  .examples a:hover { border-color: rgba(255,255,255,0.2); color: #fff; }
-
-  code {
-    display: inline-block;
-    padding: 12px 20px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
-    font-size: 13px;
-    color: #aaa;
-    text-align: left;
-    line-height: 1.7;
-    max-width: 100%;
-    overflow-x: auto;
-  }
-
-  /* Interactive elements prove background doesn't block clicks */
-  button {
-    position: relative;
-    z-index: 1;
-    margin-top: 20px;
-    padding: 10px 24px;
-    background: linear-gradient(135deg, #6e8efb, #a777e3);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
-  button:hover { opacity: 0.85; }
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:32px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#f4f7fb;background:#090a12}.content{position:relative;z-index:1;text-align:center;max-width:680px}.content h1{font-size:clamp(34px,7vw,68px);line-height:1;margin:0 0 14px}.content p{color:#c0c8d6;font-size:18px;margin:0 0 24px}.code{display:inline-block;text-align:left;background:rgba(0,0,0,.36);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:14px 16px;color:#dbe4f0;font:13px/1.7 "SF Mono",Consolas,monospace}.links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}.links a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:9px 12px;background:rgba(255,255,255,.05)}
 </style>
 </head>
 <body>
-
-<!-- ============================================
-     STEP 1: Load the script (one line)
-     ============================================ -->
+<!-- 1. Load the component. Use the CDN URL in production. -->
 <script src="dist/orbit-bg.iife.js"></script>
 
-<!-- ============================================
-     STEP 2: Add the tag with desired options
-     ============================================ -->
-<orbit-bg
-  words="AI,AGENT,ORBIT,CODEX,OPEN SOURCE"
-  theme="dark"
-  speed="normal"
-  opacity="0.06"
-  grid="true"
-  glow="true"
-  noise="true"
-></orbit-bg>
+<!-- 2. Add one tag. Content should sit above it with z-index: 1. -->
+<orbit-bg preset="open-source" z-index="0"></orbit-bg>
 
-<!-- ============================================
-     Your page content — position:relative;z-index:1
-     so it appears above the background
-     ============================================ -->
-<div class="content">
+<main class="content">
   <h1>Orbit Background Kit</h1>
-  <p>A single custom element gives any webpage a premium animated background. No frameworks. No backend. No tracking.</p>
-  <code>&lt;script src="…/orbit-bg.iife.js"&gt;&lt;/script&gt;<br>&lt;orbit-bg&gt;&lt;/orbit-bg&gt;</code>
-  <br>
-  <button onclick="alert('Background does not block clicks!')">Click me — it works!</button>
-</div>
-
-<div class="examples">
-  <a href="examples/simple.html">Simple</a>
-  <a href="examples/dark.html">Dark</a>
-  <a href="examples/cyber.html">Cyber</a>
-  <a href="examples/portfolio.html">Portfolio</a>
-  <a href="examples/tool-landing.html">Tool Landing</a>
-  <a href="examples/card-background.html">Card BG</a>
-  <a href="index.html">Configurator</a>
-</div>
-
+  <p>One script tag plus one Web Component for animated backgrounds.</p>
+  <div class="code">&lt;script src="dist/orbit-bg.iife.js"&gt;&lt;/script&gt;<br>&lt;orbit-bg preset="open-source"&gt;&lt;/orbit-bg&gt;</div>
+  <div class="links">
+    <a href="index.html">Playground</a>
+    <a href="examples/simple.html">Simple example</a>
+    <a href="examples/local-card.html">Local card</a>
+    <a href="examples/multi-instance.html">Multi instance</a>
+  </div>
+</main>
 </body>
 </html>

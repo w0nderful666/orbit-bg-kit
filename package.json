@@ -1,7 +1,7 @@
 {
   "name": "orbit-bg-kit",
   "version": "0.1.0",
-  "description": "One script tag + one custom element — premium animated background for any webpage. Zero dependencies, pure frontend.",
+  "description": "One script tag plus one Web Component for premium animated backgrounds. Zero dependencies, pure frontend.",
   "type": "module",
   "main": "dist/orbit-bg.iife.js",
   "files": [
@@ -14,22 +14,23 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "dev": "npx serve .",
+    "dev": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
-    "preview": "npx serve . -o /demo.html"
+    "preview": "node scripts/serve.mjs",
+    "examples": "node scripts/serve.mjs"
   },
   "keywords": [
     "web-component",
+    "custom-element",
+    "shadow-dom",
+    "animated-background",
     "background",
-    "animation",
     "css",
     "landing-page",
-    "jsdelivr",
     "github-pages",
-    "frontend",
-    "custom-element",
-    "shadow-dom"
+    "jsdelivr",
+    "frontend"
   ],
   "author": "",
   "license": "MIT",

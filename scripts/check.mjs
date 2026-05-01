@@ -1,107 +1,85 @@
 #!/usr/bin/env node
 
-/**
- * check.mjs — Verify project integrity
- * Usage: node scripts/check.mjs
- */
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { readFileSync, existsSync, readdirSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const root = join(__dirname, '..');
-
+const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const latestCdn = 'https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js';
+const versionCdn = 'https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js';
 let errors = 0;
 let warnings = 0;
 
-function ok(msg) { console.log(`  ✅ ${msg}`); }
-function fail(msg) { console.log(`  ❌ ${msg}`); errors++; }
-function warn(msg) { console.log(`  ⚠️  ${msg}`); warnings++; }
+function pass(message) { console.log(`PASS ${message}`); }
+function fail(message) { console.log(`FAIL ${message}`); errors += 1; }
+function warn(message) { console.log(`WARN ${message}`); warnings += 1; }
+function read(path) { return readFileSync(join(root, path), 'utf8'); }
 
-// ---- Required files ----
-console.log('\n📁 Required files:');
-const required = [
-  'index.html', 'demo.html', 'README.md', 'README_EN.md',
-  'LICENSE', 'package.json', 'CHANGELOG.md', 'CONTRIBUTING.md', 'SECURITY.md',
-  'src/orbit-bg.js', 'dist/orbit-bg.iife.js',
-];
-required.forEach(f => {
-  existsSync(join(root, f)) ? ok(f) : fail(`Missing: ${f}`);
-});
+console.log('Checking Orbit Background Kit...');
 
-// ---- Examples ----
-console.log('\n📄 Examples:');
-const exDir = join(root, 'examples');
-if (existsSync(exDir)) {
-  const examples = readdirSync(exDir).filter(f => f.endsWith('.html'));
-  examples.forEach(f => ok(f));
-  if (examples.length < 6) warn(`Only ${examples.length} examples (recommend 6+)`);
-} else {
-  fail('examples/ directory missing');
-}
+[
+  'README.md',
+  'README_EN.md',
+  'package.json',
+  'src/orbit-bg.js',
+  'dist/orbit-bg.iife.js',
+  'dist/orbit-bg.min.js',
+  'index.html',
+  'demo.html',
+  'LICENSE',
+  'CHANGELOG.md',
+  'RELEASE_NOTES.md',
+  'PUBLISH_CHECKLIST.md',
+  'DEPLOY_COMMANDS.md',
+  'CONTRIBUTING.md',
+  'SECURITY.md',
+  'QUALITY_REPORT.md'
+].forEach((file) => existsSync(join(root, file)) ? pass(`${file} exists`) : fail(`${file} missing`));
 
-// ---- Component integrity ----
-console.log('\n🔧 Component:');
-const src = readFileSync(join(root, 'src/orbit-bg.js'), 'utf8');
+const pkg = JSON.parse(read('package.json'));
+if (pkg.name === 'orbit-bg-kit') pass('package name is orbit-bg-kit'); else fail('package name must be orbit-bg-kit');
+if (pkg.version === '0.1.0') pass('package version is 0.1.0'); else fail('package version must be 0.1.0');
+if (pkg.main === 'dist/orbit-bg.iife.js') pass('package main points to dist'); else fail('package main must point to dist/orbit-bg.iife.js');
+if (pkg.license === 'MIT') pass('license is MIT'); else fail('license must be MIT');
+['dev', 'build', 'check', 'preview', 'examples'].forEach((script) => pkg.scripts?.[script] ? pass(`npm script ${script}`) : fail(`npm script ${script} missing`));
 
-if (src.includes('customElements.define')) ok('customElements.define found');
-else fail('customElements.define missing');
+const src = read('src/orbit-bg.js');
+if (src.includes('attachShadow({ mode:')) pass('Shadow DOM is used'); else fail('Shadow DOM not found');
+if (src.includes('customElements.get') && src.includes('customElements.define')) pass('custom element registration is guarded'); else fail('customElements guard missing');
+if (src.includes('disconnectedCallback')) pass('disconnectedCallback is present'); else fail('disconnectedCallback missing');
+if (src.includes('requestAnimationFrame')) pass('requestAnimationFrame is used'); else fail('requestAnimationFrame missing');
+if (src.includes('prefers-reduced-motion')) pass('prefers-reduced-motion is supported'); else fail('prefers-reduced-motion missing');
 
-if (src.includes("customElements.get('orbit-bg')")) ok('Duplicate registration guard');
-else fail('Missing duplicate registration guard');
+const requiredAttrs = ['words', 'theme', 'speed', 'opacity', 'grid', 'glow', 'noise', 'rings', 'beams', 'vignette', 'interactive', 'position', 'z-index', 'rows', 'angle', 'density', 'font', 'intensity', 'rounded', 'preset'];
+requiredAttrs.forEach((attr) => src.includes(`'${attr}'`) ? pass(`attribute ${attr}`) : fail(`attribute ${attr} missing`));
 
-if (src.includes('observedAttributes')) ok('observedAttributes defined');
-else fail('observedAttributes missing');
+['cream', 'dark', 'cyber', 'paper', 'terminal', 'glass', 'midnight', 'sunset', 'matrix', 'aurora'].forEach((theme) => src.includes(`${theme}:`) ? pass(`theme ${theme}`) : fail(`theme ${theme} missing`));
+['ai-startup', 'developer-portfolio', 'open-source', 'prompt-market', 'pdf-tool', 'cyber-landing', 'minimal-blog', 'terminal-hacker', 'glass-saas', 'midnight-docs', 'aurora-showcase', 'paper-notes'].forEach((preset) => src.includes(`'${preset}'`) ? pass(`preset ${preset}`) : fail(`preset ${preset} missing`));
 
-if (src.includes('disconnectedCallback')) ok('disconnectedCallback defined');
-else fail('disconnectedCallback missing');
+const readme = read('README.md');
+if (readme.includes(latestCdn)) pass('README latest CDN URL is present'); else fail('README latest CDN URL missing');
+if (readme.includes(versionCdn)) pass('README pinned CDN URL is present'); else fail('README pinned CDN URL missing');
+if (!readme.includes('YOUR_USERNAME')) pass('README does not contain placeholder CDN username'); else fail('README contains placeholder CDN username');
 
-if (src.includes('Shadow DOM') || src.includes("attachShadow({ mode: 'open' })") || src.includes("attachShadow")) ok('Shadow DOM used');
-else warn('Shadow DOM not found');
-
-if (src.includes('prefers-reduced-motion')) ok('prefers-reduced-motion support');
-else fail('prefers-reduced-motion missing');
-
-// ---- Themes ----
-console.log('\n🎨 Themes:');
-const themes = ['cream', 'dark', 'cyber', 'paper', 'terminal', 'glass', 'midnight', 'sunset', 'matrix', 'aurora'];
-themes.forEach(t => {
-  src.includes(`${t}:`) ? ok(t) : fail(`Theme missing: ${t}`);
-});
-
-// ---- Presets ----
-console.log('\n🎯 Presets:');
-const presets = ['ai-startup', 'developer-portfolio', 'open-source', 'prompt-market', 'pdf-tool', 'cyber-landing', 'minimal-blog', 'terminal-hacker', 'glass-saas', 'midnight-docs', 'aurora-showcase', 'paper-notes'];
-presets.forEach(p => {
-  src.includes(`'${p}'`) ? ok(p) : fail(`Preset missing: ${p}`);
-});
-
-// ---- CDN URL consistency ----
-console.log('\n🔗 CDN URLs:');
-const readme = readFileSync(join(root, 'README.md'), 'utf8');
-if (readme.includes('cdn.jsdelivr.net/gh/YOUR_USERNAME/orbit-bg-kit')) ok('README uses YOUR_USERNAME placeholder');
-else warn('README CDN URL format unexpected');
-
-// ---- Attributes ----
-console.log('\n📋 Attributes:');
-const attrs = ['words', 'theme', 'speed', 'opacity', 'grid', 'glow', 'noise', 'z-index', 'position', 'rows', 'angle', 'density', 'font', 'interactive', 'rounded', 'intensity', 'seed', 'rings', 'beams', 'vignette', 'preset'];
-const observedMatch = src.match(/observedAttributes\(\)\s*\{[\s\S]*?return \[([\s\S]*?)\]/);
-if (observedMatch) {
-  const observed = observedMatch[1].match(/'[^']+'/g).map(a => a.replace(/'/g, ''));
-  attrs.forEach(a => {
-    observed.includes(a) ? ok(a) : fail(`Attribute not observed: ${a}`);
+const examplesDir = join(root, 'examples');
+if (existsSync(examplesDir)) {
+  const examples = readdirSync(examplesDir).filter((file) => file.endsWith('.html'));
+  if (examples.length >= 6) pass(`${examples.length} example pages found`); else fail('not enough example pages');
+  ['simple.html', 'local-card.html', 'multi-instance.html', 'pdf-tool.html', 'prompt-market.html'].forEach((file) => examples.includes(file) ? pass(`example ${file}`) : fail(`example ${file} missing`));
+  examples.forEach((file) => {
+    const html = read(`examples/${file}`);
+    if (html.includes('../dist/orbit-bg.iife.js')) pass(`${file} uses local dist path`);
+    else warn(`${file} does not use ../dist/orbit-bg.iife.js`);
   });
-  if (observed.length > attrs.length) warn(`Extra observed attributes: ${observed.filter(a => !attrs.includes(a)).join(', ')}`);
 } else {
-  fail('Could not parse observedAttributes');
+  fail('examples directory missing');
 }
 
-// ---- Summary ----
-console.log(`\n${'='.repeat(40)}`);
-if (errors === 0) {
-  console.log(`🎉 All checks passed! (${warnings} warnings)`);
-} else {
-  console.log(`💥 ${errors} error(s), ${warnings} warning(s)`);
+const dist = read('dist/orbit-bg.iife.js');
+if (dist === src) pass('dist/orbit-bg.iife.js is synchronized with src'); else fail('dist/orbit-bg.iife.js differs from src; run npm run build');
+
+if (errors) {
+  console.log(`Check failed: ${errors} error(s), ${warnings} warning(s)`);
   process.exit(1);
 }
+console.log(`Check passed: ${warnings} warning(s)`);

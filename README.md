@@ -1,324 +1,237 @@
 # Orbit Background Kit
 
-> 🌌 一行 `<script>` + 一个 `<orbit-bg>` 标签 — 给任意网页添加高级动态背景。
+一个纯前端 Web Component 背景动效库。用户只需要一行 CDN `script` 和一个 `<orbit-bg>` 标签，就可以给任意网页添加可配置的高级动态背景。
 
-零依赖、纯前端 Web Component，无需框架、无需后端、无需构建。复制两行代码即可使用。
+- 在线 Demo / Playground: https://w0nderful666.github.io/orbit-bg-kit/
+- 最小示例: https://w0nderful666.github.io/orbit-bg-kit/demo.html
+- 仓库: https://github.com/w0nderful666/orbit-bg-kit
 
-**[在线配置器](https://w0nderful666.github.io/orbit-bg-kit/)** · **[Demo 演示](https://w0nderful666.github.io/orbit-bg-kit/demo.html)** · **[示例合集](https://w0nderful666.github.io/orbit-bg-kit/examples/)**
+**项目价值:** 不需要 React、Vue、后端、构建步骤或统计脚本，适合直接放到 GitHub Pages、静态站、落地页、工具站和个人主页。
 
----
+## 快速开始
 
-## 快速开始（3 分钟上手）
-
-### 第 1 步：复制这两行代码
+复制两行到你的 HTML 页面里：
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
-<orbit-bg theme="dark"></orbit-bg>
-```
-
-### 第 2 步：粘贴到你网页的 `<body>` 里
-
-```html
-<body>
-  <!-- 把上面两行粘贴到这里 -->
-  <h1 style="position:relative;z-index:1;color:white;">你的内容</h1>
-</body>
-```
-
-### 第 3 步：打开浏览器看效果
-
-就这么简单。背景自动全屏，不影响页面点击。
-
-> **💡 提示**：你的内容需要 `position:relative; z-index:1` 才能显示在背景上方。
-
----
-
-## 完整示例
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>My Page</title>
-</head>
-<body>
-
-  <!-- 1. 加载组件 -->
-  <script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
-
-  <!-- 2. 添加背景 -->
-  <orbit-bg
-    words="BUILD,DEPLOY,SHIP"
-    theme="dark"
-    speed="normal"
-    opacity="0.06"
-    grid="true"
-    glow="true"
-    noise="true"
-  ></orbit-bg>
-
-  <!-- 3. 你的内容 — 需要 position:relative; z-index:1 才能显示在背景之上 -->
-  <h1 style="position:relative;z-index:1;color:white;text-align:center;padding:40vh 20px;">
-    Your content here
-  </h1>
-
-</body>
-</html>
-```
-
----
-
-## 参数说明
-
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `preset` | string | — | 预设名称（覆盖其他属性默认值，见下方预设表） |
-| `words` | string | `AI,AGENT,ORBIT,CODEX,OPEN SOURCE` | 逗号分隔的背景滚动文字 |
-| `theme` | string | `dark` | 颜色主题：cream / dark / cyber / paper / terminal / glass / midnight / sunset / matrix / aurora |
-| `speed` | string | `normal` | 动画速度：slow / normal / fast |
-| `opacity` | number | `0.06` | 整体透明度（推荐 0.01–0.20） |
-| `position` | string | `fixed` | CSS 定位：fixed（全屏）或 absolute（局部容器） |
-| `z-index` | number | `-1` | CSS 层级 |
-| `rows` | number | `3` | 文字行数（1–6） |
-| `angle` | number | `-8` | 文字旋转角度（-30 到 30） |
-| `density` | string | `normal` | 文字密度：low / normal / high |
-| `font` | string | `sans` | 字体风格：mono / sans / serif |
-| `intensity` | string | `normal` | 整体强度：soft / normal / strong |
-| `interactive` | boolean | `false` | 鼠标移动时光斑轻微跟随 |
-| `rounded` | boolean | `false` | 圆角裁剪（用于局部容器时） |
-| `seed` | string | — | 随机种子（相同 seed 布局一致） |
-| `grid` | boolean | `true` | 显示网格叠加层 |
-| `glow` | boolean | `true` | 显示光斑 |
-| `noise` | boolean | `true` | 显示噪点纹理 |
-| `rings` | boolean | `false` | 显示轨道圆环 |
-| `beams` | boolean | `false` | 显示柔和光束 |
-| `vignette` | boolean | `false` | 显示边缘暗角 |
-
-所有属性都支持动态修改 — 通过 JavaScript `setAttribute()` 改变属性后背景立即更新。
-
----
-
-## 主题
-
-| 主题 | 风格 |
-|------|------|
-| `cream` | 米白高级感，适合编辑器 / 作品集 |
-| `dark` | 深色科技感，蓝色渐变光斑 |
-| `cyber` | 赛博霓虹，青绿色调 |
-| `paper` | 纸张低饱和，温和质感 |
-| `terminal` | 终端黑绿，极客风格 |
-| `glass` | 透明玻璃拟态，适合 SaaS / AI 工具 |
-| `midnight` | 深蓝午夜，适合开发者主页 |
-| `sunset` | 暖色日落，适合个人博客 |
-| `matrix` | 黑绿极客风，克制不廉价 |
-| `aurora` | 极光柔和渐变，高级感 |
-
----
-
-## 效果说明
-
-- **滚动文字** — 大号低透明度关键词，多行不同速度缓慢漂移
-- **渐变光斑** — 柔和的 radial-gradient 缓慢移动
-- **网格** — 细线网格叠加
-- **光斑** — 独立漂浮的发光点
-- **噪点** — SVG 生成的噪点纹理（无图片依赖）
-- **圆环** — 轨道线条
-- **光束** — 柔和的竖向光线
-- **暗角** — 边缘渐暗聚焦效果
-
-所有效果可独立开关。
-
----
-
-## 预设模板
-
-使用 `preset` 属性一键应用风格：
-
-```html
 <orbit-bg preset="ai-startup"></orbit-bg>
 ```
 
-| 预设 | 主题 | 风格 |
-|------|------|------|
-| `ai-startup` | glass | AI 工具站，interactive + beams |
-| `developer-portfolio` | paper | 开发者作品集，serif + soft |
-| `open-source` | dark | 开源项目，mono + grid |
-| `prompt-market` | aurora | Prompt 市场，rings |
-| `pdf-tool` | midnight | 工具站，beams + vignette |
-| `cyber-landing` | cyber | 赛博风格，fast + high density |
-| `minimal-blog` | cream | 极简博客，serif + soft |
-| `terminal-hacker` | terminal | 终端风格，mono + strong |
-| `glass-saas` | glass | SaaS 产品，interactive + beams |
-| `midnight-docs` | midnight | 文档站，mono + vignette |
-| `aurora-showcase` | aurora | 展示页，rings + beams |
-| `paper-notes` | paper | 笔记本站，serif + vignette |
+你的页面内容需要放在背景上方：
 
----
+```html
+<main style="position:relative;z-index:1;">
+  Your content here
+</main>
+```
 
-## 使用方式
+## CDN 引入
 
-### CDN 一行引入（推荐）
+最新版本，适合试用：
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
-<orbit-bg theme="dark"></orbit-bg>
 ```
 
-### 固定版本
+固定版本，适合生产页面：
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js"></script>
 ```
 
-### 本地文件
+## 完整配置示例
 
 ```html
-<script src="dist/orbit-bg.iife.js"></script>
-<orbit-bg></orbit-bg>
+<script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"></script>
+
+<orbit-bg
+  words="BUILD,DEPLOY,SHIP"
+  theme="dark"
+  speed="normal"
+  opacity="0.06"
+  grid="true"
+  glow="true"
+  noise="true"
+  rings="false"
+  beams="true"
+  vignette="false"
+  interactive="true"
+  position="fixed"
+  z-index="0"
+  rows="3"
+  angle="-8"
+  density="normal"
+  font="sans"
+  intensity="normal"
+></orbit-bg>
 ```
 
-### 局部容器背景
+## Preset 简写
 
 ```html
-<div style="position:relative;height:400px;overflow:hidden;border-radius:16px;">
-  <orbit-bg position="absolute" theme="aurora" rounded="true"></orbit-bg>
+<orbit-bg preset="open-source"></orbit-bg>
+```
+
+## 局部容器背景
+
+用于卡片、Hero 内部区域或某个局部模块时，父容器必须有 `position: relative`、明确高度和 `overflow: hidden`。
+
+```html
+<div style="position:relative;min-height:400px;overflow:hidden;border-radius:16px;">
+  <orbit-bg position="absolute" z-index="0" preset="glass-saas" rounded></orbit-bg>
   <div style="position:relative;z-index:1;padding:40px;">
-    <h2>Card content here</h2>
+    Card content here
   </div>
 </div>
 ```
 
----
+## 参数说明
 
-## 部署到 GitHub Pages
+| 参数 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `words` | string | `AI,AGENT,ORBIT,CODEX,OPEN SOURCE` | 逗号分隔的滚动文字 |
+| `theme` | string | `dark` | 主题名 |
+| `speed` | string | `normal` | `slow` / `normal` / `fast` |
+| `opacity` | number | `0.06` | 整体透明度，组件会限制极端值 |
+| `grid` | boolean | `true` | 网格层 |
+| `glow` | boolean | `true` | 光晕层 |
+| `noise` | boolean | `true` | SVG 噪点纹理 |
+| `rings` | boolean | `false` | 轨道圆环 |
+| `beams` | boolean | `false` | 柔和光束 |
+| `vignette` | boolean | `false` | 暗角 |
+| `interactive` | boolean | `false` | 鼠标交互，使用 requestAnimationFrame 节流 |
+| `position` | string | `fixed` | `fixed` 全屏背景，`absolute` 局部背景 |
+| `z-index` | number | `0` | 背景层级。内容通常设置为 `z-index:1` |
+| `rows` | number | `3` | 文字行数，会被限制在安全范围 |
+| `angle` | number | `-8` | 文字角度，会被限制在安全范围 |
+| `density` | string | `normal` | `low` / `normal` / `high` |
+| `font` | string | `sans` | `sans` / `mono` / `serif` |
+| `intensity` | string | `normal` | `soft` / `normal` / `strong` |
+| `rounded` | boolean | `false` | 使用父容器圆角裁剪 |
+| `preset` | string | 空 | 使用预设配置 |
+| `seed` | string | 自动 | 固定随机布局 |
 
-1. 创建 GitHub 仓库，推送代码
-2. 进入 **Settings → Pages**
-3. Source 选择 **Deploy from a branch**，选 `main` / `/(root)`
-4. 等待几分钟，访问 `https://w0nderful666.github.io/orbit-bg-kit/`
+布尔属性支持 `true`、`false`、`"true"`、`"false"` 和空属性，例如 `<orbit-bg interactive></orbit-bg>`。
 
----
+## 主题
 
-## jsDelivr 使用
+| 主题 | 适合场景 |
+| --- | --- |
+| `cream` | 极简博客、个人写作 |
+| `dark` | 开源项目、技术主页 |
+| `cyber` | 赛博风落地页 |
+| `paper` | 作品集、笔记、轻量内容站 |
+| `terminal` | 命令行、开发者、极客主题 |
+| `glass` | SaaS、AI 工具、现代产品页 |
+| `midnight` | 文档站、工具站 |
+| `sunset` | 创意展示、个人主页 |
+| `matrix` | 黑绿终端风 |
+| `aurora` | 展示页、Prompt / AI 类产品 |
 
-仓库公开后，jsDelivr 自动可用：
+## Presets
 
-```
+| Preset | 说明 |
+| --- | --- |
+| `ai-startup` | AI 产品启动页 |
+| `developer-portfolio` | 开发者作品集 |
+| `open-source` | 开源项目主页 |
+| `prompt-market` | 提示词市场 |
+| `pdf-tool` | PDF 工具站 |
+| `cyber-landing` | 高能赛博落地页 |
+| `minimal-blog` | 极简博客 |
+| `terminal-hacker` | 终端黑客风 |
+| `glass-saas` | 玻璃拟态 SaaS |
+| `midnight-docs` | 深色文档站 |
+| `aurora-showcase` | 极光展示页 |
+| `paper-notes` | 纸感笔记页 |
+
+## examples 目录
+
+- `examples/simple.html`: 最简单复制示例
+- `examples/local-card.html`: `position="absolute"` 局部卡片背景
+- `examples/multi-instance.html`: 多个 `<orbit-bg>` 同页共存
+- `examples/pdf-tool.html`: 虚拟 PDF 工具站落地页
+- `examples/prompt-market.html`: 虚拟提示词市场落地页
+
+所有示例都使用本地 `../dist/orbit-bg.iife.js`，不依赖外部网络资源。
+
+## GitHub Pages 部署
+
+1. 推送项目到 `w0nderful666/orbit-bg-kit`
+2. 打开仓库 `Settings -> Pages`
+3. Source 选择 `Deploy from a branch`
+4. Branch 选择 `main` 和 `/ (root)`
+5. 访问 `https://w0nderful666.github.io/orbit-bg-kit/`
+
+## jsDelivr 使用和缓存
+
+公开 GitHub 仓库可以直接通过 jsDelivr 访问：
+
+```text
 https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js
 ```
 
-可用标签：
-- `@latest` — 最新版本
-- `@v0.1.0` — 固定版本
-- `@main` — main 分支最新
+建议生产页面使用固定版本：
 
----
+```text
+https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@v0.1.0/dist/orbit-bg.iife.js
+```
+
+如果 CDN 更新不生效，优先使用固定 tag。jsDelivr 对 GitHub 文件有缓存，发布新版本后可能需要等待缓存刷新；调试时可以临时在 URL 后加查询参数，例如 `?v=20260501`。
 
 ## 本地开发
 
 ```bash
-# 克隆
-git clone https://github.com/w0nderful666/orbit-bg-kit.git
-cd orbit-bg-kit
-
-# 启动本地服务
-npx serve .
-# 或
-python3 -m http.server 3000
-
-# 打开浏览器
-# http://localhost:3000         → 配置器
-# http://localhost:3000/demo.html → 演示
+npm run dev
+npm run build
+npm run check
+npm run preview
+npm run examples
 ```
-
-### npm scripts
-
-```bash
-npm run dev      # 启动开发服务
-npm run build    # 复制 src → dist
-npm run preview  # 预览 demo
-npm run check    # 语法检查
-```
-
----
-
-## 浏览器兼容
-
-| 浏览器 | 版本 |
-|--------|------|
-| Chrome | 67+ |
-| Firefox | 63+ |
-| Safari | 13.1+ |
-| Edge | 79+ |
-
-需要 Web Components / Custom Elements v1 支持。未包含 polyfill。
-
----
-
-## 性能说明
-
-- 动画使用 CSS `transform` 和 `opacity`（GPU 加速）
-- 标签页不可见时自动暂停动画
-- `prefers-reduced-motion` 自动停止动画
-- `interactive` 模式使用 `requestAnimationFrame` + 被动事件监听
-- 不使用 `Canvas`，不创建过多 DOM 节点
-- 无外部资源加载
-
----
 
 ## 常见问题
 
-### 背景没有显示？
-1. 确认 `<script>` 在 `<orbit-bg>` **之前**
-2. 确认 `<orbit-bg>` 在 `<body>` 内
-3. 按 F12 打开开发者工具 → Network，看脚本是否加载成功（200 状态码）
-4. 如果用 `position="absolute"`，父元素必须有 `position: relative` 和明确高度
+### 背景不显示怎么办？
 
-### z-index 怎么处理？
-- 默认 `z-index: -1`，背景在页面底层
-- 你的内容需要 `position: relative; z-index: 1` 才能显示在背景上方
-- 设为 `z-index: 0` 可以让背景在页面背景之上、内容之下
+确认 `<script>` 已加载、`<orbit-bg>` 在 `<body>` 内。如果使用 `position="absolute"`，父容器必须有 `position: relative` 和明确高度。
 
-### CDN 缓存了旧版本怎么办？
-- 用 `@v0.1.0` 替代 `@latest` 固定版本
-- 或在 URL 后加 `?v=随机字符串` 强制刷新：`orbit-bg.iife.js?v=abc123`
-- jsDelivr 缓存通常 7 天更新一次
+### 内容被背景盖住怎么办？
 
-### 能在 React / Vue 中使用吗？
-能。`<orbit-bg>` 是标准 Web Component，任何框架都支持：
-```jsx
-// React
-<orbit-bg theme="dark" words="HELLO,WORLD" />
+给内容容器加 `position: relative; z-index: 1`。背景默认是 `z-index="0"`。
 
-// Vue
-<orbit-bg theme="dark" words="HELLO,WORLD" />
-```
+### z-index 怎么设置？
 
-### 移动端性能如何？
-组件使用 CSS transform 和 opacity（GPU 加速），标签页不可见时自动暂停，系统开启减少动画时自动停止。大多数设备上无明显性能影响。
+全屏背景建议保持 `z-index="0"`，内容使用 `z-index:1` 或更高。局部背景也建议背景为 `0`，卡片内容为 `1`。
 
----
+### 局部卡片背景怎么用？
+
+使用 `position="absolute"`，并让父容器 `position:relative; overflow:hidden; min-height:...`。参考 `examples/local-card.html`。
+
+### CDN 更新不生效怎么办？
+
+生产环境使用 `@v0.1.0` 固定版本。测试时可以使用 `@latest` 或临时查询参数绕过浏览器缓存。
+
+### 能不能商业使用？
+
+可以。项目使用 MIT License。
+
+### 是否上传数据？
+
+不会。组件只在浏览器内运行，不发送请求，不上传数据。
+
+### 是否需要后端？
+
+不需要。它是纯前端 Web Component。
 
 ## 隐私说明
 
-- ✅ **纯前端** — 无服务器、无后端、无 API 调用
-- ✅ **无追踪** — 零分析、零指纹
-- ✅ **无数据收集** — 任何数据都不离开浏览器
-- ✅ **无外部资源** — 不加载字体、图片或 CDN 依赖
-- ✅ **无 Cookie**
-
----
+- 纯前端
+- 无后端
+- 无统计
+- 无上传
+- 无 Cookie
+- 可自托管
 
 ## License
 
-[MIT](LICENSE) — 随便用，不要求署名（但欢迎 🙏）。
-
----
-
-## 贡献
-
-欢迎 PR！保持零依赖、保持小体积、保持优雅。
-
-详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+MIT
