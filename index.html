@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orbit Background Kit - Web Component Background Playground</title>
 <style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#0b0d12;color:#f4f0e8;line-height:1.5}a{color:inherit}.page{position:relative;z-index:1}.nav{position:sticky;top:0;z-index:20;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(11,13,18,.78);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(18px)}.brand{font-weight:800}.nav a{font-size:14px;color:#b9c0cc;text-decoration:none;margin-left:18px}.nav a:hover{color:#fff}.hero{min-height:calc(100vh - 58px);display:grid;align-items:center;padding:72px 24px 48px}.hero-inner{max-width:1120px;margin:0 auto;width:100%;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:44px;align-items:center}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#88d6c0;font-weight:800}.hero h1{font-size:clamp(42px,7vw,82px);line-height:.94;margin:14px 0 20px;letter-spacing:0}.hero p{max-width:680px;color:#c0c6d1;font-size:19px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.06);color:#fff;padding:11px 16px;font-weight:800;cursor:pointer;text-decoration:none}.btn.primary{background:#f4f0e8;color:#10131a;border-color:#f4f0e8}.snippet{background:rgba(7,9,14,.76);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:18px;overflow:auto}.snippet pre{margin:0;font:13px/1.65 "SF Mono",Consolas,monospace;color:#d7dde7}.hero-panel{position:relative;min-height:480px;border:1px solid rgba(255,255,255,.12);border-radius:8px;overflow:hidden;background:#111}.hero-panel-content{position:relative;z-index:1;padding:28px;display:flex;min-height:480px;flex-direction:column;justify-content:flex-end}.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.28);border-radius:8px;padding:16px}.metric strong{display:block;font-size:26px}.metric span{color:#b6becb;font-size:13px}.section{max-width:1120px;margin:0 auto;padding:78px 24px}.section h2{font-size:clamp(28px,4vw,44px);margin:8px 0 12px}.section>p{color:#b6becb;max-width:720px}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.link-card{border:1px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.04);padding:18px;text-decoration:none}.link-card b{display:block;margin-bottom:6px}.link-card span{color:#b6becb;font-size:14px}.playground{display:grid;grid-template-columns:330px minmax(0,1fr);border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;background:rgba(255,255,255,.03)}.controls{padding:18px;background:rgba(10,12,18,.88);border-right:1px solid rgba(255,255,255,.1);max-height:860px;overflow:auto}.control-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#88d6c0;font-weight:800;margin:18px 0 9px}.field{margin-bottom:12px}.field label{display:block;font-size:13px;color:#dfe5ef;margin-bottom:6px}.field input[type=text],.field input[type=number],.field select,.field textarea{width:100%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;border-radius:8px;padding:9px 10px;font:14px inherit}.field textarea{min-height:120px;font-family:"SF Mono",Consolas,monospace}.field input[type=range]{width:100%;accent-color:#88d6c0}.range-line{display:grid;grid-template-columns:1fr 46px;gap:8px;align-items:center}.toggles{display:grid;grid-template-columns:1fr 1fr;gap:8px}.toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#dfe5ef;font-size:13px}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#dfe5ef;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer}.chip.active{background:#f4f0e8;color:#10131a;border-color:#f4f0e8}.control-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.control-actions .btn{padding:9px 10px}.preview{min-height:620px;position:relative;overflow:hidden}.preview orbit-bg{z-index:0}.preview-content{position:relative;z-index:1;min-height:620px;display:grid;place-items:center;padding:26px}.mock{max-width:520px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.35);backdrop-filter:blur(14px);border-radius:8px;padding:30px}.mock h3{font-size:30px;margin:0 0 10px}.mock p{color:#c0c6d1;margin:0 0 18px}.mock-row{display:flex;gap:10px;flex-wrap:wrap}.pill{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 10px;color:#d7dde7;font-size:13px}.code-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 10px}.code-tab{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#dfe5ef;border-radius:8px;padding:8px 10px;cursor:pointer;font-weight:800}.code-tab.active{background:#88d6c0;color:#08100d}.code-box{border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;background:#07090e}.code-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.1);color:#b6becb;font-size:12px}.code-box pre{margin:0;padding:16px;overflow:auto;font:13px/1.65 "SF Mono",Consolas,monospace;color:#d7dde7}.preset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.preset-card{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);border-radius:8px;padding:15px;cursor:pointer}.preset-card:hover,.preset-card.active{border-color:#88d6c0;background:rgba(136,214,192,.08)}.preset-card b{display:block;margin-bottom:5px}.preset-card span{display:block;color:#b6becb;font-size:13px}.table-wrap{overflow:auto;border:1px solid rgba(255,255,255,.1);border-radius:8px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}th{color:#88d6c0;font-size:12px;text-transform:uppercase;letter-spacing:.08em}code{background:rgba(255,255,255,.08);border-radius:5px;padding:2px 5px}.footer{max-width:1120px;margin:0 auto;padding:40px 24px 70px;color:#99a2b0;border-top:1px solid rgba(255,255,255,.08)}.toast{position:fixed;left:50%;bottom:24px;z-index:40;transform:translate(-50%,80px);background:#10131a;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:11px 16px;transition:.25s}.toast.show{transform:translate(-50%,0)}@media(max-width:920px){.hero-inner,.playground{grid-template-columns:1fr}.controls{max-height:none;border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.links{grid-template-columns:1fr}.preset-grid{grid-template-columns:repeat(2,1fr)}.hero-panel{min-height:360px}.hero-panel-content{min-height:360px}}@media(max-width:560px){.nav{padding:0 14px}.nav a{display:none}.section,.hero{padding-left:16px;padding-right:16px}.preset-grid{grid-template-columns:1fr}.toggles{grid-template-columns:1fr}.hero h1{font-size:42px}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#0b0d12;color:#f4f0e8;line-height:1.5}a{color:inherit}.page{position:relative;z-index:1}.nav{position:sticky;top:0;z-index:20;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(11,13,18,.78);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(18px)}.brand{font-weight:800}.nav-menu{display:flex;align-items:center;gap:18px}.nav a{font-size:14px;color:#b9c0cc;text-decoration:none}.nav a:hover{color:#fff}.lang-toggle{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer;min-width:76px}.hero{min-height:calc(100vh - 58px);display:grid;align-items:center;padding:72px 24px 48px}.hero-inner{max-width:1120px;margin:0 auto;width:100%;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:44px;align-items:center}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#88d6c0;font-weight:800}.hero h1{font-size:clamp(42px,7vw,82px);line-height:.94;margin:14px 0 20px;letter-spacing:0}.hero p{max-width:680px;color:#c0c6d1;font-size:19px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.06);color:#fff;padding:11px 16px;font-weight:800;cursor:pointer;text-decoration:none}.btn.primary{background:#f4f0e8;color:#10131a;border-color:#f4f0e8}.snippet{background:rgba(7,9,14,.76);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:18px;overflow:auto}.snippet pre{margin:0;font:13px/1.65 "SF Mono",Consolas,monospace;color:#d7dde7}.hero-panel{position:relative;min-height:480px;border:1px solid rgba(255,255,255,.12);border-radius:8px;overflow:hidden;background:#111}.hero-panel-content{position:relative;z-index:1;padding:28px;display:flex;min-height:480px;flex-direction:column;justify-content:flex-end}.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.28);border-radius:8px;padding:16px}.metric strong{display:block;font-size:26px}.metric span{color:#b6becb;font-size:13px}.section{max-width:1120px;margin:0 auto;padding:78px 24px}.section h2{font-size:clamp(28px,4vw,44px);margin:8px 0 12px}.section>p{color:#b6becb;max-width:720px}.links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.link-card{border:1px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.04);padding:18px;text-decoration:none}.link-card b{display:block;margin-bottom:6px}.link-card span{color:#b6becb;font-size:14px}.playground{display:grid;grid-template-columns:330px minmax(0,1fr);border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;background:rgba(255,255,255,.03)}.controls{padding:18px;background:rgba(10,12,18,.88);border-right:1px solid rgba(255,255,255,.1);max-height:860px;overflow:auto}.control-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#88d6c0;font-weight:800;margin:18px 0 9px}.field{margin-bottom:12px}.field label{display:block;font-size:13px;color:#dfe5ef;margin-bottom:6px}.field input[type=text],.field input[type=number],.field select,.field textarea{width:100%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;border-radius:8px;padding:9px 10px;font:14px inherit}.field textarea{min-height:120px;font-family:"SF Mono",Consolas,monospace}.field input[type=range]{width:100%;accent-color:#88d6c0}.range-line{display:grid;grid-template-columns:1fr 46px;gap:8px;align-items:center}.toggles{display:grid;grid-template-columns:1fr 1fr;gap:8px}.toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#dfe5ef;font-size:13px}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#dfe5ef;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer}.chip.active{background:#f4f0e8;color:#10131a;border-color:#f4f0e8}.control-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.control-actions .btn{padding:9px 10px}.preview{min-height:620px;position:relative;overflow:hidden}.preview orbit-bg{z-index:0}.preview-content{position:relative;z-index:1;min-height:620px;display:grid;place-items:center;padding:26px}.mock{max-width:520px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.35);backdrop-filter:blur(14px);border-radius:8px;padding:30px}.mock h3{font-size:30px;margin:0 0 10px}.mock p{color:#c0c6d1;margin:0 0 18px}.mock-row{display:flex;gap:10px;flex-wrap:wrap}.pill{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 10px;color:#d7dde7;font-size:13px}.code-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 10px}.code-tab{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#dfe5ef;border-radius:8px;padding:8px 10px;cursor:pointer;font-weight:800}.code-tab.active{background:#88d6c0;color:#08100d}.code-box{border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;background:#07090e}.code-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.1);color:#b6becb;font-size:12px}.code-box pre{margin:0;padding:16px;overflow:auto;font:13px/1.65 "SF Mono",Consolas,monospace;color:#d7dde7}.preset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.preset-card{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);border-radius:8px;padding:15px;cursor:pointer}.preset-card:hover,.preset-card.active{border-color:#88d6c0;background:rgba(136,214,192,.08)}.preset-card b{display:block;margin-bottom:5px}.preset-card span{display:block;color:#b6becb;font-size:13px}.table-wrap{overflow:auto;border:1px solid rgba(255,255,255,.1);border-radius:8px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}th{color:#88d6c0;font-size:12px;text-transform:uppercase;letter-spacing:.08em}code{background:rgba(255,255,255,.08);border-radius:5px;padding:2px 5px}.footer{max-width:1120px;margin:0 auto;padding:40px 24px 70px;color:#99a2b0;border-top:1px solid rgba(255,255,255,.08)}.toast{position:fixed;left:50%;bottom:24px;z-index:40;transform:translate(-50%,80px);background:#10131a;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:11px 16px;transition:.25s}.toast.show{transform:translate(-50%,0)}@media(max-width:920px){.hero-inner,.playground{grid-template-columns:1fr}.controls{max-height:none;border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.links{grid-template-columns:1fr}.preset-grid{grid-template-columns:repeat(2,1fr)}.hero-panel{min-height:360px}.hero-panel-content{min-height:360px}}@media(max-width:560px){.nav{padding:0 14px}.nav-menu{gap:8px}.nav a{display:none}.section,.hero{padding-left:16px;padding-right:16px}.preset-grid{grid-template-columns:1fr}.toggles{grid-template-columns:1fr}.hero h1{font-size:42px}}
 </style>
 </head>
 <body>
@@ -13,19 +13,19 @@
 <div class="page">
   <nav class="nav">
     <div class="brand">Orbit Background Kit</div>
-    <div><a href="#start">Start</a><a href="#playground">Playground</a><a href="#presets">Presets</a><a href="https://github.com/w0nderful666/orbit-bg-kit">GitHub</a></div>
+    <div class="nav-menu"><a href="#start" data-i18n="nav.start">Start</a><a href="#playground" data-i18n="nav.playground">Playground</a><a href="#presets" data-i18n="nav.presets">Presets</a><a href="https://github.com/w0nderful666/orbit-bg-kit">GitHub</a><button class="lang-toggle" id="langToggle" type="button">中文</button></div>
   </nav>
 
   <section class="hero">
     <div class="hero-inner">
       <div>
-        <div class="eyebrow">Native Web Component</div>
-        <h1>Animated backgrounds for any webpage.</h1>
-        <p>Use one CDN script and one <code>&lt;orbit-bg&gt;</code> tag to add a polished, configurable background. No framework, no backend, no tracking, GitHub Pages and jsDelivr friendly.</p>
+        <div class="eyebrow" data-i18n="hero.eyebrow">Native Web Component</div>
+        <h1 data-i18n="hero.title">Animated backgrounds for any webpage.</h1>
+        <p data-i18n-html="hero.desc">Use one CDN script and one <code>&lt;orbit-bg&gt;</code> tag to add a polished, configurable background. No framework, no backend, no tracking, GitHub Pages and jsDelivr friendly.</p>
         <div class="actions">
-          <a class="btn primary" href="#playground">Open Playground</a>
-          <button class="btn" data-copy="quick">Copy Quick Start</button>
-          <a class="btn" href="demo.html">GitHub Pages Demo</a>
+          <a class="btn primary" href="#playground" data-i18n="hero.open">Open Playground</a>
+          <button class="btn" data-copy="quick" data-i18n="hero.copy">Copy Quick Start</button>
+          <a class="btn" href="demo.html" data-i18n="hero.demo">GitHub Pages Demo</a>
         </div>
         <div class="snippet" id="start"><pre>&lt;script src="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"&gt;&lt;/script&gt;
 &lt;orbit-bg preset="ai-startup"&gt;&lt;/orbit-bg&gt;</pre></div>
@@ -34,8 +34,8 @@
         <orbit-bg position="absolute" preset="aurora-showcase" z-index="0" rounded></orbit-bg>
         <div class="hero-panel-content">
           <div class="metric-row">
-            <div class="metric"><strong>0</strong><span>runtime dependencies</span></div>
-            <div class="metric"><strong>12</strong><span>ready presets</span></div>
+            <div class="metric"><strong>0</strong><span data-i18n="hero.metricDeps">runtime dependencies</span></div>
+            <div class="metric"><strong>12</strong><span data-i18n="hero.metricPresets">ready presets</span></div>
           </div>
         </div>
       </div>
@@ -43,83 +43,83 @@
   </section>
 
   <section class="section">
-    <div class="eyebrow">Use It Anywhere</div>
-    <h2>Clear entry points for users.</h2>
-    <p>The repository ships a homepage playground, a minimal demo, copyable examples, and dist files that work from local files, GitHub Pages, or jsDelivr.</p>
+    <div class="eyebrow" data-i18n="use.eyebrow">Use It Anywhere</div>
+    <h2 data-i18n="use.title">Clear entry points for users.</h2>
+    <p data-i18n="use.desc">The repository ships a homepage playground, a minimal demo, copyable examples, and dist files that work from local files, GitHub Pages, or jsDelivr.</p>
     <div class="links">
-      <a class="link-card" href="demo.html"><b>Minimal Demo</b><span>The smallest local integration example.</span></a>
-      <a class="link-card" href="examples/simple.html"><b>Examples</b><span>Simple, local card, multi-instance, tool landing pages.</span></a>
-      <a class="link-card" href="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"><b>jsDelivr CDN</b><span>Use @latest while testing or @v0.1.0 in production.</span></a>
+      <a class="link-card" href="demo.html"><b data-i18n="use.demoTitle">Minimal Demo</b><span data-i18n="use.demoDesc">The smallest local integration example.</span></a>
+      <a class="link-card" href="examples/simple.html"><b data-i18n="use.examplesTitle">Examples</b><span data-i18n="use.examplesDesc">Simple, local card, multi-instance, tool landing pages.</span></a>
+      <a class="link-card" href="https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js"><b>jsDelivr CDN</b><span data-i18n="use.cdnDesc">Use @latest while testing or @v0.1.0 in production.</span></a>
     </div>
   </section>
 
   <section class="section" id="playground">
-    <div class="eyebrow">Playground</div>
-    <h2>Configure, preview, copy.</h2>
-    <p>Every control maps to a supported component attribute. Shareable URL hashes restore the same configuration.</p>
+    <div class="eyebrow" data-i18n="play.eyebrow">Playground</div>
+    <h2 data-i18n="play.title">Configure, preview, copy.</h2>
+    <p data-i18n="play.desc">Every control maps to a supported component attribute. Shareable URL hashes restore the same configuration.</p>
     <div class="playground">
       <aside class="controls">
-        <div class="control-title">Preset</div>
+        <div class="control-title" data-i18n="controls.preset">Preset</div>
         <div class="field"><select id="preset"></select></div>
-        <div class="control-title">Content</div>
-        <div class="field"><label for="words">Words</label><input id="words" type="text"></div>
-        <div class="control-title">Theme</div>
+        <div class="control-title" data-i18n="controls.content">Content</div>
+        <div class="field"><label for="words" data-i18n="controls.words">Words</label><input id="words" type="text"></div>
+        <div class="control-title" data-i18n="controls.theme">Theme</div>
         <div class="chips" id="themeChips"></div>
-        <div class="control-title">Motion</div>
-        <div class="field"><label for="speed">Speed</label><select id="speed"><option>slow</option><option>normal</option><option>fast</option></select></div>
-        <div class="field"><label>Opacity</label><div class="range-line"><input id="opacity" type="range" min="0" max="0.35" step="0.005"><span id="opacityOut"></span></div></div>
-        <div class="field"><label>Rows</label><div class="range-line"><input id="rows" type="range" min="1" max="8" step="1"><span id="rowsOut"></span></div></div>
-        <div class="field"><label>Angle</label><div class="range-line"><input id="angle" type="range" min="-45" max="45" step="1"><span id="angleOut"></span></div></div>
-        <div class="field"><label for="density">Density</label><select id="density"><option>low</option><option>normal</option><option>high</option></select></div>
-        <div class="field"><label for="font">Font</label><select id="font"><option>sans</option><option>mono</option><option>serif</option></select></div>
-        <div class="field"><label for="intensity">Intensity</label><select id="intensity"><option>soft</option><option>normal</option><option>strong</option></select></div>
-        <div class="control-title">Effects</div>
+        <div class="control-title" data-i18n="controls.motion">Motion</div>
+        <div class="field"><label for="speed" data-i18n="controls.speed">Speed</label><select id="speed"><option>slow</option><option>normal</option><option>fast</option></select></div>
+        <div class="field"><label data-i18n="controls.opacity">Opacity</label><div class="range-line"><input id="opacity" type="range" min="0" max="0.35" step="0.005"><span id="opacityOut"></span></div></div>
+        <div class="field"><label data-i18n="controls.rows">Rows</label><div class="range-line"><input id="rows" type="range" min="1" max="8" step="1"><span id="rowsOut"></span></div></div>
+        <div class="field"><label data-i18n="controls.angle">Angle</label><div class="range-line"><input id="angle" type="range" min="-45" max="45" step="1"><span id="angleOut"></span></div></div>
+        <div class="field"><label for="density" data-i18n="controls.density">Density</label><select id="density"><option>low</option><option>normal</option><option>high</option></select></div>
+        <div class="field"><label for="font" data-i18n="controls.font">Font</label><select id="font"><option>sans</option><option>mono</option><option>serif</option></select></div>
+        <div class="field"><label for="intensity" data-i18n="controls.intensity">Intensity</label><select id="intensity"><option>soft</option><option>normal</option><option>strong</option></select></div>
+        <div class="control-title" data-i18n="controls.effects">Effects</div>
         <div class="toggles" id="toggles"></div>
-        <div class="control-title">Layout</div>
-        <div class="field"><label for="position">Position</label><select id="position"><option>fixed</option><option>absolute</option></select></div>
+        <div class="control-title" data-i18n="controls.layout">Layout</div>
+        <div class="field"><label for="position" data-i18n="controls.position">Position</label><select id="position"><option>fixed</option><option>absolute</option></select></div>
         <div class="field"><label for="zIndex">z-index</label><input id="zIndex" type="number" min="-10" max="20"></div>
-        <div class="field"><label for="seed">Seed</label><input id="seed" type="text" placeholder="optional"></div>
+        <div class="field"><label for="seed" data-i18n="controls.seed">Seed</label><input id="seed" type="text" placeholder="optional" data-i18n-placeholder="controls.seedPlaceholder"></div>
         <div class="control-actions">
-          <button class="btn" id="reset">Reset</button>
-          <button class="btn" id="randomize">Randomize</button>
-          <button class="btn" id="exportJson">Export JSON</button>
-          <button class="btn" id="importJson">Import JSON</button>
+          <button class="btn" id="reset" data-i18n="controls.reset">Reset</button>
+          <button class="btn" id="randomize" data-i18n="controls.randomize">Randomize</button>
+          <button class="btn" id="exportJson" data-i18n="controls.export">Export JSON</button>
+          <button class="btn" id="importJson" data-i18n="controls.import">Import JSON</button>
         </div>
-        <div class="field" style="margin-top:12px"><textarea id="jsonBox" spellcheck="false" placeholder='Paste JSON here, then click Import JSON'></textarea></div>
+        <div class="field" style="margin-top:12px"><textarea id="jsonBox" spellcheck="false" placeholder='Paste JSON here, then click Import JSON' data-i18n-placeholder="controls.jsonPlaceholder"></textarea></div>
       </aside>
       <main class="preview" id="preview">
         <orbit-bg id="liveBg" position="absolute" z-index="0"></orbit-bg>
         <div class="preview-content">
           <div class="mock">
-            <h3>Launch Page Preview</h3>
-            <p>This panel is normal page content layered above the live Web Component background.</p>
-            <div class="mock-row"><span class="pill">Shadow DOM</span><span class="pill">No tracking</span><span class="pill">CDN ready</span></div>
+            <h3 data-i18n="preview.title">Launch Page Preview</h3>
+            <p data-i18n="preview.desc">This panel is normal page content layered above the live Web Component background.</p>
+            <div class="mock-row"><span class="pill">Shadow DOM</span><span class="pill" data-i18n="preview.noTracking">No tracking</span><span class="pill" data-i18n="preview.cdnReady">CDN ready</span></div>
           </div>
         </div>
       </main>
     </div>
     <div class="code-tabs" id="codeTabs"></div>
     <div class="code-box">
-      <div class="code-head"><span id="codeLabel">Minimal HTML</span><button class="btn" data-copy="code">Copy</button></div>
+      <div class="code-head"><span id="codeLabel">Minimal HTML</span><button class="btn" data-copy="code" data-i18n="code.copy">Copy</button></div>
       <pre id="codeOut"></pre>
     </div>
   </section>
 
   <section class="section" id="presets">
-    <div class="eyebrow">Presets</div>
-    <h2>Production-friendly starting points.</h2>
-    <p>Click a preset to apply it to the playground and preview.</p>
+    <div class="eyebrow" data-i18n="presets.eyebrow">Presets</div>
+    <h2 data-i18n="presets.title">Production-friendly starting points.</h2>
+    <p data-i18n="presets.desc">Click a preset to apply it to the playground and preview.</p>
     <div class="preset-grid" id="presetCards"></div>
   </section>
 
   <section class="section">
-    <div class="eyebrow">Reference</div>
-    <h2>Attributes</h2>
+    <div class="eyebrow" data-i18n="ref.eyebrow">Reference</div>
+    <h2 data-i18n="ref.title">Attributes</h2>
     <div class="table-wrap"><table><thead><tr><th>Attribute</th><th>Values</th><th>Notes</th></tr></thead><tbody id="attrRows"></tbody></table></div>
   </section>
 
   <footer class="footer">
-    <p><b>Orbit Background Kit</b> is MIT licensed, pure frontend, and safe to self-host. CDN: <code>https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js</code></p>
+    <p data-i18n-html="footer.text"><b>Orbit Background Kit</b> is MIT licensed, pure frontend, and safe to self-host. CDN: <code>https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js</code></p>
   </footer>
 </div>
 <div class="toast" id="toast">Copied</div>
@@ -148,24 +148,130 @@
   const $ = (id) => document.getElementById(id);
   let state = { ...presets['ai-startup'] };
   let activeCode = 'minimal';
+  let lang = new URLSearchParams(location.search).get('lang') === 'zh' || localStorage.getItem('orbit-bg-lang') === 'zh' ? 'zh' : 'en';
+  const i18n = {
+    en: {
+      title: 'Orbit Background Kit - Web Component Background Playground',
+      toggle: '中文',
+      copied: 'Copied',
+      copyFailed: 'Copy failed',
+      jsonExported: 'JSON exported',
+      jsonImported: 'JSON imported',
+      invalidJson: 'Invalid JSON',
+      nav: { start:'Start', playground:'Playground', presets:'Presets' },
+      hero: {
+        eyebrow:'Native Web Component',
+        title:'Animated backgrounds for any webpage.',
+        desc:'Use one CDN script and one <code>&lt;orbit-bg&gt;</code> tag to add a polished, configurable background. No framework, no backend, no tracking, GitHub Pages and jsDelivr friendly.',
+        open:'Open Playground',
+        copy:'Copy Quick Start',
+        demo:'GitHub Pages Demo',
+        metricDeps:'runtime dependencies',
+        metricPresets:'ready presets'
+      },
+      use: {
+        eyebrow:'Use It Anywhere',
+        title:'Clear entry points for users.',
+        desc:'The repository ships a homepage playground, a minimal demo, copyable examples, and dist files that work from local files, GitHub Pages, or jsDelivr.',
+        demoTitle:'Minimal Demo',
+        demoDesc:'The smallest local integration example.',
+        examplesTitle:'Examples',
+        examplesDesc:'Simple, local card, multi-instance, tool landing pages.',
+        cdnDesc:'Use @latest while testing or @v0.1.0 in production.'
+      },
+      play: { eyebrow:'Playground', title:'Configure, preview, copy.', desc:'Every control maps to a supported component attribute. Shareable URL hashes restore the same configuration.' },
+      controls: {
+        preset:'Preset', content:'Content', words:'Words', theme:'Theme', motion:'Motion', speed:'Speed', opacity:'Opacity', rows:'Rows', angle:'Angle', density:'Density', font:'Font', intensity:'Intensity', effects:'Effects', layout:'Layout', position:'Position', seed:'Seed',
+        seedPlaceholder:'optional',
+        reset:'Reset', randomize:'Randomize', export:'Export JSON', import:'Import JSON',
+        jsonPlaceholder:'Paste JSON here, then click Import JSON'
+      },
+      preview: { title:'Launch Page Preview', desc:'This panel is normal page content layered above the live Web Component background.', noTracking:'No tracking', cdnReady:'CDN ready' },
+      code: { copy:'Copy', minimal:'Minimal HTML', full:'Full HTML', preset:'Preset HTML', react:'React', vue:'Vue', presetLabel:'Preset shorthand', reactLabel:'React example', vueLabel:'Vue example' },
+      presets: { eyebrow:'Presets', title:'Production-friendly starting points.', desc:'Click a preset to apply it to the playground and preview.', theme:'theme' },
+      ref: { eyebrow:'Reference', title:'Attributes', thAttr:'Attribute', thValues:'Values', thNotes:'Notes' },
+      footer: { text:'<b>Orbit Background Kit</b> is MIT licensed, pure frontend, and safe to self-host. CDN: <code>https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js</code>' }
+    },
+    zh: {
+      title: 'Orbit Background Kit - Web Component 背景动效配置器',
+      toggle: 'English',
+      copied: '已复制',
+      copyFailed: '复制失败',
+      jsonExported: 'JSON 已导出',
+      jsonImported: 'JSON 已导入',
+      invalidJson: 'JSON 格式错误',
+      nav: { start:'快速开始', playground:'配置器', presets:'预设' },
+      hero: {
+        eyebrow:'原生 Web Component',
+        title:'给任意网页添加高级动态背景。',
+        desc:'只需要一行 CDN 脚本和一个 <code>&lt;orbit-bg&gt;</code> 标签，就能添加可配置的动态背景。无需框架、无需后端、无追踪，适合 GitHub Pages 和 jsDelivr。',
+        open:'打开配置器',
+        copy:'复制快速开始',
+        demo:'GitHub Pages 示例',
+        metricDeps:'运行时依赖',
+        metricPresets:'内置预设'
+      },
+      use: {
+        eyebrow:'到处都能用',
+        title:'新人也能看懂的入口。',
+        desc:'项目包含官网配置器、最小 Demo、可复制示例，以及可用于本地文件、GitHub Pages 和 jsDelivr 的 dist 文件。',
+        demoTitle:'最小 Demo',
+        demoDesc:'最简单的本地接入示例。',
+        examplesTitle:'示例页面',
+        examplesDesc:'包含简单示例、局部卡片、多实例和工具站落地页。',
+        cdnDesc:'测试时可用 @latest，生产环境建议固定 @v0.1.0。'
+      },
+      play: { eyebrow:'配置器', title:'实时配置、预览、复制。', desc:'每个控件都对应组件支持的属性。可分享的 URL hash 能恢复同一套配置。' },
+      controls: {
+        preset:'预设', content:'内容', words:'关键词', theme:'主题', motion:'动效', speed:'速度', opacity:'透明度', rows:'行数', angle:'角度', density:'密度', font:'字体', intensity:'强度', effects:'效果', layout:'布局', position:'定位', seed:'随机种子',
+        seedPlaceholder:'可选',
+        reset:'重置', randomize:'随机', export:'导出 JSON', import:'导入 JSON',
+        jsonPlaceholder:'把 JSON 粘贴到这里，然后点击导入 JSON'
+      },
+      preview: { title:'落地页预览', desc:'这个面板是普通页面内容，位于实时 Web Component 背景之上。', noTracking:'无追踪', cdnReady:'CDN 可用' },
+      code: { copy:'复制', minimal:'最简 HTML', full:'完整 HTML', preset:'Preset 简写', react:'React', vue:'Vue', presetLabel:'Preset 简写', reactLabel:'React 示例', vueLabel:'Vue 示例' },
+      presets: { eyebrow:'预设', title:'适合正式页面的起点。', desc:'点击预设即可应用到配置器和预览。', theme:'主题' },
+      ref: { eyebrow:'参考', title:'属性', thAttr:'属性', thValues:'可选值', thNotes:'说明' },
+      footer: { text:'<b>Orbit Background Kit</b> 使用 MIT 协议，纯前端，可自托管。CDN: <code>https://cdn.jsdelivr.net/gh/w0nderful666/orbit-bg-kit@latest/dist/orbit-bg.iife.js</code>' }
+    }
+  };
+  const toggleLabels = {
+    en: { grid:'grid', glow:'glow', noise:'noise', rings:'rings', beams:'beams', vignette:'vignette', interactive:'interactive', rounded:'rounded' },
+    zh: { grid:'网格', glow:'光晕', noise:'噪点', rings:'圆环', beams:'光束', vignette:'暗角', interactive:'鼠标交互', rounded:'圆角' }
+  };
+  const attrRows = {
+    en: [
+      ['words','comma-separated text','Scrolling background words'],
+      ['theme',themes.join(', '),'Color theme'],
+      ['preset',Object.keys(presets).join(', '),'One-attribute style shortcut'],
+      ['speed','slow, normal, fast','Animation speed'],
+      ['opacity','0 to 0.35','Clamped for safety'],
+      ['grid, glow, noise, rings, beams, vignette, interactive, rounded','boolean','Supports true, false, empty attribute'],
+      ['position','fixed, absolute','Fullscreen or local container background'],
+      ['z-index','number','Use content z-index above it'],
+      ['rows, angle','number','Rows are clamped; angle is -45 to 45'],
+      ['density, font, intensity','enum','Visual style controls']
+    ],
+    zh: [
+      ['words','逗号分隔文本','背景滚动关键词'],
+      ['theme',themes.join(', '),'颜色主题'],
+      ['preset',Object.keys(presets).join(', '),'一行套用预设风格'],
+      ['speed','slow, normal, fast','动画速度'],
+      ['opacity','0 到 0.35','自动限制到安全范围'],
+      ['grid, glow, noise, rings, beams, vignette, interactive, rounded','布尔值','支持 true、false 和空属性'],
+      ['position','fixed, absolute','全屏背景或局部容器背景'],
+      ['z-index','数字','内容层级需要高于背景'],
+      ['rows, angle','数字','行数和角度都会限制到安全范围'],
+      ['density, font, intensity','枚举值','控制视觉风格']
+    ]
+  };
 
   $('preset').innerHTML = '<option value="">custom</option>' + Object.keys(presets).map((p) => `<option value="${p}">${p}</option>`).join('');
   $('themeChips').innerHTML = themes.map((t) => `<button class="chip" data-theme="${t}">${t}</button>`).join('');
   $('toggles').innerHTML = bools.map((b) => `<label class="toggle"><span>${b}</span><input id="${b}" type="checkbox"></label>`).join('');
-  $('presetCards').innerHTML = Object.keys(presets).map((p) => `<div class="preset-card" data-preset="${p}"><b>${p}</b><span>${presets[p].theme} theme</span></div>`).join('');
-  $('codeTabs').innerHTML = [['minimal','Minimal HTML'],['full','Full HTML'],['preset','Preset HTML'],['react','React'],['vue','Vue']].map(([id,label]) => `<button class="code-tab" data-code="${id}">${label}</button>`).join('');
-  $('attrRows').innerHTML = [
-    ['words','comma-separated text','Scrolling background words'],
-    ['theme',themes.join(', '),'Color theme'],
-    ['preset',Object.keys(presets).join(', '),'One-attribute style shortcut'],
-    ['speed','slow, normal, fast','Animation speed'],
-    ['opacity','0 to 0.35','Clamped for safety'],
-    ['grid, glow, noise, rings, beams, vignette, interactive, rounded','boolean','Supports true, false, empty attribute'],
-    ['position','fixed, absolute','Fullscreen or local container background'],
-    ['z-index','number','Use content z-index above it'],
-    ['rows, angle','number','Rows are clamped; angle is -45 to 45'],
-    ['density, font, intensity','enum','Visual style controls']
-  ].map((r) => `<tr><td><code>${r[0]}</code></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+  renderPresetCards();
+  renderCodeTabs();
+  renderAttrRows();
 
   function setForm(next) {
     state = { ...state, ...next };
@@ -179,6 +285,46 @@
     $('preset').value = activePreset || '';
     [...document.querySelectorAll('.preset-card')].forEach((card) => card.classList.toggle('active', card.dataset.preset === activePreset));
     apply();
+  }
+
+  function getText(path) {
+    return path.split('.').reduce((value, key) => value && value[key], i18n[lang]) || '';
+  }
+
+  function renderPresetCards() {
+    $('presetCards').innerHTML = Object.keys(presets).map((p) => `<div class="preset-card" data-preset="${p}"><b>${p}</b><span>${presets[p].theme} ${i18n[lang].presets.theme}</span></div>`).join('');
+  }
+
+  function renderCodeTabs() {
+    const labels = i18n[lang].code;
+    $('codeTabs').innerHTML = [['minimal',labels.minimal],['full',labels.full],['preset',labels.preset],['react',labels.react],['vue',labels.vue]].map(([id,label]) => `<button class="code-tab" data-code="${id}">${label}</button>`).join('');
+  }
+
+  function renderAttrRows() {
+    const head = document.querySelector('.table-wrap thead tr');
+    head.innerHTML = `<th>${i18n[lang].ref.thAttr}</th><th>${i18n[lang].ref.thValues}</th><th>${i18n[lang].ref.thNotes}</th>`;
+    $('attrRows').innerHTML = attrRows[lang].map((r) => `<tr><td><code>${r[0]}</code></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+  }
+
+  function applyLanguage(nextLang) {
+    if (nextLang) lang = nextLang;
+    localStorage.setItem('orbit-bg-lang', lang);
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.title = i18n[lang].title;
+    $('langToggle').textContent = i18n[lang].toggle;
+    document.querySelectorAll('[data-i18n]').forEach((node) => { node.textContent = getText(node.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-html]').forEach((node) => { node.innerHTML = getText(node.dataset.i18nHtml); });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((node) => { node.setAttribute('placeholder', getText(node.dataset.i18nPlaceholder)); });
+    bools.forEach((name) => {
+      const label = document.getElementById(name)?.closest('.toggle')?.querySelector('span');
+      if (label) label.textContent = toggleLabels[lang][name] || name;
+    });
+    renderPresetCards();
+    renderCodeTabs();
+    renderAttrRows();
+    const activePreset = Object.keys(presets).find((p) => JSON.stringify(presets[p]) === JSON.stringify(state));
+    [...document.querySelectorAll('.preset-card')].forEach((card) => card.classList.toggle('active', card.dataset.preset === activePreset));
+    renderCode();
   }
 
   function readForm() {
@@ -217,7 +363,7 @@
       react: `import { useEffect } from 'react';\n\nexport default function Page() {\n  useEffect(() => {\n    import('${CDN}');\n  }, []);\n\n  return <orbit-bg theme="${state.theme}" words="${escapeHtml(state.words)}" />;\n}`,
       vue: `<script setup>\nimport '${CDN}';\n<\\/script>\n\n<template>\n  <orbit-bg theme="${state.theme}" words="${escapeHtml(state.words)}"></orbit-bg>\n</template>`
     };
-    const labels = { minimal:'Minimal HTML', full:'Full HTML', preset:'Preset shorthand', react:'React example', vue:'Vue example' };
+    const labels = { minimal:i18n[lang].code.minimal, full:i18n[lang].code.full, preset:i18n[lang].code.presetLabel, react:i18n[lang].code.reactLabel, vue:i18n[lang].code.vueLabel };
     $('codeLabel').textContent = labels[activeCode];
     $('codeOut').textContent = map[activeCode];
   }
@@ -263,6 +409,10 @@
     else if (e.target.closest('.controls')) readForm();
   });
   document.addEventListener('click', async (e) => {
+    if (e.target.closest('#langToggle')) {
+      applyLanguage(lang === 'zh' ? 'en' : 'zh');
+      return;
+    }
     const theme = e.target.closest('[data-theme]');
     const preset = e.target.closest('[data-preset]');
     const code = e.target.closest('[data-code]');
@@ -272,7 +422,7 @@
     if (code) { activeCode = code.dataset.code; renderCode(); }
     if (copy) {
       const text = copy.dataset.copy === 'quick' ? `<script src="${CDN}"><\\/script>\n<orbit-bg preset="ai-startup"></orbit-bg>` : $('codeOut').textContent;
-      try { await navigator.clipboard.writeText(text); toast('Copied'); } catch { toast('Copy failed'); }
+      try { await navigator.clipboard.writeText(text); toast(i18n[lang].copied); } catch { toast(i18n[lang].copyFailed); }
     }
   });
   $('reset').addEventListener('click', () => setForm(presets['ai-startup']));
@@ -280,13 +430,14 @@
     const keys = Object.keys(presets);
     setForm({ ...presets[keys[Math.floor(Math.random() * keys.length)]], theme: themes[Math.floor(Math.random() * themes.length)], seed: String(Date.now()).slice(-6) });
   });
-  $('exportJson').addEventListener('click', () => { $('jsonBox').value = JSON.stringify(state, null, 2); toast('JSON exported'); });
+  $('exportJson').addEventListener('click', () => { $('jsonBox').value = JSON.stringify(state, null, 2); toast(i18n[lang].jsonExported); });
   $('importJson').addEventListener('click', () => {
-    try { setForm(sanitize(JSON.parse($('jsonBox').value))); toast('JSON imported'); }
-    catch { toast('Invalid JSON'); }
+    try { setForm(sanitize(JSON.parse($('jsonBox').value))); toast(i18n[lang].jsonImported); }
+    catch { toast(i18n[lang].invalidJson); }
   });
 
   if (!loadHash()) setForm(presets['ai-startup']);
+  applyLanguage(lang);
 })();
 </script>
 </body>
